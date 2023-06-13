@@ -3,10 +3,11 @@
  * @returns { Promise<void> }
  */
 exports.up = (knex) => knex.schema.createTable("discussion", (table) => {
-  table.increments();
+  table.increments("id").primary();
   table.integer("userId").notNullable();
+  table.foreign("userId").references("id").inTable("users");
   table.string("topic").notNullable();
-  table.string("description").notNullable();
+  table.string("description").nullable();
 });
 
 /**

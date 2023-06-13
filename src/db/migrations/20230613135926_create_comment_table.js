@@ -3,9 +3,11 @@
  * @returns { Promise<void> }
  */
 exports.up = (knex) => knex.schema.createTable("comments", (table) => {
-  table.increments();
+  table.increments("id").primary();
   table.integer("userId").notNullable();
+  table.foreign("userId").references("id").inTable("users");
   table.integer("postId").notNullable();
+  table.foreign("postId").references("id").inTable("posts");
   table.string("comment").notNullable();
 });
 
