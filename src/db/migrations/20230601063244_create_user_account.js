@@ -7,6 +7,10 @@ exports.up = (knex) => knex.schema.createTable("user_account", (table) => {
   table.string("email").notNullable().unique();
   table.string("username").notNullable().unique();
   table.string("password_hash").notNullable();
+  table.string("fullname").notNullable();
+  table.string("gender").notNullable();
+  table.string("avatar").notNullable();
+  // table.dateTime("DOB")
   table.timestamps(true, true);
 });
 
@@ -15,3 +19,24 @@ exports.up = (knex) => knex.schema.createTable("user_account", (table) => {
  * @returns { Promise<void> }
  */
 exports.down = (knex) => knex.schema.dropTable("user_account");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
