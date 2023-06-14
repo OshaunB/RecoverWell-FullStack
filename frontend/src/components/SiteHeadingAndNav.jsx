@@ -54,23 +54,34 @@ export default function SiteHeadingAndNav() {
       <Navbar.Collapse>
         <Navbar.Link
           active
-          href="#"
+          href="/"
         >
           <p>
             Home
           </p>
         </Navbar.Link>
         <Navbar.Link href="#">
-          About
+          Events
         </Navbar.Link>
         <Navbar.Link href="#">
-          Services
+          Discussion
         </Navbar.Link>
-        <Navbar.Link href="#">
-          Pricing
+         {currentUser ?
+        <Navbar.Link href={`/users/${currentUser.id}`}>{currentUser.username}
+          Login In
         </Navbar.Link>
-        <Navbar.Link href="#">
-          Contact
+        :
+        <>
+        <Navbar.Link href="/login">
+          Login
+        </Navbar.Link>
+        <Navbar.Link href="/sign-up">
+          Sign Up
+        </Navbar.Link>
+        </>
+}
+        <Navbar.Link href="/users">
+          Users
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
