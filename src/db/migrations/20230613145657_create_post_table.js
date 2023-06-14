@@ -4,6 +4,8 @@
  */
 exports.up = (knex) => knex.schema.createTable("posts", (table) => {
   table.increments("id").primary();
+  table.integer("userId").notNullable();
+  table.foreign("userId").references("id").inTable("user");
   table.integer("discussionId").notNullable();
   table.foreign("discussionId").references("id").inTable("discussion");
   table.integer("numberOfLikes").defaultTo(0);

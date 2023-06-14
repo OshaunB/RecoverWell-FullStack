@@ -1,7 +1,7 @@
 const express = require('express');
-const userController = require('./controllers/user');
-const addModels = require('./middleware/add-models');
-const checkAuthentication = require('./middleware/check-authentication');
+const userController = require('../controllers/user');
+const addModels = require('../middleware/add-models');
+const checkAuthentication = require('../middleware/check-authentication');
 
 const Router = express.Router();
 Router.use(addModels);
