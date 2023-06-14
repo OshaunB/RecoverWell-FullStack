@@ -1,30 +1,44 @@
-const knex = require('../knex');
+const knex = require("../knex");
 
-class Post{
-    static async list() {
-        try {
-          const query = "SELECT * FROM posts";
-          const { rows } = await knex.raw(query);
-          return rows;
-        } catch (error) {
-          console.error(error);
-          throw new Error("Error listing posts");
-        }
-      }
-    
-    static async listbyDiscussionId(id) {
-        try {
-          const query = "SELECT * FROM posts WHERE discussionId = ?";
-          const { 
-            rows: [post] 
-          } = await knex.raw(query , [id]);
-          return rows;
-        } catch (error) {
-          console.error(error);
-          throw new Error("Error listing posts");
-        }
+class Post {
+  static async list() {
+    try {
+      const query = "SELECT * FROM posts";
+      const { rows } = await knex.raw(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error listing posts");
     }
-    static async findById(id) {
+  }
+
+  static async create(userId, discussionId, content) {
+    try {
+      const query = `INSERT INTO post VALUES(?, ?, ?) RETURNING *`;
+      const { rows: [post] } = await knex.raw(query, [
+        userId, discussionId, content,
+      ]);
+      return post;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error creating posts");
+    }
+  }
+
+  static async listByDiscussionId(id) {
+    try {
+      const query = "SELECT * FROM posts WHERE discussionId = ?";
+      const {
+        rows: [post],
+      } = await knex.raw(query, [id]);
+      return post;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error listing posts");
+    }
+  }
+
+  static async findById(id) {
     try {
       const query = "SELECT * FROM posts WHERE id = ?";
       const {
@@ -36,14 +50,6 @@ class Post{
       throw new Error(`Error finding post with id ${id}`);
     }
   }
-  static async likePostById(id){
-    try{
-        
-    }catch(error){
-        console.error(error);
-        throw new Error(`Error finding post with id ${id}`);
-    }
-  }
-
 }
-module.exports = Post
+
+module.exports = Post;
