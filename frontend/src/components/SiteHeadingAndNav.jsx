@@ -63,8 +63,8 @@ export default function SiteHeadingAndNav() {
         <Navbar.Link href="#">
           Events
         </Navbar.Link>
-        <Navbar.Link href="#">
-          Discussion
+        <Navbar.Link href="/discussions">
+          Discussions
         </Navbar.Link>
          {currentUser ?
         <Navbar.Link href={`/users/${currentUser.id}`}>{currentUser.username}
