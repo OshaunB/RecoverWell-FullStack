@@ -1,4 +1,4 @@
-const { isAuthorized } = require('../../utils/auth-utils');
+const { isAuthorized } = require("../../utils/auth-utils");
 
 const updateUser = async (req, res) => {
   const {

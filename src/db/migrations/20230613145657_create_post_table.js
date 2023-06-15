@@ -4,11 +4,9 @@
  */
 exports.up = (knex) => knex.schema.createTable("posts", (table) => {
   table.increments("id").primary();
-  table.integer("userId").notNullable();
-  table.foreign("userId").references("id").inTable("user");
-  table.integer("discussionId").notNullable();
-  table.foreign("discussionId").references("id").inTable("discussion");
-  table.integer("numberOfLikes").defaultTo(0);
+  table.integer("user_id").notNullable();
+  table.integer("discussion_id").notNullable();
+  table.integer("number_of_likes").defaultTo(0);
   table.string("content").notNullable();
   table.timestamps(true, true);
 });

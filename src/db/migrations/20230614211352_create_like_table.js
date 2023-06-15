@@ -2,11 +2,10 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = (knex) => knex.schema.createTable("comments", (table) => {
+exports.up = (knex) => knex.schema.createTable("likes", (table) => {
   table.increments("id").primary();
   table.integer("user_id").notNullable();
   table.integer("post_id").notNullable();
-  table.string("comment").notNullable();
   table.timestamps(true, true);
 });
 
@@ -14,4 +13,4 @@ exports.up = (knex) => knex.schema.createTable("comments", (table) => {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = (knex) => knex.schema.dropTable("comments");
+exports.down = (knex) => knex.schema.dropTableIfExists("likes");
