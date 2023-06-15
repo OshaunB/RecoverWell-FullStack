@@ -3,6 +3,9 @@ const path = require('path');
 const handleCookieSessions = require('./middleware/handle-cookie-sessions');
 const userRoutes = require('./routes/user-routes');
 const discussionRoutes = require('./routes/discussion-route');
+const postRoutes = require('./routes/post-route');
+const commentRoutes = require('./routes/comment-route');
+
 const logRoutes = require('./middleware/log-routes');
 
 const app = express();
@@ -14,6 +17,8 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api', userRoutes);
 app.use('/api', discussionRoutes);
+app.use('/api', postRoutes);
+app.use('/api', commentRoutes);
 
 app.get('*', (req, res, next) => {
   if (req.originalUrl.startsWith('/api')) next();

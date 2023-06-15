@@ -8,46 +8,36 @@ class Post {
       return rows;
     } catch (error) {
       console.error(error);
-      throw new Error("Error listing posts");
+      throw new Error("Error getting posts");
     }
   }
 
-  static async create(userId, discussionId, content) {
+  static async createPost(userId, discussionId, content) {
     try {
-      const query = `INSERT INTO post VALUES(?, ?, ?) RETURNING *`;
-      const { rows: [post] } = await knex.raw(query, [
-        userId, discussionId, content,
-      ]);
+      const query = `
+        INSERT INTO posts (user_id, discussion_id, content)
+        VALUES (?, ?, ?)
+        RETURNING *`;
+      const {
+        rows: [post],
+      } = await knex.raw(query, [userId, discussionId, content]);
       return post;
     } catch (error) {
       console.error(error);
-      throw new Error("Error creating posts");
+      throw new Error("Error creating post");
     }
   }
 
-  static async listByDiscussionId(id) {
+  static async getPostsByDiscussionId(discussionId) {
     try {
-      const query = "SELECT * FROM posts WHERE discussionId = ?";
-      const {
-        rows: [post],
-      } = await knex.raw(query, [id]);
-      return post;
+      const query = "SELECT * FROM posts WHERE discussion_id = ?";
+      const { rows } = await knex.raw(query, [discussionId]);
+      return rows;
     } catch (error) {
       console.error(error);
-      throw new Error("Error listing posts");
-    }
-  }
-
-  static async findById(id) {
-    try {
-      const query = "SELECT * FROM posts WHERE id = ?";
-      const {
-        rows: [post],
-      } = await knex.raw(query, [id]);
-      return post || null;
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Error finding post with id ${id}`);
+      throw new Error(
+        `Error getting posts for discussion with ID ${discussionId}`,
+      );
     }
   }
 }

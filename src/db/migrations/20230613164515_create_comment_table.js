@@ -4,10 +4,8 @@
  */
 exports.up = (knex) => knex.schema.createTable("comments", (table) => {
   table.increments("id").primary();
-  table.integer("userId").notNullable();
-  // table.foreign("userId").references("id").inTable("users");
-  table.integer("postId").notNullable();
-  // table.foreign("postId").references("id").inTable("posts");
+  table.integer("user_id").notNullable();
+  table.integer("post_id").notNullable();
   table.string("comment").notNullable();
   table.timestamps(true, true);
 });
