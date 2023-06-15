@@ -66,7 +66,7 @@ export default function SiteHeadingAndNav() {
         </Link>
         <Link to="#">Events</Link>
         <Link to="/discussions">Discussions</Link>
-        <Link to="/users">Users</Link>
+        <Link to="/users">Community</Link>
         {currentUser ? (
           <Link to={`/users/${currentUser.id}`}>{currentUser.username}</Link>
         ) : (

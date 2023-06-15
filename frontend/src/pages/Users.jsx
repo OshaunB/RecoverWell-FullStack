@@ -11,10 +11,13 @@ export default function UsersPage() {
 
   return <>
     <h1>Users</h1>
+      
     <ul>
       {
         users.map((user) => <li key={user.id}><UserLink user={user} /></li>)
       }
     </ul>
+
+    
   </>;
 }
