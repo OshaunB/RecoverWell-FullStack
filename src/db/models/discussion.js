@@ -27,7 +27,7 @@ class Discussion {
 
   static async findByTopic(topic) {
     try {
-      const query = "SELECT * FROM discussion WHERE topic LIKE ?";
+      const query = "SELECT * FROM discussion WHERE LOWER(topic) LIKE LOWER(?)";
       const { rows } = await knex.raw(query, [`%${topic}%`]);
       return rows;
     } catch (error) {
