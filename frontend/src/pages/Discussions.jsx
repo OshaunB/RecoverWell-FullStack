@@ -1,13 +1,17 @@
 import { Button } from "flowbite-react";
 import { useState, useEffect } from "react";
 import DiscussionCard from "../components/DiscussionCard";
+import LabelInput from "../components/LabelInput"
+
 
 export default function Discussions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [discussions, setDiscussions] = useState([]);
-  // const [addDiscussion, setAddDiscussion] = useState({});
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [addDiscussion, setAddDiscussion] = useState({});
 
-  
+
   useEffect(() => {
     (async () => {
       try {
@@ -19,6 +23,32 @@ export default function Discussions() {
       }
     })();
   }, []);
+
+  const handleDiscussion = async (event) => {
+    event.preventDefault();
+    const discussionData = {
+      topic: event.target.elements.topic.value,
+      description: event.target.elements.description.value
+    };
+
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discussionData),
+      };
+
+      const res = await fetch('/api/discussions', options);
+      const data = await res.json();
+      setDiscussions((prevDis) => [...prevDis, data])
+      event.target.reset()
+      
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div>
@@ -37,20 +67,37 @@ export default function Discussions() {
           <Button
             gradientDuoTone="redToYellow"
             outline
-            onClick={() => {
-              // Do something with the search term
-            }}
+
           >
             <p>Search</p>
           </Button>
         </div>
-
-        <div className="flex justify-center mt-4">
-          <Button gradientDuoTone="redToYellow" outline>
-            <p>Add a new post</p>
-          </Button>
         </div>
-      </div>
+        <form onSubmit={handleDiscussion}>
+          <LabelInput
+            htmlFor="topic"
+            label="Topic"
+            type="text"
+            name="topic"
+            placeholder="Title of Discussion"
+            required
+          />
+          <LabelInput
+            htmlFor="description"
+            label="Description"
+            type="text"
+            name="description"
+            placeholder="About your Discussion"
+            required
+          />
+          
+          <div className="flex justify-center mt-4">
+            <Button type="submit" gradientDuoTone="redToYellow" outline>
+              <p>Add a new post</p>
+            </Button>
+          </div>
+        </form>
+      
       {discussions.map((discussion) => (
         <DiscussionCard
           key={discussion.id}
