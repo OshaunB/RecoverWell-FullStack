@@ -1,48 +1,24 @@
-import { useContext, useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { logUserIn } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [errorText, setErrorText] = useState("");
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    setErrorText("");
     const userData = {
       username: e.target.username.value,
       password: e.target.password.value,
     };
     const [user, error] = await logUserIn(userData);
-    if (error) return setErrorText(error.statusText);
+    if (error) return console.log(error);
     setCurrentUser(user);
     navigate(`/`);
   };
 
-  // const handleLoginSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const userData = {
-  //     username: e.target.username.value,
-  //     password: e.target.password.value,
-  //   };
-  //   try {
-  //     const options = {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(userData),
-  //     };
-  //     const res = await fetch(`/api/login`, options);
-  //     const data = await res.json();
-  //     setCurrentUser(data);
-  //     navigate("/");
-  //   } catch(err) {
-  //     console.error(err);
-  //   }
-  // };
   if (currentUser) return <Navigate to="/" />;
 
   return (
@@ -70,8 +46,8 @@ export default function LoginPage() {
               Welcome back!
             </p>
 
-            <a
-              href="#"
+            <Link
+              to="#"
               className="flex items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 bg-gray-800"
             >
               <div className="px-4 py-2">
@@ -80,21 +56,12 @@ export default function LoginPage() {
                   src="assets/RecoverWell Dummy Logo.PNG"
                   alt=""
                 />
-                <svg className="w-6 h-6" viewBox="0 0 40 40"></svg>
               </div>
-              YOUR JOURNEY, OUR MISSION.
-            </a>
+              YOUR JOURNEY, OUR MISSION
+            </Link>
 
             <div className="flex items-center justify-between mt-4">
               <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
-
-              <a
-                href="#"
-                className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline"
-              >
-                or login with Username
-              </a>
-
               <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
             </div>
             <form onSubmit={handleLoginSubmit}>
@@ -121,19 +88,18 @@ export default function LoginPage() {
                     Password
                   </label>
                 </div>
-
                 <input
                   id="password"
                   className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                   type="password"
                 />
               </div>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
               >
                 Forget Password?
-              </a>
+              </Link>
 
               <div className="mt-6">
                 <button
@@ -144,17 +110,14 @@ export default function LoginPage() {
                 </button>
               </div>
             </form>
-
             <div className="flex items-center justify-between mt-4">
               <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-
-              <a
-                href="#"
+              <Link
+                to="/sign-up"
                 className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
               >
                 or sign up
-              </a>
-
+              </Link>
               <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
             </div>
           </div>

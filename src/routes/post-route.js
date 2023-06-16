@@ -8,8 +8,11 @@ Router.use(addModels);
 // List all posts
 Router.get("/posts", postController.listPosts);
 
+// List a post by ID
+Router.get("/posts/:postId", postController.getPostById);
+
 // Get a post by ID
-Router.get("/posts/:id", postController.getPostsByDiscussionId);
+Router.get("/dis-posts/:id", postController.getPostsByDiscussionId);
 
 // Create a new post
 Router.post("/posts", postController.createPost);

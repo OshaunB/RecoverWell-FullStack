@@ -40,6 +40,17 @@ class Post {
       );
     }
   }
+
+  static async getPostById(postId) {
+    try {
+      const query = "SELECT * FROM posts WHERE id = ?";
+      const { rows: [post] } = await knex.raw(query, [postId]);
+      return post;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error getting post");
+    }
+  }
 }
 
 module.exports = Post;
