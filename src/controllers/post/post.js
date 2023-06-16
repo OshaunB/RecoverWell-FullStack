@@ -15,4 +15,22 @@ const getPostsByDiscussionId = async (req, res) => {
   }
 };
 
-module.exports = getPostsByDiscussionId;
+const getPostById = async (req, res) => {
+  try {
+    const {
+      db: { Post },
+      params: { postId },
+    } = req;
+    console.log(postId);
+    const post = await Post.getPostById(postId);
+    if (!post) {
+      res.status(404).send(`Post with id ${postId} not found`);
+    } else {
+      res.send(post);
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { getPostsByDiscussionId, getPostById };
