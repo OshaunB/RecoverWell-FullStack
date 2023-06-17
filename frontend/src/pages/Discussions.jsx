@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { Button } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +22,21 @@ export default function Discussions() {
       }
     })();
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const term = e.target.value;
+    setSearchTerm(term !== "" ? term : null);
+  };
+
+  const filteredCards = discussions.filter((discussion) => {
+    if (searchTerm === null) return true;
+    return (
+      // eslint-disable-next-line operator-linebreak
+      discussion.topic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      discussion.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   const handleDiscussion = async (event) => {
     event.preventDefault();
@@ -50,11 +66,8 @@ export default function Discussions() {
             type="text"
             placeholder="Search Discussions"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
           />
-          <Button gradientDuoTone="redToYellow" outline>
-            <p>Search</p>
-          </Button>
         </div>
       </div>
       <div className="flex flex-col items-center px-5 sm:px-20 my-8">
@@ -84,7 +97,7 @@ export default function Discussions() {
         </form>
       </div>
 
-      {discussions.map((discussion) => (
+      {filteredCards.map((discussion) => (
         <DiscussionCard
           key={discussion.id}
           topic={discussion.topic}
