@@ -4,8 +4,14 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { getPostOptions, fetchHandler } from "../utils";
+import {
+  getPostOptions,
+  fetchHandler,
+  findUserName,
+  timeDifference,
+} from "../utils";
 import RenderPosts from "../components/RenderPosts";
+import CreatePost from "../components/CreatePost";
 
 export default function Posts() {
   const { id } = useParams();
@@ -24,7 +30,7 @@ export default function Posts() {
       if (err) return console.log(err);
 
       const sortedPosts = postData.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at),
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
       );
 
       setPosts(sortedPosts);
@@ -40,7 +46,7 @@ export default function Posts() {
       setPostLikes(likeStatus);
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -54,7 +60,7 @@ export default function Posts() {
     };
 
     fetchUsers();
-  }, [posts]);
+  }, []);
 
   const handleLike = useCallback(
     async (post) => {
@@ -91,23 +97,13 @@ export default function Posts() {
     [postLikes, posts]
   );
 
-  const findUserName = (user_id) =>
-    users.find((user) => user.id === user_id).username;
-  const timeDifference = (createdTime) => {
-    const diff = new Date().getTime() - new Date(createdTime).getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    if (hours > 24) {
-      return `${Math.floor(hours / 24)}d ago`;
-    }
-    return `${hours}h ago`;
-  };
-
   return (
     <div>
       <h1 className="flex justify-center font-bold text-3xl">{topic}</h1>
+      <CreatePost setPosts={setPosts} />
       {posts.map((post) => (
         <RenderPosts
-          username={findUserName(post.user_id)}
+          username={findUserName(users, post.user_id)}
           key={post.id}
           time={timeDifference(post.created_at)}
           content={post.content}

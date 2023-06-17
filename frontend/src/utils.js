@@ -34,3 +34,20 @@ export const fetchHandler = async (url, options = basicFetchOptions) => {
     return [null, error];
   }
 };
+
+export const findUserName = (users, userId) => {
+  const user = users.find((u) => u.id === userId);
+  return user ? user.username : "";
+};
+
+export const timeDifference = (createdTime) => {
+  const diff = new Date().getTime() - new Date(createdTime).getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  if (hours < 1) {
+    return `${Math.floor(diff / (1000 * 60))}m ago`;
+  }
+  if (hours > 24) {
+    return `${Math.floor(hours / 24)}d ago`;
+  }
+  return `${hours}h ago`;
+};

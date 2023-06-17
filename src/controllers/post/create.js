@@ -1,10 +1,12 @@
 const createPost = async (req, res) => {
   try {
     const {
+      session,
       db: { Post },
-      body: { userId, discussionId, content },
+      body: { discussionId, content },
     } = req;
-    const post = await Post.createPost(userId, discussionId, content);
+    console.log(session.userId, discussionId, content);
+    const post = await Post.createPost(session.userId, discussionId, content);
     res.status(201).json(post);
   } catch (error) {
     console.error(error);
