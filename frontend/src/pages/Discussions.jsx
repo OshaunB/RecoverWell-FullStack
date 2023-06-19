@@ -1,25 +1,25 @@
 /* eslint-disable implicit-arrow-linebreak */
-import { Button } from "flowbite-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import DiscussionCard from "../components/DiscussionCard";
-import LabelInput from "../components/LabelInput";
+import DiscussionCard from "../components/discussion/DiscussionCard";
 import { fetchHandler, getPostOptions } from "../utils";
+import SearchInput from "../components/SearchInput";
+import CreateDiscussion from "../components/discussion/CreateDiscussion";
+import CurrentUserContext from "../contexts/current-user-context";
 
 export default function Discussions() {
   const navigate = useNavigate();
+
+  const { currentUser } = useContext(CurrentUserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [discussions, setDiscussions] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     (async () => {
-      try {
-        const res = await fetch("/api/discussions");
-        const data = await res.json();
-        setDiscussions(data);
-      } catch (error) {
-        console.log(error);
-      }
+      const [data, err] = await fetchHandler("/api/discussions");
+      if (err) return console.log(err);
+      setDiscussions(data);
     })();
   }, []);
 
@@ -38,63 +38,43 @@ export default function Discussions() {
     );
   });
 
-  const handleDiscussion = async (event) => {
-    event.preventDefault();
+  const handleCreateDiscussion = async (e) => {
+    e.preventDefault();
     const discussionData = {
-      topic: event.target.elements.topic.value,
-      description: event.target.elements.description.value,
+      topic: e.target.topic.value,
+      description: e.target.description.value,
     };
+    console.log(discussionData);
 
-    const [data, error] = await fetchHandler(
+    const [data, err] = await fetchHandler(
       "/api/discussions",
       getPostOptions(discussionData),
     );
-    if (error) return console.log(error);
+    if (err) return console.log(err);
     setDiscussions((prevDis) => [...prevDis, data]);
-    event.target.reset();
+    e.target.reset();
+  };
+
+  const handleNavigate = (discussionId) => {
+    if (!currentUser) {
+      return setError("You must be logged in to view this page");
+    }
+    navigate(`/discussions/${discussionId}`);
   };
 
   return (
     <div>
+      <div className="text-center text-red-600">{error}</div>
       <h1 className="flex justify-center font-bold text-2xl">
         RecoverWell Discussions
       </h1>
-      <div className="flex flex-col items-center px-5 sm:px-10 my-8">
-        <div className="flex flex-wrap items-center justify-center space-x-4 sm:space-y-0 sm:space-x-2 bg-gray-100 p-2 sm:p-4 rounded-lg">
-          <input
-            className="flex bg-gray-100 outline-none text-sm sm:text-base"
-            type="text"
-            placeholder="Search Discussions"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col items-center px-5 sm:px-20 my-8">
-        <form onSubmit={handleDiscussion}>
-          <LabelInput
-            htmlFor="topic"
-            label="Topic"
-            type="text"
-            name="topic"
-            placeholder="Title of Discussion"
-            required
-          />
-          <LabelInput
-            htmlFor="description"
-            label="Description"
-            type="text"
-            name="description"
-            placeholder="About your Discussion"
-            required
-          />
-
-          <div className="flex justify-center mt-4">
-            <Button type="submit" gradientDuoTone="redToYellow" outline>
-              <p>Add a new post</p>
-            </Button>
-          </div>
-        </form>
+      <div className="flex justify-around items-center">
+        <SearchInput onChange={handleSearch} value={searchTerm} />
+        <CreateDiscussion
+          error={error}
+          setError={setError}
+          onSubmit={handleCreateDiscussion}
+        />
       </div>
 
       {filteredCards.map((discussion) => (
@@ -102,7 +82,7 @@ export default function Discussions() {
           key={discussion.id}
           topic={discussion.topic}
           description={discussion.description}
-          onClick={() => navigate(`/discussions/${discussion.id}`)}
+          onClick={() => handleNavigate(discussion.id)}
           discussionId={discussion.id}
         />
       ))}

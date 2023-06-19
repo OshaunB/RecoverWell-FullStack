@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import CurrentUserContext from "../contexts/current-user-context";
-// import { createUser } from "../adapters/user-adapter";
+import { createUser } from "../adapters/user-adapter";
 import LabelInput from "../components/LabelInput";
 
 export default function SignUpPage() {
@@ -12,33 +12,23 @@ export default function SignUpPage() {
     e.preventDefault();
 
     const userData = {
-      username: e.target.elements.username.value,
-      password: e.target.elements.password.value,
-      full_name: e.target.elements.fullname.value,
-      email: e.target.elements.email.value,
-      DOB: e.target.elements.dob.value,
-      gender: e.target.elements.gender.value,
+      username: e.target.username.value,
+      password: e.target.password.value,
+      full_name: e.target.name.value,
+      email: e.target.email.value,
+      DOB: e.target.dob.value,
+      gender: e.target.gender.value,
     };
 
-    try {
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      };
-      const response = await fetch("/api/users", options);
-      const data = await response.json();
-      console.log(data);
-      setCurrentUser(data);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+    const user = await createUser(userData);
+    setCurrentUser(user);
+    navigate("/");
   };
 
-  if (currentUser) return <Navigate to="/" />;
+  if (currentUser) {
+    console.log(currentUser);
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -54,29 +44,29 @@ export default function SignUpPage() {
               onSubmit={handleSubmit}
             >
               <LabelInput
-                htmlFor="fullname"
-                label="FULL NAME"
+                htmlFor="name"
+                label="Name"
                 type="text"
-                name="fullname"
+                id="name"
                 placeholder="John Doe"
                 required
               />
 
               <LabelInput
                 htmlFor="email"
-                label="Your email"
+                label="Email"
                 type="email"
-                name="email"
+                id="email"
                 placeholder="name@company.com"
                 required
               />
 
               <LabelInput
                 htmlFor="username"
-                label="Your Username"
+                label="Username"
                 type="text"
-                name="username"
-                placeholder="Desired Username"
+                id="username"
+                placeholder="Username"
                 required
               />
 
@@ -84,8 +74,8 @@ export default function SignUpPage() {
                 htmlFor="password"
                 label="Password"
                 type="password"
-                name="password"
-                placeholder="••••••••"
+                id="password"
+                placeholder="Password"
                 required
               />
 
@@ -97,7 +87,7 @@ export default function SignUpPage() {
                   Gender
                 </label>
                 <select
-                  name="gender"
+                  id="gender"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option defaultValue>Select your Gender</option>
@@ -112,7 +102,7 @@ export default function SignUpPage() {
                 htmlFor="dob"
                 label="Date of Birth"
                 type="date"
-                name="dob"
+                id="dob"
                 required
               />
 

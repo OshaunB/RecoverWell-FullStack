@@ -6,7 +6,7 @@ const Router = express.Router();
 Router.use(addModels);
 
 // List all comments
-Router.get("/comments", postController.listComments);
+Router.get("/:postId/comments", postController.listComments);
 
 // Create a new comment
 Router.post("/comments", postController.createComment);

@@ -1,27 +1,34 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable comma-dangle */
 /* eslint-disable implicit-arrow-linebreak */
-import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useCallback, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import CurrentUserContext from "../contexts/current-user-context";
+
 import {
   getPostOptions,
   fetchHandler,
   findUserName,
   timeDifference,
 } from "../utils";
-import RenderPosts from "../components/RenderPosts";
-import CreatePost from "../components/CreatePost";
+import RenderPosts from "../components/posts/RenderPosts";
+import CreatePost from "../components/posts/CreatePost";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Posts() {
+  const navigate = useNavigate();
+  const { users } = useContext(UserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const { id } = useParams();
   const [topic, setTopic] = useState("");
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
   const [postLikes, setPostLikes] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(currentUser);
       const [data, error] = await fetchHandler(`/api/discussions/${id}`);
       if (error) return console.log(error);
       setTopic(data.topic);
@@ -49,19 +56,6 @@ export default function Posts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const [data, error] = await fetchHandler(`/api/users`);
-      if (error) {
-        console.log(error);
-        return;
-      }
-      setUsers(data);
-    };
-
-    fetchUsers();
-  }, []);
-
   const handleLike = useCallback(
     async (post) => {
       const postId = post.id;
@@ -71,10 +65,7 @@ export default function Posts() {
         getPostOptions({ postId })
       );
 
-      if (error) {
-        console.log(error);
-        return;
-      }
+      if (error) return console.log(error);
 
       const updatedLikes = { ...postLikes };
       updatedLikes[postId] = !likeStatus;
@@ -108,14 +99,9 @@ export default function Posts() {
           time={timeDifference(post.created_at)}
           content={post.content}
           likes={post.number_of_likes}
-          icon={
-            postLikes[post.id] === true ? (
-              <ThumbUpAltIcon />
-            ) : (
-              <ThumbUpOffAltIcon />
-            )
-          }
+          icon={postLikes[post.id] ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
           clickLike={handleLike}
+          clickComment={() => navigate(`/posts/${post.id}/comments`)}
           post={post}
         />
       ))}
