@@ -7,7 +7,7 @@ export default function RenderPosts(props) {
       <div className="w-2/5 bg-white shadow-lg rounded-lg p-4 hover:bg-gray-100">
         <div className="flex items-center mb-4">
           <img
-            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+            src={props.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
             alt="Profile Picture"
             className="w-10 h-10 rounded-full mr-4"
           />

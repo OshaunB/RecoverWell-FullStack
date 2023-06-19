@@ -22,7 +22,7 @@ export default function SignUpPage() {
 
     const user = await createUser(userData);
     setCurrentUser(user);
-    navigate("/");
+    navigate(`/profile-pic/${user.id}`);
   };
 
   if (currentUser) {

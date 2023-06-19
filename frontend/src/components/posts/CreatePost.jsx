@@ -9,17 +9,6 @@ export default function CreatePost({ setPosts }) {
   const { id } = useParams();
   const [addPost, setAddPost] = useState({});
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const [data, error] = await fetchHandler(
-  //       `/api/posts`,
-  //       getPostOptions(addPost)
-  //     );
-  //     if (error) return console.log(error);
-  //     setAddPost(data);
-  //   })();
-  // }, []);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newPostContent = event.target.newPost.value;

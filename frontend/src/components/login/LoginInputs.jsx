@@ -19,7 +19,6 @@ export default function LoginInputs() {
     if (error) return console.log(error);
     console.log(user);
     setCurrentUser(user);
-    console.log(currentUser);
     navigate(`/`);
   };
 

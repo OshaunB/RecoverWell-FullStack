@@ -51,6 +51,7 @@ export default function Comment() {
           comment={comment.comment}
           username={findUserName(users, comment.user_id)}
           time={timeDifference(comment.created_at)}
+          avatar={users.find((u) => u.id === comment.user_id)?.avatar}
         />
       ))}
 
