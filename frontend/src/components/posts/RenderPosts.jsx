@@ -1,3 +1,6 @@
+import CommentIcon from "@mui/icons-material/Comment";
+import ShareIcon from "@mui/icons-material/Share";
+
 export default function RenderPosts(props) {
   return (
     <div className="flex justify-center py-3">
@@ -21,8 +24,15 @@ export default function RenderPosts(props) {
             </span>{" "}
             {props.likes}
           </div>
-          <div>Comment</div>
-          <div>Share</div>
+          <div
+            className="cursor-pointer"
+            onClick={() => props.clickComment(props.post)}
+          >
+            <CommentIcon /> Comment
+          </div>
+          <div>
+            <ShareIcon /> Share
+          </div>
         </div>
       </div>
     </div>
