@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable implicit-arrow-linebreak */
 import { useState, useEffect, useCallback, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CurrentUserContext from "../contexts/current-user-context";
@@ -28,7 +28,7 @@ export default function Posts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(currentUser);
+      // if (!currentUser) return navigate("/")
       const [data, error] = await fetchHandler(`/api/discussions/${id}`);
       if (error) return console.log(error);
       setTopic(data.topic);
@@ -43,7 +43,8 @@ export default function Posts() {
       setPosts(sortedPosts);
 
       const likeStatusPromises = sortedPosts.map((post) =>
-        fetchHandler(`/api/check-post-like/${post.id}`));
+        fetchHandler(`/api/check-post-like/${post.id}`)
+      );
       const likeStatusData = await Promise.all(likeStatusPromises);
       const likeStatus = {};
       likeStatusData.forEach(([likeData], index) => {
@@ -55,6 +56,12 @@ export default function Posts() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // setTimeout(() => {
+  //   if (!currentUser) {
+  //     return <Navigate to="/" />;
+  //   }
+  // }, 2000);
 
   const handleLike = useCallback(
     async (post) => {
@@ -88,6 +95,9 @@ export default function Posts() {
     [postLikes, posts]
   );
 
+  console.log(users);
+  console.log(posts);
+
   return (
     <div>
       <h1 className="flex justify-center font-bold text-3xl">{topic}</h1>
@@ -103,6 +113,7 @@ export default function Posts() {
           clickLike={handleLike}
           clickComment={() => navigate(`/posts/${post.id}/comments`)}
           post={post}
+          avatar={users.find((u) => u.id === post.user_id)?.avatar}
         />
       ))}
     </div>
