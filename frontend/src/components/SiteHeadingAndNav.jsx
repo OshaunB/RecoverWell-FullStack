@@ -20,12 +20,12 @@ export default function SiteHeadingAndNav() {
   };
 
   return (
-    <Navbar fluid rounded>
+    <Navbar rounded>
       <Navbar.Brand to="/">
         <img
           alt="RecoverWell Dummy Logo"
           className="mr-3 h-6 sm:h-9"
-          src="assets/RecoverWell Dummy Logo.PNG"
+          src="../../assets/RecoverWell Dummy Logo.PNG"
         />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           RecoverWell
@@ -56,23 +56,20 @@ export default function SiteHeadingAndNav() {
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
             </Dropdown>
-            <Navbar.Toggle />
           </div>
         )}
       </>
+      <Navbar.Toggle />
       <Navbar.Collapse>
-        <Link to="/">
-          <p>Home</p>
-        </Link>
+        <Link to="/">Home </Link>
         <Link to="#">Events</Link>
         <Link to="/discussions">Discussions</Link>
-        <Link to="/users">Users</Link>
+        <Link to="/users">Community</Link>
         {currentUser ? (
           <Link to={`/users/${currentUser.id}`}>{currentUser.username}</Link>
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <Link to="/sign-up">Sign Up</Link>
           </>
         )}
       </Navbar.Collapse>

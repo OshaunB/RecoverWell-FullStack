@@ -1,13 +1,16 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { Button } from "flowbite-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import DiscussionCard from "../components/DiscussionCard";
+import LabelInput from "../components/LabelInput";
+import { fetchHandler, getPostOptions } from "../utils";
 
 export default function Discussions() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [discussions, setDiscussions] = useState([]);
-  // const [addDiscussion, setAddDiscussion] = useState({});
 
-  
   useEffect(() => {
     (async () => {
       try {
@@ -19,6 +22,37 @@ export default function Discussions() {
       }
     })();
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const term = e.target.value;
+    setSearchTerm(term !== "" ? term : null);
+  };
+
+  const filteredCards = discussions.filter((discussion) => {
+    if (searchTerm === null) return true;
+    return (
+      // eslint-disable-next-line operator-linebreak
+      discussion.topic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      discussion.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const handleDiscussion = async (event) => {
+    event.preventDefault();
+    const discussionData = {
+      topic: event.target.elements.topic.value,
+      description: event.target.elements.description.value,
+    };
+
+    const [data, error] = await fetchHandler(
+      "/api/discussions",
+      getPostOptions(discussionData),
+    );
+    if (error) return console.log(error);
+    setDiscussions((prevDis) => [...prevDis, data]);
+    event.target.reset();
+  };
 
   return (
     <div>
@@ -32,33 +66,43 @@ export default function Discussions() {
             type="text"
             placeholder="Search Discussions"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
           />
-          <Button
-            gradientDuoTone="redToYellow"
-            outline
-            onClick={() => {
-              // Do something with the search term
-            }}
-          >
-            <p>Search</p>
-          </Button>
-        </div>
-
-        <div className="flex justify-center mt-4">
-          <Button gradientDuoTone="redToYellow" outline>
-            <p>Add a new post</p>
-          </Button>
         </div>
       </div>
-      {discussions.map((discussion) => (
+      <div className="flex flex-col items-center px-5 sm:px-20 my-8">
+        <form onSubmit={handleDiscussion}>
+          <LabelInput
+            htmlFor="topic"
+            label="Topic"
+            type="text"
+            name="topic"
+            placeholder="Title of Discussion"
+            required
+          />
+          <LabelInput
+            htmlFor="description"
+            label="Description"
+            type="text"
+            name="description"
+            placeholder="About your Discussion"
+            required
+          />
+
+          <div className="flex justify-center mt-4">
+            <Button type="submit" gradientDuoTone="redToYellow" outline>
+              <p>Add a new post</p>
+            </Button>
+          </div>
+        </form>
+      </div>
+
+      {filteredCards.map((discussion) => (
         <DiscussionCard
           key={discussion.id}
           topic={discussion.topic}
           description={discussion.description}
-          onClick={() => {
-            console.log(discussion.id);
-          }}
+          onClick={() => navigate(`/discussions/${discussion.id}`)}
           discussionId={discussion.id}
         />
       ))}

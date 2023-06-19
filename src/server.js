@@ -5,6 +5,7 @@ const userRoutes = require('./routes/user-routes');
 const discussionRoutes = require('./routes/discussion-route');
 const postRoutes = require('./routes/post-route');
 const commentRoutes = require('./routes/comment-route');
+const postLikeRoutes = require('./routes/post-like-route');
 
 const logRoutes = require('./middleware/log-routes');
 
@@ -19,6 +20,7 @@ app.use('/api', userRoutes);
 app.use('/api', discussionRoutes);
 app.use('/api', postRoutes);
 app.use('/api', commentRoutes);
+app.use('/api', postLikeRoutes);
 
 app.get('*', (req, res, next) => {
   if (req.originalUrl.startsWith('/api')) next();
