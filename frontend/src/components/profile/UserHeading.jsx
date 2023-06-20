@@ -7,14 +7,15 @@ export default function UserHeading() {
 
     return (
         <div>
-            <div className="flex">
-                <div className="flex align-center justify-center">
-                    <img src={currentUser.avatar} alt="" />
+            <div className="flex w-full">
+                <div className="flex align-center justify-center bg-red-200 ml-8 shadow-lg">
+                    <img className="w-2/3 my-8 mx-4 bg-orange-200 shadow-lg" src={currentUser.avatar} alt="" />
                 </div>
-                <div>
-                    <h1>{currentUser.username}</h1>
+                <div className="w-50">
+                    <h1 className="align-center">{currentUser.username}</h1>
                 </div>
             </div>
         </div>
+
     )
 }
