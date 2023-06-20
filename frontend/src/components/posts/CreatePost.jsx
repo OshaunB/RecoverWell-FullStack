@@ -3,22 +3,11 @@
 import { Button } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPostOptions, fetchHandler } from "../utils";
+import { getPostOptions, fetchHandler } from "../../utils";
 
 export default function CreatePost({ setPosts }) {
   const { id } = useParams();
   const [addPost, setAddPost] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      const [data, error] = await fetchHandler(
-        `/api/posts`,
-        getPostOptions(addPost),
-      );
-      if (error) return console.log(error);
-      setAddPost(data);
-    })();
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +19,7 @@ export default function CreatePost({ setPosts }) {
 
     const [data, error] = await fetchHandler(
       `/api/posts`,
-      getPostOptions(postData),
+      getPostOptions(postData)
     );
     if (error) {
       console.log(error);
@@ -55,12 +44,18 @@ export default function CreatePost({ setPosts }) {
           id="newPost"
           rows="4"
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Write your thoughts here..." required="required"
+          placeholder="Write your thoughts here..."
         ></textarea>
+        <div></div>
         <div className="flex items-center justify-end py-2">
-        <Button type="submit" gradientDuoTone="cyanToBlue" outline style={{ marginRight: '10px' }}>
-        <p>Post</p>
-      </Button>
+          <Button
+            type="submit"
+            gradientDuoTone="cyanToBlue"
+            outline
+            style={{ marginRight: "10px" }}
+          >
+            <p>Post</p>
+          </Button>
         </div>
       </form>
     </div>

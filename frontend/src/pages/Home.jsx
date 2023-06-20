@@ -1,8 +1,16 @@
-export default function HomePage() {
+
+import Header from "../landingpagecomponents/Header";
+import Main from '../landingpagecomponents/Main';
+import Footer from '../landingpagecomponents/Footer'
+export default function Home() {
   return (
     <>
-      <h1>Home</h1>
-      <p>Put something interesting here!</p>
-    </>
+    <div className="text-white bg-black">
+     
+      
+      <Main />
+      <Footer />
+    </div>
+  </>
   );
 }

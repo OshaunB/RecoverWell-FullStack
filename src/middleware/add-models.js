@@ -3,6 +3,7 @@ const Discussion = require("../db/models/discussion");
 const Comment = require("../db/models/comment");
 const Post = require("../db/models/post");
 const Like = require("../db/models/post-like");
+const Event = require("../db/models/events");
 
 const addModels = (req, res, next) => {
   req.db = {
@@ -11,6 +12,7 @@ const addModels = (req, res, next) => {
     Comment,
     Post,
     Like,
+    Event,
   };
   next();
 };

@@ -2,12 +2,15 @@
 
 import { Dropdown, Navbar, Avatar } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function SiteHeadingAndNav() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [avatar, setAvatar] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
 
   const handleSignOut = async () => {
     const response = await fetch("/api/logout", {
@@ -18,6 +21,10 @@ export default function SiteHeadingAndNav() {
       navigate("/");
     }
   };
+
+  useEffect(() => {
+    setAvatar(currentUser?.avatar);
+  });
 
   return (
     <Navbar rounded>
@@ -36,13 +43,7 @@ export default function SiteHeadingAndNav() {
           <div className="flex md:order-2">
             <Dropdown
               inline
-              label={
-                <Avatar
-                  alt="User settings"
-                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  rounded
-                />
-              }
+              label={<Avatar alt="User settings" img={avatar} rounded />}
             >
               <Dropdown.Header>
                 <span className="block text-sm">{currentUser?.full_name}</span>
@@ -50,7 +51,11 @@ export default function SiteHeadingAndNav() {
                   {currentUser?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => navigate(`/profile-pic/${currentUser.id}`)}
+              >
+                Profile Pic
+              </Dropdown.Item>
               <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
@@ -62,7 +67,7 @@ export default function SiteHeadingAndNav() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Link to="/">Home </Link>
-        <Link to="#">Events</Link>
+        <Link to="/events">Events</Link>
         <Link to="/discussions">Discussions</Link>
         <Link to="/users">Community</Link>
         {currentUser ? (

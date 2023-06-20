@@ -1,10 +1,10 @@
 const knex = require("../knex");
 
 class Comment {
-  static async list() {
+  static async list(postId) {
     try {
-      const query = "SELECT * FROM comments";
-      const { rows } = await knex.raw(query);
+      const query = "SELECT * FROM comments WHERE post_id = ?";
+      const { rows } = await knex.raw(query, [postId]);
       return rows;
     } catch (error) {
       console.error(error);

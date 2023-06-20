@@ -8,7 +8,7 @@ class User {
     id,
     username,
     password,
-    DOB,
+    dob,
     gender,
     avatar,
     email,
@@ -16,7 +16,7 @@ class User {
   }) {
     this.id = id;
     this.username = username;
-    this.DOB = DOB;
+    this.dob = dob;
     this.full_name = full_name;
     this.email = email;
     this.gender = gender;
@@ -52,7 +52,7 @@ class User {
     password,
     full_name,
     gender,
-    DOB,
+    dob,
     avatar = null,
   ) {
     const passwordHash = await hashPassword(password);
@@ -67,15 +67,36 @@ class User {
       passwordHash,
       full_name,
       gender,
-      DOB,
+      dob,
       avatar,
     ]);
     return new User(user);
   }
 
+  static async getAvatar(id) {
+    const query = "SELECT avatar FROM users WHERE id = ?";
+    const {
+      rows: [user],
+    } = await knex.raw(query, [id]);
+    return user ? user.avatar : null;
+  }
+
   static async deleteAll() {
     return knex.raw("TRUNCATE users;");
   }
+
+  updateProfilePic = async (profilePic) => {
+    try {
+      const [updatedUser] = await knex("users")
+        .where({ id: this.id })
+        .update({ avatar: profilePic })
+        .returning("*");
+      return updatedUser ? new User(updatedUser) : null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
 
   update = async (username) => {
     // dynamic queries are easier if you add more properties
@@ -86,7 +107,8 @@ class User {
     return updatedUser ? new User(updatedUser) : null;
   };
 
-  isValidPassword = async (password) => isValidPassword(password, this.#passwordHash);
+  isValidPassword = async (password) =>
+    isValidPassword(password, this.#passwordHash);
 }
 
 module.exports = User;

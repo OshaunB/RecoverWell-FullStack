@@ -17,6 +17,7 @@ export default function LoginInputs() {
     };
     const [user, error] = await logUserIn(userData);
     if (error) return console.log(error);
+    console.log(user);
     setCurrentUser(user);
     navigate(`/`);
   };

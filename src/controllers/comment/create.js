@@ -1,10 +1,11 @@
 const createComment = async (req, res) => {
   try {
     const {
+      session,
       db: { Comment },
-      body: { userId, postId, comment },
+      body: { postId, comment },
     } = req;
-    const com = await Comment.createComment(userId, postId, comment);
+    const com = await Comment.createComment(session.userId, postId, comment);
     res.status(201).json(com);
   } catch (error) {
     console.error(error);
