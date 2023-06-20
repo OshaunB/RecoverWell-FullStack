@@ -13,6 +13,7 @@ import Discussion from "./pages/Discussions";
 import Posts from "./pages/Posts";
 import Comment from "./pages/Comment";
 import ProfilePic from "./pages/ProfilePic";
+import Events from "./pages/Events";
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/discussions/:id" element={<Posts />} />
           <Route path="/posts/:postId/comments" element={<Comment />} />
           <Route path="/profile-pic/:id" element={<ProfilePic />} />
+          <Route path="/events" element={<Events />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

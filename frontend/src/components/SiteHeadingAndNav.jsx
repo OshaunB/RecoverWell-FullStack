@@ -67,7 +67,7 @@ export default function SiteHeadingAndNav() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Link to="/">Home </Link>
-        <Link to="#">Events</Link>
+        <Link to="/events">Events</Link>
         <Link to="/discussions">Discussions</Link>
         <Link to="/users">Community</Link>
         {currentUser ? (
