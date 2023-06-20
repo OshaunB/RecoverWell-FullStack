@@ -5,6 +5,7 @@ import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
 import UserAbout from "../components/profile/UserAbout";
+import UserHeading from "../components/profile/UserHeading";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function UserPage() {
   return <>
     <h1>{profileUsername}</h1>
     { !!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button> }
+    <UserHeading />
     <p>If the user had any data, here it would be</p>
     <UserAbout />
     <p>Fake Bio or something</p>
