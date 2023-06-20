@@ -1,15 +1,17 @@
 
-import Header from "../landingpagecomponents/Header";
-import Main from '../landingpagecomponents/Main';
-import Footer from '../landingpagecomponents/Footer'
+import Header from "../components/landingpagecomponents/Header";
+import Main from '../components/landingpagecomponents/Main';
+import Footer from '../components/landingpagecomponents/Footer'
+import Landingpage from "../components/landingpagecomponents/landingpage";
+
 export default function Home() {
   return (
     <>
     <div className="text-white bg-black">
      
-      
-      <Main />
-      <Footer />
+      <Landingpage />
+      {/* <Main />
+      <Footer /> */}
     </div>
   </>
   );
