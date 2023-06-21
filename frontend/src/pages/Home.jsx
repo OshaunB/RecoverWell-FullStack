@@ -10,8 +10,7 @@ export default function Home() {
     <div className="text-white bg-black">
      
       <Landingpage />
-      {/* <Main />
-      <Footer /> */}
+       <Footer />
     </div>
   </>
   );
