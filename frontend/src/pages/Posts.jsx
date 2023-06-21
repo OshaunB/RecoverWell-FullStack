@@ -28,7 +28,7 @@ export default function Posts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // if (!currentUser) return navigate("/")
+      if (!currentUser) return;
       const [data, error] = await fetchHandler(`/api/discussions/${id}`);
       if (error) return console.log(error);
       setTopic(data.topic);
@@ -55,7 +55,7 @@ export default function Posts() {
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser]);
 
   // setTimeout(() => {
   //   if (!currentUser) {
@@ -95,8 +95,9 @@ export default function Posts() {
     [postLikes, posts]
   );
 
-  console.log(users);
-  console.log(posts);
+  if (!currentUser) return <p>Log in to see this information</p>;
+  // console.log(users);
+  // console.log(posts);
 
   return (
     <div>

@@ -1,5 +1,4 @@
-
 const API_KEYS = {
-    UPLOADCARE_API_KEY: "YO3fe0a0dbda27475b44ac",
-  };
-  export default API_KEYS;
+  UPLOADCARE_API_KEY: "2e3adfd590e528dfc943",
+};
+export default API_KEYS;
