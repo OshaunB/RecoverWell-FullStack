@@ -1,69 +1,55 @@
-"use client";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Input,
+  Textarea,
+} from "@material-tailwind/react";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
-import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
-import LabelInput from "../LabelInput";
-
-export default function PopUpModal({ onSubmit, error, setError }) {
-  const [openModal, setOpenModal] = useState("");
-  const props = { openModal, setOpenModal };
-
-  const handleModal = () => {
-    if (error) {
-      return setError(() => "You must be logged in to create a discussion");
+export default function CreateDiscussion({
+  onSubmit,
+  error,
+  setError,
+  open,
+  setOpen,
+  currentUser,
+}) {
+  const handleOpen = () => {
+    if (!currentUser) {
+      setError("You must be logged in to create a discussion");
+    } else {
+      setOpen(!open);
     }
-    return props.setOpenModal("pop-up");
   };
 
   return (
     <>
-      <Button onClick={handleModal}>Create Discussion</Button>
-      <Modal
-        show={props.openModal === "pop-up"}
-        size="md"
-        popup
-        onClose={() => props.setOpenModal(undefined)}
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <h3 className="font-bold text-xl text-center">
-            Create Discussion Group!
-          </h3>
-          <form onSubmit={onSubmit}>
-            <LabelInput
-              htmlFor="topic"
-              label="Topic"
-              type="text"
-              id="topic"
-              placeholder="Title of Discussion"
-              required
-            />
-            <LabelInput
-              htmlFor="description"
-              label="Description"
-              type="text"
-              id="description"
-              placeholder="About your Discussion"
-              required
-            />
-            <div className="flex justify-center gap-4">
-              <Button
-                type="submit"
-                color="success"
-                onClick={() => props.setOpenModal(undefined)}
-              >
-                Create
-              </Button>
-              <Button
-                color="gray"
-                onClick={() => props.setOpenModal(undefined)}
-              >
-                Cancel
-              </Button>
+      <Button onClick={handleOpen}>Create Discussion</Button>
+      <Dialog open={open} onClose={handleOpen}>
+        <div className="flex items-center justify-between">
+          <DialogHeader>Create Discussion Group</DialogHeader>
+          <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
+        </div>
+        <form onSubmit={onSubmit}>
+          <DialogBody divider>
+            <div className="grid gap-6">
+              <Input label="Topic" id="topic" />
+              <Textarea label="Description" id="description" />
             </div>
-          </form>
-        </Modal.Body>
-      </Modal>
+          </DialogBody>
+          <DialogFooter className="space-x-2">
+            <Button variant="outlined" color="red" onClick={handleOpen}>
+              Close
+            </Button>
+            <Button variant="gradient" color="green" type="submit">
+              Create
+            </Button>
+          </DialogFooter>
+        </form>
+      </Dialog>
     </>
   );
 }

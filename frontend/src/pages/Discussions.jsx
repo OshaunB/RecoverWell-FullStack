@@ -14,12 +14,14 @@ export default function Discussions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [discussions, setDiscussions] = useState([]);
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
       const [data, err] = await fetchHandler("/api/discussions");
       if (err) return console.log(err);
       setDiscussions(data);
+      setOpen(false);
     })();
   }, []);
 
@@ -44,15 +46,16 @@ export default function Discussions() {
       topic: e.target.topic.value,
       description: e.target.description.value,
     };
-    console.log(discussionData);
 
     const [data, err] = await fetchHandler(
       "/api/discussions",
-      getPostOptions(discussionData),
+      getPostOptions(discussionData)
     );
     if (err) return console.log(err);
     setDiscussions((prevDis) => [...prevDis, data]);
-    e.target.reset();
+
+    // Close the dialog box
+    setOpen(false);
   };
 
   const handleNavigate = (discussionId) => {
@@ -69,11 +72,14 @@ export default function Discussions() {
         RecoverWell Discussions
       </h1>
       <div className="flex justify-around items-center">
-        <SearchInput onChange={handleSearch} value={searchTerm} />
+        <SearchInput onChange={handleSearch} value={searchTerm} innerText="Search Discussion Groups"/>
         <CreateDiscussion
           error={error}
           setError={setError}
           onSubmit={handleCreateDiscussion}
+          open={open}
+          setOpen={setOpen}
+          currentUser={currentUser}
         />
       </div>
 
