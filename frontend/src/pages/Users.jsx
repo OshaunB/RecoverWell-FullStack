@@ -9,21 +9,6 @@ export default function UsersPage() {
     getAllUsers().then(setUsers);
   }, []);
 
-<<<<<<< HEAD
-  return (
-    <>
-      <h1>Users</h1>
-
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <UserLink user={user} />
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-=======
 const grabUserData = (req,res) => {
  
 }
@@ -105,5 +90,4 @@ const grabUserData = (req,res) => {
     </ul>
     
   </>;
->>>>>>> 82b61fc (landing page , as well as structure changes)
 }
