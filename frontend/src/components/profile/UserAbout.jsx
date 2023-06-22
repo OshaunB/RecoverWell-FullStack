@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import { Button } from "@material-tailwind/react";
 import { Icon } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 

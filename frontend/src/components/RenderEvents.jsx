@@ -24,7 +24,7 @@ export default function RenderEvents(props) {
           <Typography
             color="blue-gray"
             className="flex items-center gap-1.5 font-normal"
-          ></Typography>
+          >{props.maxAttendees}</Typography>
         </div>
         <Typography color="gray">{props.description}</Typography>
         <Typography color="gray">Date: {props.date}</Typography>

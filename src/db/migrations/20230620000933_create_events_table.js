@@ -13,6 +13,7 @@ exports.up = (knex) => knex.schema.createTable("events", (table) => {
   table.string("zip").notNullable();
   table.date("date").notNullable();
   table.time("time").notNullable();
+  table.integer("expected_guests").notNullable();
   table.string("image").notNullable();
   table.timestamps(true, true);
 });
