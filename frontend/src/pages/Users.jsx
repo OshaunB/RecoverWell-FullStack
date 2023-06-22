@@ -78,14 +78,6 @@ export default function UsersPage() {
           </div>
         </div>
       </section>
-
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <UserLink user={user} />
-          </li>
-        ))}
-      </ul>
     </>
   );
 }
