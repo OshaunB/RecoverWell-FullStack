@@ -32,8 +32,9 @@ export default function RenderEvents(props) {
         <Typography color="gray">Address: {props.address}</Typography>
       </CardBody>
       <CardFooter className="pt-3 flex justify-around items-center">
-        <button className="btn btn-success">Map</button>
-        <button className="btn btn-primary">Reserve</button>
+        <button className="btn btn-success" onClick={props.map}>Map</button>
+        <button className="btn btn-primary" onClick={props.RSVP}
+        >Reserve</button>
       </CardFooter>
     </Card>
   );

@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable comma-dangle */
+/* eslint-disable function-paren-newline */
 /* eslint-disable implicit-arrow-linebreak */
 import { useState, useEffect, useCallback, useContext } from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CurrentUserContext from "../contexts/current-user-context";
@@ -57,12 +56,6 @@ export default function Posts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  // setTimeout(() => {
-  //   if (!currentUser) {
-  //     return <Navigate to="/" />;
-  //   }
-  // }, 2000);
-
   const handleLike = useCallback(
     async (post) => {
       const postId = post.id;
@@ -78,7 +71,6 @@ export default function Posts() {
       updatedLikes[postId] = !likeStatus;
       setPostLikes(updatedLikes);
 
-      // Update the like count of the specific post in the posts state
       const updatedPosts = posts.map((p) => {
         if (p.id === postId) {
           return {
@@ -96,8 +88,6 @@ export default function Posts() {
   );
 
   if (!currentUser) return <p>Log in to see this information</p>;
-  // console.log(users);
-  // console.log(posts);
 
   return (
     <div>

@@ -16,7 +16,7 @@ export default function SignUpPage() {
       password: e.target.password.value,
       full_name: e.target.name.value,
       email: e.target.email.value,
-      DOB: e.target.dob.value,
+      dob: e.target.dob.value,
       gender: e.target.gender.value,
     };
 

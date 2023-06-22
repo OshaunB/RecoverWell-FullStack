@@ -15,7 +15,7 @@ const listJoinedEventsByUserId = async (req, res) => {
   try {
     const {
       db: { JoinEvent },
-      params: {userId}
+      params: { userId },
     } = req;
     const join = await JoinEvent.listByUserId(userId);
     res.status(200).json(join);
@@ -25,11 +25,11 @@ const listJoinedEventsByUserId = async (req, res) => {
   }
 };
 
-const listJoinedEventsbyEventId = async (req, res) => {
+const listJoinedEventsByEventId = async (req, res) => {
   try {
     const {
       db: { JoinEvent },
-      params: {eventId}
+      params: { eventId },
     } = req;
     const join = await JoinEvent.listByEventId(eventId);
     res.status(200).json(join);
@@ -39,9 +39,8 @@ const listJoinedEventsbyEventId = async (req, res) => {
   }
 };
 
-
 module.exports = {
-  listAllJoinedEvents, 
-  listJoinedEventsByUserId, 
-  listJoinedEventsbyEventId
-}
+  listAllJoinedEvents,
+  listJoinedEventsByUserId,
+  listJoinedEventsByEventId,
+};

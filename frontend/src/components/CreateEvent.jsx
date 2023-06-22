@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Drawer,
   Button,
@@ -10,10 +10,19 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Widget } from "@uploadcare/react-widget";
 import API_KEYS from "../../config";
+import ErrorDialog from "./ErrorDialog";
 
-export default function CreateEvent({ onSubmit }) {
+export default function CreateEvent({ onSubmit, isLoggedIn }) {
   const [open, setOpen] = useState(false);
-  const openDrawer = () => setOpen(true);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+  const openDrawer = () => {
+    if (!isLoggedIn) {
+      setShowErrorDialog(true);
+    } else {
+      setOpen(true);
+    }
+  };
   const closeDrawer = () => setOpen(false);
   const widgetApi = useRef();
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -39,7 +48,7 @@ export default function CreateEvent({ onSubmit }) {
           className="flex flex-col gap-6 p-4"
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit(e, uploadedImage);
+            onSubmit(e, uploadedImage, closeDrawer);
           }}
         >
           <Input type="text" label="Name" id="eventName" required />
@@ -122,6 +131,13 @@ export default function CreateEvent({ onSubmit }) {
           </>
         </form>
       </Drawer>
+      {showErrorDialog && (
+        <ErrorDialog
+          errorMessage="You must be logged in to create an event"
+          setErrorMessage={() => setShowErrorDialog(false)}
+          title="Authentication Required"
+        />
+      )}
     </>
   );
 }

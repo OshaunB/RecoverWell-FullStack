@@ -11,6 +11,7 @@ exports.up = (knex) => knex.schema.createTable("users", (table) => {
   table.string("gender").notNullable();
   table.date("dob").notNullable();
   table.string("avatar").nullable();
+  table.string("bio").nullable();
   table.timestamps(true, true);
 });
 
