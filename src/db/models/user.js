@@ -85,6 +85,19 @@ class User {
     return knex.raw("TRUNCATE users;");
   }
 
+  updateBio = async (bio) => {
+    try {
+      const [updatedBio] = await knex("users")
+        .where({ id: this.id })
+        .update({ bio })
+        .returning("*");
+      return updatedBio ? new User(updatedBio) : null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
   updateProfilePic = async (profilePic) => {
     try {
       const [updatedUser] = await knex("users")

@@ -22,6 +22,7 @@ module.exports = {
     'react/prop-types': 'off',
     'no-console': 'off',
     'object-curly-newline': 'off',
+    'comma-dangle': 'off',
     'no-plusplus': 'off',
     'no-promise-executor-return': 'off',
     'func-style': 2,

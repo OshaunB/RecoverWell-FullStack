@@ -7,13 +7,14 @@ import SiteHeadingAndNav from "./components/SiteHeadingAndNav";
 import NotFoundPage from "./pages/NotFound";
 import UserContext from "./contexts/current-user-context";
 import { checkForLoggedInUser } from "./adapters/auth-adapter";
-import UsersPage from "./pages/Users";
+import UsersPage from "./pages/Community";
 import UserPage from "./pages/User";
 import Discussion from "./pages/Discussions";
 import Posts from "./pages/Posts";
 import Comment from "./pages/Comment";
 import ProfilePic from "./pages/ProfilePic";
 import Events from "./pages/Events";
+import Test from "./pages/Test";
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -30,12 +31,13 @@ export default function App() {
           <Route path="/discussions" element={<Discussion />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/users" element={<UsersPage />} />
+          <Route path="/community" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserPage />} />
           <Route path="/discussions/:id" element={<Posts />} />
           <Route path="/posts/:postId/comments" element={<Comment />} />
           <Route path="/profile-pic/:id" element={<ProfilePic />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

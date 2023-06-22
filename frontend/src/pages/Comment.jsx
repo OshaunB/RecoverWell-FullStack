@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import CommentCard from "../components/posts/CommentCard";
 import { UserContext } from "../contexts/UserContext";
@@ -11,10 +11,8 @@ import {
   findUserName,
   timeDifference,
 } from "../utils";
-import CreateComment from "../components/CreateComment";
 
 export default function Comment() {
-  const navigate = useNavigate();
   const { postId } = useParams();
   const { users } = useContext(UserContext);
   const { currentUser } = useContext(CurrentUserContext);

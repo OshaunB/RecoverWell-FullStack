@@ -2,7 +2,7 @@ const createUser = async (req, res) => {
   const {
     session,
     db: { User },
-    body: { username, password, email, gender, DOB, full_name },
+    body: { username, password, email, gender, dob, full_name },
   } = req;
 
   // TODO: check if username is taken, what should you return?
@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
     password,
     full_name,
     gender,
-    DOB,
+    dob
   );
   session.userId = user.id;
 

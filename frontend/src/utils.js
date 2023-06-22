@@ -1,31 +1,32 @@
 const basicFetchOptions = {
-  method: 'GET',
-  credentials: 'include',
+  method: "GET",
+  credentials: "include",
 };
 
 export const deleteOptions = {
-  method: 'DELETE',
-  credentials: 'include',
+  method: "DELETE",
+  credentials: "include",
 };
 
 export const getPostOptions = (body) => ({
-  method: 'POST',
-  credentials: 'include',
-  headers: { 'Content-Type': 'application/json' },
+  method: "POST",
+  credentials: "include",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify(body),
 });
 
 export const getPatchOptions = (body) => ({
-  method: 'PATCH',
-  credentials: 'include',
-  headers: { 'Content-Type': 'application/json' },
+  method: "PATCH",
+  credentials: "include",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify(body),
 });
 
 export const fetchHandler = async (url, options = basicFetchOptions) => {
   try {
     const res = await fetch(url, options);
-    if (!res.ok) return [null, { status: res.status, statusText: res.statusText }];
+    if (!res.ok)
+      return [null, { status: res.status, statusText: res.statusText }];
     if (res.status === 204) return [true, null];
 
     const data = await res.json();
@@ -50,4 +51,32 @@ export const timeDifference = (createdTime) => {
     return `${Math.floor(hours / 24)}d ago`;
   }
   return `${hours}h ago`;
+};
+
+export const dateFormat = (date) =>
+  new Date(date).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
+
+export const timeFormat = (timeString) => {
+  const [hours, minutes] = timeString.split(":");
+  let formattedTime = "";
+
+  let ampm = "AM";
+  let formattedHours = parseInt(hours, 10);
+  if (formattedHours >= 12) {
+    ampm = "PM";
+    if (formattedHours > 12) {
+      formattedHours -= 12;
+    }
+  }
+
+  formattedHours = String(formattedHours).padStart(2, "0");
+  const formattedMinutes = minutes.padStart(2, "0");
+
+  formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
+
+  return formattedTime;
 };

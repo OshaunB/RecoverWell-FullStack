@@ -1,30 +1,27 @@
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
-import { Typography } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 
 export default function RenderPosts(props) {
   return (
     <div className="flex justify-center py-3">
-      <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-lg border border-gray-300 p-4 hover:bg-gray-100">
+      <Card className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-lg p-4 hover:bg-gray-100">
         <div className="flex items-center mb-4">
           <img
-            src={
-              props.avatar ||
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            }
+            src={props.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
             alt="Profile Picture"
-            className="w-10 h-10 rounded-full mr-4"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-4"
           />
           <div>
-            <Typography variant="h5" color="blue-gray">
+            <Typography variant="h6" className="font-bold text-sm sm:text-base">
               @{props.username}
             </Typography>
-            <p className="text-gray-500 text-sm">{props.time}</p>
+            <Typography color="textSecondary" variant="body2" className="text-xs sm:text-sm">
+              {props.time}
+            </Typography>
           </div>
         </div>
-        <Typography variant="lead" className="pl-5 mb-7">
-          {props.content}
-        </Typography>
+        <Typography className="text-gray-800 text-xs sm:text-sm mb-4 pl-5">{props.content}</Typography>
         <div className="flex justify-around">
           <div>
             <span onClick={() => props.clickLike(props.post)}>
@@ -36,13 +33,13 @@ export default function RenderPosts(props) {
             className="cursor-pointer"
             onClick={() => props.clickComment(props.post)}
           >
-            <CommentIcon /> Comment
+            <CommentIcon fontSize="small" /> Comment
           </div>
           <div>
-            <ShareIcon /> Share
+            <ShareIcon fontSize="small" /> Share
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -43,7 +43,9 @@ class Event {
   static async getEventById(id) {
     try {
       const query = "SELECT * FROM events WHERE id = ?";
-      const { rows: [event] } = await knex.raw(query, [id]);
+      const {
+        rows: [event],
+      } = await knex.raw(query, [id]);
       return event;
     } catch (error) {
       console.error(error);
