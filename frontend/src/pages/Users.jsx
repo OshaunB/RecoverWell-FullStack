@@ -9,8 +9,6 @@ export default function UsersPage() {
     getAllUsers().then(setUsers);
   }, []);
 
-  const grabUserData = (req, res) => {};
-
   return (
     <>
       <h1>Users</h1>
