@@ -43,11 +43,12 @@ export default function UserPage() {
   return <>
     {/* <h1>{profileUsername}</h1> */}
     <UserHeading />
-    <UserAbout />
-    <UserPosts />
-    {/* {
+    {
       !!isCurrentUserProfile
         && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-    } */}
+    }
+    <UserAbout />
+    <UserPosts />
+
   </>;
 }
