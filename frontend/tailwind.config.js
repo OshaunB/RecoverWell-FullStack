@@ -1,12 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+const withMT = require("@material-tailwind/react/utils/withMT");
 
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
-  ],
-  darkMode: "class",
+module.exports = withMT({
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -21,6 +16,7 @@ export default {
           700: "#1d4ed8",
           800: "#1e40af",
           900: "#1e3a8a",
+          'custom-color': '#bfb5a1',
         },
       },
     },
@@ -30,7 +26,6 @@ export default {
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
-        "system-ui",
         "Segoe UI",
         "Roboto",
         "Helvetica Neue",
@@ -47,7 +42,6 @@ export default {
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
-        "system-ui",
         "Segoe UI",
         "Roboto",
         "Helvetica Neue",
@@ -61,6 +55,5 @@ export default {
       ],
     },
   },
-  // eslint-disable-next-line global-require
-  plugins: [require("flowbite/plugin"), require('daisyui')],
-};
+  plugins: [require("tailwindcss"), require("daisyui")],
+});

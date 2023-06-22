@@ -4,8 +4,8 @@ class Event {
   static async createEvent(event) {
     try {
       const query = `
-        INSERT INTO events (user_id, name, description, address, city, state, zip, date, time, image)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO events (user_id, name, description, address, city, state, zip, date, time, image, expected_guests)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         RETURNING *`;
       const {
         rows: [createdEvent],
@@ -20,6 +20,7 @@ class Event {
         event.date,
         event.time,
         event.image,
+        event.guestCount,
       ]);
       return createdEvent;
     } catch (error) {

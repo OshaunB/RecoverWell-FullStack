@@ -11,6 +11,7 @@ import {
   findUserName,
   timeDifference,
 } from "../utils";
+import CreateComment from "../components/CreateComment";
 
 export default function Comment() {
   const navigate = useNavigate();
@@ -21,12 +22,14 @@ export default function Comment() {
 
   useEffect(() => {
     (async () => {
-      if (!currentUser) return navigate("/");
+      if (!currentUser) return;
       const [data, error] = await fetchHandler(`/api/${postId}/comments`);
       if (error) return console.log(error);
       setComments(data);
     })();
-  }, []);
+  }, [currentUser]);
+
+  if (!currentUser) return <p>You need to be logged in to comment</p>;
 
   const addComment = async (e) => {
     e.preventDefault();
@@ -36,7 +39,7 @@ export default function Comment() {
     };
     const [data, error] = await fetchHandler(
       `/api/comments`,
-      getPostOptions(commentData),
+      getPostOptions(commentData)
     );
     if (error) return console.log(error);
     setComments((prevComments) => [...prevComments, data]);
@@ -44,26 +47,28 @@ export default function Comment() {
   };
 
   return (
-    <div>
-      {comments.map((comment) => (
-        <CommentCard
-          key={comment.id}
-          comment={comment.comment}
-          username={findUserName(users, comment.user_id)}
-          time={timeDifference(comment.created_at)}
-          avatar={users.find((u) => u.id === comment.user_id)?.avatar}
-        />
-      ))}
+    <>
+      <div>
+        {comments.map((comment) => (
+          <CommentCard
+            key={comment.id}
+            comment={comment.comment}
+            username={findUserName(users, comment.user_id)}
+            time={timeDifference(comment.created_at)}
+            avatar={users.find((u) => u.id === comment.user_id)?.avatar}
+          />
+        ))}
 
-      <form onSubmit={addComment}>
-        <textarea
-          rows="4"
-          cols="50"
-          id="comment"
-          placeholder="Write your comment..."
-        ></textarea>
-        <button className="btn btn-primary">Button</button>
-      </form>
-    </div>
+        <form onSubmit={addComment}>
+          <textarea
+            rows="4"
+            cols="50"
+            id="comment"
+            placeholder="Write your comment..."
+          ></textarea>
+          <button className="btn btn-primary">Button</button>
+        </form>
+      </div>
+    </>
   );
 }
