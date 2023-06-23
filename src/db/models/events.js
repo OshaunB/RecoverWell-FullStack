@@ -31,7 +31,13 @@ class Event {
 
   static async getAllEvents() {
     try {
-      const query = "SELECT * FROM events";
+      const query = `
+        SELECT events.*, COUNT(join_event.event_id) AS "joinedEvents" 
+        FROM events
+        LEFT JOIN join_event
+        ON join_event.event_id = events.id
+        GROUP BY events.id
+      `;
       const { rows: events } = await knex.raw(query);
       return events;
     } catch (error) {

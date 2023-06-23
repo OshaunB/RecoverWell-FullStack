@@ -14,6 +14,7 @@ import Posts from "./pages/Posts";
 import Comment from "./pages/Comment";
 import ProfilePic from "./pages/ProfilePic";
 import Events from "./pages/Events";
+import SingleEvent from "./components/SingleEvent";
 import Test from "./pages/Test";
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/posts/:postId/comments" element={<Comment />} />
           <Route path="/profile-pic/:id" element={<ProfilePic />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<SingleEvent />} />
           <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

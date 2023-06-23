@@ -34,13 +34,15 @@ export default function ProfilePic() {
   return (
     <div className="h-full mx-auto p-4 flex justify-center items-center">
       <Button onClick={() => widgetApi.current.openDialog()}>
-        Upload Profile Pic
+        <Widget
+          ref={widgetApi}
+          publicKey={
+            API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"
+          }
+          onChange={handleRenderImage}
+        />
       </Button>
-      <Widget
-        ref={widgetApi}
-        publicKey={API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"}
-        onChange={handleRenderImage}
-      />
+
       {uploadedImage && (
         <div className="bg-gray-200 p-4 text-slate-400">
           <h2 className="text-xl font-bold mb-2">Uploaded Image:</h2>
