@@ -1,32 +1,26 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Typography } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 import RenderEvents from "../components/RenderEvents";
 import { getPostOptions, fetchHandler, dateFormat, timeFormat } from "../utils";
 import SearchInput from "../components/SearchInput";
 import CreateEvent from "../components/CreateEvent";
 import ErrorDialog from "../components/ErrorDialog";
-import CurrentUserContext from "../contexts/current-user-context";
+import { EventContext } from "../contexts/EventContext";
 
 export default function Events() {
-  const [events, setEvents] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const { currentUser } = useContext(CurrentUserContext);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {
+    events,
+    setEvents,
+    errorMessage,
+    setErrorMessage,
+    isLoggedIn,
+    handleMap,
+    setUserJoined,
+  } = useContext(EventContext);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    if (currentUser) {
-      setIsLoggedIn(true);
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    (async () => {
-      const [data, error] = await fetchHandler("/api/events");
-      if (error) return console.log(error);
-      setEvents(data);
-    })();
-  }, []);
+  const navigate = useNavigate();
+  const [rsvpEvent, setRSVPEvent] = useState(0);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -73,6 +67,13 @@ export default function Events() {
       setErrorMessage("You must be logged in to RSVP");
       return;
     }
+
+    const event = events.find((e) => e.id === eventId);
+    if (event && event.expected_guests - event.joinedEvents === 0) {
+      setErrorMessage("No available slots for this event");
+      return;
+    }
+
     const [data, error] = await fetchHandler(
       "/api/c-join-event",
       getPostOptions({ eventId })
@@ -82,14 +83,14 @@ export default function Events() {
       setErrorMessage("You've already reserved this event");
       return;
     }
-
     if (data === "Host cannot join their own event") {
       setErrorMessage("You're the host, so you can't RSVP");
+      return;
     }
-  };
 
-  const handleMap = (address) => {
-    window.open(`https://www.google.com/maps/place/${address}`, "_blank");
+    // Update the userJoined state
+    setUserJoined((prevUserJoined) => [...prevUserJoined, eventId]);
+    setRSVPEvent((prevRSVPEvent) => prevRSVPEvent + 1);
   };
 
   return (
@@ -129,8 +130,10 @@ export default function Events() {
             address={`${event.address}, ${event.city}, ${event.state}-${event.zip}`}
             maxAttendees={event.expected_guests}
             id={event.id}
-            RSVP={() => handleRSVP(event.id)}
-            map={() => handleMap(`${event.address}+${event.city}+${event.state}+${event.zip}`)}
+            onRSVP={() => handleRSVP(event.id)}
+            map={() => handleMap(event)}
+            info={() => navigate(`/events/${event.id}`)}
+            rsvpEvent={rsvpEvent}
           />
         ))}
       </div>

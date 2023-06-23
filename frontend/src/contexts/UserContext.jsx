@@ -5,7 +5,6 @@ const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const context = { users, setUsers };
 
   useEffect(() => {
     (async () => {
@@ -15,6 +14,7 @@ const UserContextProvider = ({ children }) => {
     })();
   }, []);
 
+  const context = { users, setUsers };
   return (
     <UserContext.Provider value={context}>{children}</UserContext.Provider>
   );

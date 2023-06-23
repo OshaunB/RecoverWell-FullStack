@@ -5,7 +5,7 @@ import { Typography } from "@material-tailwind/react";
 export default function RenderPosts(props) {
   return (
     <div className="flex justify-center py-3">
-      <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-lg border border-gray-300 p-4 hover:bg-gray-100">
+      <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-xl rounded-lg border border-gray-300 p-4 hover:bg-gray-100">
         <div className="flex items-center mb-4">
           <img
             src={

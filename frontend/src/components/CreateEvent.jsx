@@ -28,7 +28,7 @@ export default function CreateEvent({ onSubmit, isLoggedIn }) {
   const [uploadedImage, setUploadedImage] = useState(null);
 
   const handleRenderImage = (fileInfo) => {
-    const croppedImageUrl = `${fileInfo.cdnUrl}-/scale_crop/370x209/smart/`;
+    const croppedImageUrl = `${fileInfo.cdnUrl}-/scale_crop/370x210/center/-/enhance/`;
     setUploadedImage(croppedImageUrl);
   };
 
@@ -117,14 +117,15 @@ export default function CreateEvent({ onSubmit, isLoggedIn }) {
           <>
             <Button onClick={() => widgetApi.current.openDialog()}>
               Upload Image
+              <Widget
+                ref={widgetApi}
+                publicKey={
+                  API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"
+                }
+                onChange={handleRenderImage}
+              />
             </Button>
-            <Widget
-              ref={widgetApi}
-              publicKey={
-                API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"
-              }
-              onChange={handleRenderImage}
-            />
+
             <Button size="md" type="submit">
               Create Event
             </Button>
