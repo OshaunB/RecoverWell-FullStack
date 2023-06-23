@@ -27,11 +27,11 @@ module.exports = {
     'no-promise-executor-return': 'off',
     'func-style': 2,
     quotes: 'off',
-    // 'consistent-return': 'off',
+    'consistent-return': 'off',
     'no-alert': 'off',
     camelcase: 'off',
-    'consistent-return': 'off',
     'no-unused-expressions': ["error", { allowTernary: true }],
     'no-unused-vars': ['error', { argsIgnorePattern: '_|(knex)', destructuredArrayIgnorePattern: '^_' }],
+    'no-mixed-operators': 'off', // Turn off the "Expected no linebreak before this expression" rule
   },
 };
