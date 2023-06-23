@@ -10,7 +10,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 export default function UserPosts() {
   const navigate = useNavigate();
-  const { users } = useContext(UserContext)
+  const { users } = useContext(UserContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { id } = useParams();
   const isCurrentUserProfile = currentUser && currentUser.id === Number(id);
@@ -29,10 +29,10 @@ export default function UserPosts() {
     fetchData();
   }, []);
 
-//   bg-red-200
+  //   bg-red-200
 
   return (
-    <div className = "bg-red-200">
+    <div className="bg-red-200">
       {userPosts.length > 0 ? (
         userPosts.map((post) => (
           <RenderPosts
@@ -41,7 +41,9 @@ export default function UserPosts() {
             time={timeDifference(post.created_at)}
             content={post.content}
             likes={post.number_of_likes}
-            icon={postLikes[post.id] ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
+            icon={
+              postLikes[post.id] ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />
+            }
             avatar={users.find((u) => u.id === post.user_id)?.avatar}
           />
         ))

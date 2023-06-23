@@ -1,20 +1,11 @@
-import CurrentUserContext from "../../contexts/current-user-context";
-import { useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { logUserOut } from "../../adapters/auth-adapter";
-import { fetchHandler } from "../../utils";
-
+import { useState } from "react";
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   Typography,
-  Tooltip,
+  Dialog,
+  DialogBody,
 } from "@material-tailwind/react";
-
-import { Dialog, DialogBody } from "@material-tailwind/react";
-import { useState } from "react";
 
 export default function UserHeading(props) {
   const [open, setOpen] = useState(false);
@@ -36,7 +27,7 @@ export default function UserHeading(props) {
           </div>
           <CardBody className="text-center p-3">
             <Typography variant="h4" color="blue-gray" className="mb-2">
-              {"@" + props.username}
+              {`@${props.username}`}
             </Typography>
             <Typography color="blue" className="font-medium" textGradient>
               {props.gender}
