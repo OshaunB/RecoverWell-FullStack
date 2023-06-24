@@ -1,83 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getAllUsers } from "../adapters/user-adapter";
 import UserLink from "../components/UserLink";
+import {fetchHandler} from "../utils"
+import { UserContext } from "../contexts/UserContext.jsx";
+import RenderUsers from "../RenderUsers";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState([]);
+  const { users } = useContext(UserContext);
+  console.log(users)
+  const userProfile= users.avatar
+  const userName = users.username
+  
 
-  useEffect(() => {
-    getAllUsers().then(setUsers);
-  }, []);
+//userData[?] =  will be used to grab the users profile image, as well as their post count. Will also include a condiiton that would change the color of the rating[post count] based off of the amount of posts the user has. This could also be applied in a way that would allow us to sort the users from most helpful to least. A contact button will also be added that allows users to message one another , a hyper link can then be added to the photo so that on click it brings them to the user. Or we could instead have a pop out that displays more information about the users. I think to the table there also should be an implementation that allows users to write a quote that they feel they relate most closely to. This would allow users to interact more closely and have something to actually talk about.
+return (
+  <>
+    {/* component */}
+    <div>
+      {users.map((user) => {
+        const { avatar, username, full_name } = user;
 
-  return (
-    <>
-      <h1>Users</h1>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="container px-6 py-10 mx-auto animate-pulse">
-          <h1 className="w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-
-          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>
-
-          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600"></div>
-
-              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
+        return (
+          <RenderUsers
+            key={username} // Make sure to provide a unique key prop
+            username={username}
+            full_name={full_name}
+            img={avatar}
+          />
+        );
+      })}
+    </div>
+  </>
+)};
