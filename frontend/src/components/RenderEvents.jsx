@@ -40,7 +40,7 @@ export default function RenderEvents(props) {
       <CardHeader floated={false} color="blue-gray">
         <img
           className="h-52 w-full object-cover rounded-t"
-          src={props.img}
+          src={props.img || "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"}
           alt="ui/ux review check"
         />
       </CardHeader>
