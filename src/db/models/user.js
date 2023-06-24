@@ -14,6 +14,7 @@ class User {
     email,
     full_name,
     favorite_quote,
+    bio,
   }) {
     this.id = id;
     this.username = username;
@@ -23,6 +24,7 @@ class User {
     this.gender = gender;
     this.avatar = avatar;
     this.favorite_quote = favorite_quote;
+    this.bio = bio;
     this.#passwordHash = password;
   }
 
@@ -56,11 +58,13 @@ class User {
     gender,
     dob,
     avatar = null,
+    favorite_quote = null,
+    bio = null
   ) {
     const passwordHash = await hashPassword(password);
 
-    const query = `INSERT INTO users (email, username, password, full_name, gender, dob, avatar)
-      VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *`;
+    const query = `INSERT INTO users (email, username, password, full_name, gender, dob, avatar, favorite_quote, bio)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
     const {
       rows: [user],
     } = await knex.raw(query, [
@@ -71,6 +75,8 @@ class User {
       gender,
       dob,
       avatar,
+      favorite_quote,
+      bio,
     ]);
     return new User(user);
   }
