@@ -1,4 +1,3 @@
-import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import { Typography } from "@material-tailwind/react";
 import CommentDrawer from "../CommentDrawer";
@@ -33,12 +32,9 @@ export default function RenderPosts(props) {
             </span>{" "}
             {props.likes}
           </div>
-            <CommentDrawer id={props.post.id}/>
-          </div>
-          <div>
-            <ShareIcon /> Share
-          </div>
+          <CommentDrawer id={props.post.id} />
         </div>
+      </div>
     </div>
   );
 }

@@ -13,6 +13,7 @@ class User {
     avatar,
     email,
     full_name,
+    favorite_quote,
   }) {
     this.id = id;
     this.username = username;
@@ -21,6 +22,7 @@ class User {
     this.email = email;
     this.gender = gender;
     this.avatar = avatar;
+    this.favorite_quote = favorite_quote;
     this.#passwordHash = password;
   }
 
@@ -92,6 +94,19 @@ class User {
         .update({ bio })
         .returning("*");
       return updatedBio ? new User(updatedBio) : null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
+  updateFavoriteQuote = async (quote) => {
+    try {
+      const [updatedQuote] = await knex("users")
+        .where({ id: this.id })
+        .update({ favorite_quote: quote })
+        .returning("*");
+      return updatedQuote ? new User(updatedQuote) : null;
     } catch (err) {
       console.log(err);
       return null;

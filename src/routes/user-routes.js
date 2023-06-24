@@ -17,6 +17,11 @@ Router.patch(
   userController.updateProfilePic
 );
 Router.patch("/users/bio/:id", checkAuthentication, userController.updateBio);
+Router.patch(
+  "/users/quote/:id",
+  checkAuthentication,
+  userController.updateFavoriteQuote
+);
 
 Router.post("/login", userController.login);
 Router.delete("/logout", userController.logout);

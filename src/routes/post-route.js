@@ -14,6 +14,8 @@ Router.get("/posts/:postId", postController.getPostById);
 // Get a post by ID
 Router.get("/dis-posts/:id", postController.getPostsByDiscussionId);
 
+Router.get("/u-posts/:userId", postController.getPostsByUserId);
+
 // Create a new post
 Router.post("/posts", postController.createPost);
 
