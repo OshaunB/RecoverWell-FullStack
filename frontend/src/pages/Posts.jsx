@@ -56,7 +56,6 @@ export default function Posts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-
   const handleLike = useCallback(
     async (post) => {
       const postId = post.id;

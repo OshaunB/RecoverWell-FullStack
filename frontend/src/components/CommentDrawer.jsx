@@ -1,29 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Drawer,
   Button,
   Typography,
   IconButton,
-  Input
 } from "@material-tailwind/react";
-import { XMarkIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
-import CommentCard from "../components/posts/CommentCard.jsx";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import CommentCard from "./posts/CommentCard";
+import { fetchHandler, getPostOptions } from "../utils";
 
-export default function Comment() {
-  const [openBottom, setOpenBottom] = useState(false);
+export default function CommentDrawer(props) {
+  const [openComments, setOpenComments] = useState(false);
+  const openDrawerBottom = () => setOpenComments(true);
+  const closeDrawerBottom = () => setOpenComments(false);
+  const [comments, setComments] = useState([]);
+  const { id } = props;
 
-  const openDrawerBottom = () => setOpenBottom(true);
-  const closeDrawerBottom = () => setOpenBottom(false);
+  useEffect(() => {
+    (async () => {
+      const [data, error] = await fetchHandler(`/api/${id}/comments`);
+      if (error) return console.log(error);
+      console.log(data);
+      setComments(data);
+    })();
+  }, [id]);
 
   return (
     <>
       <div className="flex flex-wrap gap-4">
-        <Button onClick={openDrawerBottom}>Open Drawer Bottom</Button>
+        <div onClick={openDrawerBottom}>Comment</div>
       </div>
       <Drawer
         size={700}
         placement="bottom"
-        open={openBottom}
+        open={openComments}
         onClose={closeDrawerBottom}
       >
         <div className="mb-6 flex items-center justify-between">
@@ -39,14 +49,13 @@ export default function Comment() {
           </IconButton>
         </div>
         <div className="overflow-y-auto h-full">
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
-          <CommentCard time="notime" username="username" comment="comment" />
+          {comments.map((comment) => (
+            <CommentCard
+              key={comment.id}
+              comment={comment.comment}
+              time="coming"
+            />
+          ))}
           <div className="sticky bottom-14 p-4 flex items-center justify-center">
             <input
               type="text"

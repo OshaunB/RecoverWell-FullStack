@@ -1,6 +1,7 @@
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import { Typography } from "@material-tailwind/react";
+import CommentDrawer from "../CommentDrawer";
 
 export default function RenderPosts(props) {
   return (
@@ -32,17 +33,12 @@ export default function RenderPosts(props) {
             </span>{" "}
             {props.likes}
           </div>
-          <div
-            className="cursor-pointer"
-            onClick={() => props.clickComment(props.post)}
-          >
-            <CommentIcon /> Comment
+            <CommentDrawer id={props.post.id}/>
           </div>
           <div>
             <ShareIcon /> Share
           </div>
         </div>
-      </div>
     </div>
   );
 }

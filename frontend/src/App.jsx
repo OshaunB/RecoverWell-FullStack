@@ -15,6 +15,8 @@ import Comment from "./pages/Comment";
 import ProfilePic from "./pages/ProfilePic";
 import Events from "./pages/Events";
 import SingleEvent from "./components/SingleEvent";
+import Test from "./pages/Test.jsx";
+import LoginTest from "./pages/LoginDialog.jsx";
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -38,6 +40,8 @@ export default function App() {
           <Route path="/profile-pic/:id" element={<ProfilePic />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<SingleEvent />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/login-test" element={<LoginTest />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

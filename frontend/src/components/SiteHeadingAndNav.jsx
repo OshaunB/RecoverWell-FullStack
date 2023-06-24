@@ -26,6 +26,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import CurrentUserContext from "../contexts/current-user-context";
+import LoginTest from "../pages/LoginDialog.jsx";
 
 // profile menu component
 const profileMenuItems = [
@@ -169,6 +170,7 @@ const NavList = () => (
 
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -210,9 +212,14 @@ export default function ComplexNavbar() {
         </div>
         <div className="flex items-center ml-auto mr-4">
           {currentUser ? (
-            <ProfileMenu avatar={avatar} signOut={handleSignOut} currentUserId={currentUser.id}/>
+            <ProfileMenu
+              avatar={avatar}
+              signOut={handleSignOut}
+              currentUserId={currentUser.id}
+            />
           ) : (
-            <Link to="/login">Log In</Link>
+            // <Link to="/login">Log In</Link>
+            <LoginTest open={open} setOpen={setOpen} />
           )}
           <IconButton
             size="sm"
