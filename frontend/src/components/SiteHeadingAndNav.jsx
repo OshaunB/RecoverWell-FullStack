@@ -25,6 +25,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 
+import { AvatarContext } from "../contexts/AvatarContext";
 import CurrentUserContext from "../contexts/current-user-context";
 import LoginTest from "../pages/LoginDialog.jsx";
 
@@ -59,7 +60,7 @@ const ProfileMenu = (props) => {
 
   const handleMenuAction = (action) => {
     if (action === "signOut") {
-      props.signOut(); // Call the signOut function passed as a prop
+      props.signOut();
     } else if (action === "editAvatar") {
       navigate(`/profile-pic/${props.currentUserId}`);
     } else if (action === "profile") {
@@ -174,9 +175,7 @@ export default function ComplexNavbar() {
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
+  const { avatar } = useContext(AvatarContext);
 
   useEffect(() => {
     window.addEventListener(
@@ -185,12 +184,6 @@ export default function ComplexNavbar() {
     );
   }, []);
 
-  useEffect(() => {
-    if (currentUser && currentUser.avatar) {
-      setAvatar(currentUser.avatar);
-    }
-  }, [currentUser]);
-
   const handleSignOut = async () => {
     const response = await fetch("/api/logout", {
       method: "DELETE",
@@ -198,6 +191,7 @@ export default function ComplexNavbar() {
     if (response.ok) {
       setCurrentUser(null);
       navigate("/");
+      window.location.reload();
     }
   };
 
@@ -218,7 +212,6 @@ export default function ComplexNavbar() {
               currentUserId={currentUser.id}
             />
           ) : (
-            // <Link to="/login">Log In</Link>
             <LoginTest open={open} setOpen={setOpen} />
           )}
           <IconButton

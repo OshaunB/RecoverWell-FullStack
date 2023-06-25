@@ -1,5 +1,6 @@
 const createJoinEvent = require("./create");
 const deleteJoinEvent = require("./delete");
+const checkForJoinedEvent = require("./check-joined-event");
 const {
   listAllJoinedEvents,
   listJoinedEventsByUserId,
@@ -12,4 +13,5 @@ module.exports = {
   listAllJoinedEvents,
   listJoinedEventsByUserId,
   listJoinedEventsByEventId,
+  checkForJoinedEvent,
 };

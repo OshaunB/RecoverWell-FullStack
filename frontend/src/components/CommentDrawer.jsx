@@ -56,7 +56,7 @@ export default function CommentDrawer(props) {
         </div>
       </div>
       <Drawer
-        size={700}
+        size={"90vh"}
         placement="bottom"
         open={openComments}
         onClose={closeDrawerBottom}

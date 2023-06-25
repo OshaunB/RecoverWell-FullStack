@@ -50,6 +50,19 @@ class User {
     return user ? new User(user) : null;
   }
 
+  static async findByEmail(email) {
+    try {
+      const query = "SELECT * FROM users WHERE email = ?";
+      const {
+        rows: [user],
+      } = await knex.raw(query, [email]);
+      return user ? new User(user) : null;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
   static async create(
     email,
     username,
@@ -141,8 +154,7 @@ class User {
     return updatedUser ? new User(updatedUser) : null;
   };
 
-  isValidPassword = async (password) =>
-    isValidPassword(password, this.#passwordHash);
+  isValidPassword = async (password) => isValidPassword(password, this.#passwordHash);
 }
 
 module.exports = User;

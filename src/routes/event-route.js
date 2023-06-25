@@ -11,4 +11,6 @@ Router.get("/events/:id", eventController.listEventById);
 
 Router.post("/createEvent", eventController.createEvent);
 
+Router.delete("/deleteEvent/:userId/:eventId", eventController.deleteEvent);
+
 module.exports = Router;

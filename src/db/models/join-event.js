@@ -43,6 +43,22 @@ class JoinEvent {
     }
   }
 
+  static async checkForJoined(userId, eventId) {
+    try {
+      const { rows: check } = await knex.raw(
+        `
+          SELECT * FROM join_event
+          WHERE user_id = ? AND event_id = ?
+        `,
+        [userId, eventId],
+      );
+      return !!check.length;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error checking event");
+    }
+  }
+
   static async deleteEvent(userId, eventId) {
     try {
       const deleteQuery = ` 

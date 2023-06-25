@@ -10,7 +10,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Widget } from "@uploadcare/react-widget";
 import API_KEYS from "../../config";
-import ErrorDialog from "./ErrorDialog";
+import MessageDialog from "./MessageDialog";
 
 export default function CreateEvent({ onSubmit, isLoggedIn }) {
   const [open, setOpen] = useState(false);
@@ -133,9 +133,9 @@ export default function CreateEvent({ onSubmit, isLoggedIn }) {
         </form>
       </Drawer>
       {showErrorDialog && (
-        <ErrorDialog
-          errorMessage="You must be logged in to create an event"
-          setErrorMessage={() => setShowErrorDialog(false)}
+        <MessageDialog
+          message="You must be logged in to create an event"
+          setMessage={() => setShowErrorDialog(false)}
           title="Authentication Required"
         />
       )}
