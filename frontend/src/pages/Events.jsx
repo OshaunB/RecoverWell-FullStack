@@ -2,25 +2,33 @@ import { useState, useContext } from "react";
 import { Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import RenderEvents from "../components/RenderEvents";
-import { getPostOptions, fetchHandler, dateFormat, timeFormat } from "../utils";
+import {
+  getPostOptions,
+  fetchHandler,
+  dateFormat,
+  timeFormat,
+  validateDate,
+} from "../utils";
 import SearchInput from "../components/SearchInput";
 import CreateEvent from "../components/CreateEvent";
-import ErrorDialog from "../components/ErrorDialog";
+import MessageDialog from "../components/MessageDialog";
 import { EventContext } from "../contexts/EventContext";
 
 export default function Events() {
   const {
     events,
     setEvents,
-    errorMessage,
-    setErrorMessage,
+    message,
+    setMessage,
     isLoggedIn,
     handleMap,
-    setUserJoined,
+    title,
+    setTitle,
+    rsvpEvent,
+    handleRSVP,
   } = useContext(EventContext);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  const [rsvpEvent, setRSVPEvent] = useState(0);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -52,6 +60,13 @@ export default function Events() {
       image: uploadedImage,
     };
 
+    if (!validateDate(obj.date)) {
+      console.log("hi");
+      setTitle("Invalid Date");
+      setMessage("Please select a future date");
+      return;
+    }
+
     const [data, error] = await fetchHandler(
       "/api/createEvent",
       getPostOptions(obj)
@@ -62,35 +77,13 @@ export default function Events() {
     closeDrawer();
   };
 
-  const handleRSVP = async (eventId) => {
+  const handleInfo = (eventId) => {
     if (!isLoggedIn) {
-      setErrorMessage("You must be logged in to RSVP");
+      setTitle("Authentication Required");
+      setMessage("You must be signed in to view this event");
       return;
     }
-
-    const event = events.find((e) => e.id === eventId);
-    if (event && event.expected_guests - event.joinedEvents === 0) {
-      setErrorMessage("No available slots for this event");
-      return;
-    }
-
-    const [data, error] = await fetchHandler(
-      "/api/c-join-event",
-      getPostOptions({ eventId })
-    );
-    if (error) return console.log(error);
-    if (data === "User already joined event") {
-      setErrorMessage("You've already reserved this event");
-      return;
-    }
-    if (data === "Host cannot join their own event") {
-      setErrorMessage("You're the host, so you can't RSVP");
-      return;
-    }
-
-    // Update the userJoined state
-    setUserJoined((prevUserJoined) => [...prevUserJoined, eventId]);
-    setRSVPEvent((prevRSVPEvent) => prevRSVPEvent + 1);
+    navigate(`/events/${eventId}`);
   };
 
   return (
@@ -103,11 +96,11 @@ export default function Events() {
       >
         Events
       </Typography>
-      {errorMessage && (
-        <ErrorDialog
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
-          title={"Sorry, cannot join event"}
+      {message && (
+        <MessageDialog
+          message={message}
+          setMessage={setMessage}
+          title={title}
         />
       )}
       <div className="flex justify-around items-center p-5">
@@ -132,7 +125,7 @@ export default function Events() {
             id={event.id}
             onRSVP={() => handleRSVP(event.id)}
             map={() => handleMap(event)}
-            info={() => navigate(`/events/${event.id}`)}
+            info={() => handleInfo(event.id)}
             rsvpEvent={rsvpEvent}
           />
         ))}
