@@ -5,12 +5,12 @@ import { fetchHandler } from "../utils";
 import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
 import { motion } from "framer-motion";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function UsersPage() {
+  const navigate = useNavigate();
   const { users } = useContext(UserContext);
   console.log(users);
-  const userProfile = users.avatar;
-  const userName = users.username;
 
   const cardVariants = {
     initial: {
@@ -28,10 +28,10 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="container mt-8 mx-auto max-w-screen-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
         {users.map((user) => {
-          const { avatar, username, full_name, gender, age, favorite_quote} = user;
+          const { avatar, username, full_name, gender, age, favorite_quote, email } = user;
 
           return (
             <motion.div
@@ -46,7 +46,9 @@ export default function UsersPage() {
                 img={avatar}
                 gender={gender}
                 age={age}
-                favorite_quote= {favorite_quote}
+                favorite_quote={favorite_quote}
+                email={email}
+                onClick={() => navigate(`/users/${user.id}`)}
               />
             </motion.div>
           );
@@ -55,5 +57,3 @@ export default function UsersPage() {
     </div>
   );
 }
-
-//userData[?] =  will be used to grab the users profile image, as well as their post count. Will also include a condiiton that would change the color of the rating[post count] based off of the amount of posts the user has. This could also be applied in a way that would allow us to sort the users from most helpful to least. A contact button will also be added that allows users to message one another , a hyper link can then be added to the photo so that on click it brings them to the user. Or we could instead have a pop out that displays more information about the users. I think to the table there also should be an implementation that allows users to write a quote that they feel they relate most closely to. This would allow users to interact more closely and have something to actually talk about.

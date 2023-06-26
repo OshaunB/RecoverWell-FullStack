@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-meadow py-6 text-center">
+    <footer className="bg-palette-default py-6 text-center">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
         <Typography color="blue-gray" className="font-normal mb-4 md:mb-0">
           &copy; 2023 RecoverWell
