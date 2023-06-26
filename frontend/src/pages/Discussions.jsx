@@ -1,6 +1,6 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
 import DiscussionCard from "../components/discussion/DiscussionCard";
 import { fetchHandler, getPostOptions } from "../utils";
 import SearchInput from "../components/SearchInput";
@@ -66,13 +66,22 @@ export default function Discussions() {
   };
 
   return (
-    <div>
+    <div className="w-full px-5">
       <div className="text-center text-red-600">{error}</div>
-      <h1 className="flex justify-center font-bold text-2xl">
-        RecoverWell Discussions
-      </h1>
-      <div className="flex justify-around items-center">
-        <SearchInput onChange={handleSearch} value={searchTerm} innerText="Search Discussion Groups"/>
+      <Typography
+        className="text-center p-5"
+        variant="h1"
+        color="blue"
+        textGradient
+      >
+        RecoverWell Discussion Groups
+      </Typography>
+      <div className="flex justify-around items-center mb-5">
+        <SearchInput
+          onChange={handleSearch}
+          value={searchTerm}
+          innerText="Search Discussion Groups"
+        />
         <CreateDiscussion
           error={error}
           setError={setError}
@@ -83,15 +92,17 @@ export default function Discussions() {
         />
       </div>
 
-      {filteredCards.map((discussion) => (
-        <DiscussionCard
-          key={discussion.id}
-          topic={discussion.topic}
-          description={discussion.description}
-          onClick={() => handleNavigate(discussion.id)}
-          discussionId={discussion.id}
-        />
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredCards.map((discussion) => (
+          <DiscussionCard
+            key={discussion.id}
+            topic={discussion.topic}
+            description={discussion.description}
+            onClick={() => handleNavigate(discussion.id)}
+            discussionId={discussion.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export default function UsersPage() {
               animate="animate"
             >
               <RenderUsers
-                username={username}
+                username={`@${username}`}
                 full_name={full_name}
                 img={avatar}
                 gender={gender}

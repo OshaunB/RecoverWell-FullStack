@@ -1,27 +1,23 @@
-import React from "react";
 import CountUp from "react-countup";
 import VisibilitySensor from "react-visibility-sensor";
-import {fetchHandler} from "../../utils"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useNavigate, Navigate, Link } from "react-router-dom";
+import { fetchHandler } from "../../utils";
 
-export default function Landingpage(){
+export default function Landingpage() {
   const [userCount, setUserCount] = useState(0);
   const [postCount, setPostCount] = useState(0);
   const [eventCount, setEventCount] = useState(0);
-  const [discussionCount, setDiscussionCount] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const [userData, userError] = await fetchHandler(`/api/users`);
-      const [postData, postError] = await fetchHandler(`/api/posts`);
-      const [eventData,eventError] = await fetchHandler(`/api/events`);
-      const [discussionData, discussionError] = await fetchHandler(`/api/discussions`)
+      const [userData] = await fetchHandler(`/api/users`);
+      const [postData] = await fetchHandler(`/api/posts`);
+      const [eventData] = await fetchHandler(`/api/events`);
       setUserCount(userData.length);
       setPostCount(postData.length);
       setEventCount(eventData.length);
-      setDiscussionCount(discussionData.length);
-    }
+    };
 
     fetchUser();
   }, [])
@@ -64,7 +60,7 @@ export default function Landingpage(){
                 <h2 className="title-font font-medium sm:text-5xl text-3xl text-palette-default">
                   <CountUp end={postCount} redraw={true}>
                     {({ countUpRef, start }) => (
-                      <VisibilitySensor onChange={start} delayedCall>
+                      <VisibilitySensor onScroll={start} delayedCall>
                         <span ref={countUpRef} />
                       </VisibilitySensor>
                     )}
@@ -99,48 +95,6 @@ export default function Landingpage(){
             </div>
           </div>
         </section>
-        {/* <section className="text-gray-600 body-font bg-slate-900">
-          <div className="container px-5 py-10 mx-auto">
-            <div className="flex flex-wrap -m-4 text-center">
-              <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-5xl text-3xl text-white">
-                  <CountUp end={discussionCount} redraw={true}>
-                    {({ countUpRef, start }) => (
-                      <VisibilitySensor onChange={start} delayedCall>
-                        <span ref={countUpRef} />
-                      </VisibilitySensor>
-                    )}
-                  </CountUp>
-                </h2>
-                <p className="leading-relaxed">Discussion Count</p>
-              </div>
-              <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-5xl text-3xl text-white">
-                  <CountUp end={740} redraw={true}>
-                    {({ countUpRef, start }) => (
-                      <VisibilitySensor onChange={start} delayedCall>
-                        <span ref={countUpRef} />
-                      </VisibilitySensor>
-                    )}
-                  </CountUp>
-                </h2>
-                <p className="leading-relaxed">Events</p>
-              </div>
-              <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  <CountUp end={315} redraw={true}>
-                    {({ countUpRef, start }) => (
-                      <VisibilitySensor onChange={start} delayedCall>
-                        <span ref={countUpRef} />
-                      </VisibilitySensor>
-                    )}
-                  </CountUp>
-                </h2>
-                <p className="leading-relaxed">Downloads</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
       </section>
       
 <div className="container pt-32 mx-auto lg:px-4 lg:py-4 bg-palette-default">

@@ -7,18 +7,18 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export default function ErrorDialog(props) {
+export default function MessageDialog(props) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (props.errorMessage) {
+    if (props.message) {
       setOpen(true);
     }
-  }, [props.errorMessage]);
+  }, [props.message]);
 
   const handleOpen = () => {
     setOpen(!open);
-    props.setErrorMessage("");
+    props.setMessage("");
   };
 
   return (
@@ -32,7 +32,7 @@ export default function ErrorDialog(props) {
         }}
       >
         <DialogHeader>{props.title}</DialogHeader>
-        <DialogBody divider>{props.errorMessage}</DialogBody>
+        <DialogBody divider><span className="font-bold">{props.message}</span></DialogBody>
         <DialogFooter>
           <Button
             variant="text"
@@ -40,7 +40,7 @@ export default function ErrorDialog(props) {
             onClick={handleOpen}
             className="mr-1"
           >
-            <span onClick={handleOpen}>Cancel</span>
+            <span onClick={handleOpen}>Close</span>
           </Button>
         </DialogFooter>
       </Dialog>
