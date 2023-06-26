@@ -41,6 +41,11 @@ export const findUserName = (users, userId) => {
   return user ? user.username : "";
 };
 
+export const findUserById = (users, userId) => {
+  const user = users.find((u) => u.id === userId);
+  return user;
+};
+
 export const timeDifference = (createdTime) => {
   const diff = new Date().getTime() - new Date(createdTime).getTime();
   const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -79,4 +84,10 @@ export const timeFormat = (timeString) => {
   formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
   return formattedTime;
+};
+
+export const validateDate = (date) => {
+  const newDate = new Date(date).toLocaleDateString();
+  const dateNow = new Date().toLocaleDateString();
+  return newDate < dateNow;
 };

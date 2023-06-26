@@ -13,6 +13,8 @@ Router.get("/e-join-event/:eventId", joinEventController.listJoinedEventsByEvent
 
 Router.get("/u-join-event/:userId", joinEventController.listJoinedEventsByUserId);
 
-Router.delete("/d-join-event", joinEventController.deleteJoinEvent);
+Router.get("/check-joined-event/:eventId", joinEventController.checkForJoinedEvent);
+
+Router.delete("/cancel-join-event/:userId/:eventId", joinEventController.deleteJoinEvent);
 
 module.exports = Router;

@@ -13,6 +13,7 @@ class User {
     avatar,
     email,
     full_name,
+    favorite_quote,
     bio,
   }) {
     this.id = id;
@@ -22,8 +23,9 @@ class User {
     this.email = email;
     this.gender = gender;
     this.avatar = avatar;
-    this.#passwordHash = password;
+    this.favorite_quote = favorite_quote;
     this.bio = bio;
+    this.#passwordHash = password;
   }
 
   static async list() {
@@ -48,6 +50,19 @@ class User {
     return user ? new User(user) : null;
   }
 
+  static async findByEmail(email) {
+    try {
+      const query = "SELECT * FROM users WHERE email = ?";
+      const {
+        rows: [user],
+      } = await knex.raw(query, [email]);
+      return user ? new User(user) : null;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
   static async create(
     email,
     username,
@@ -56,11 +71,13 @@ class User {
     gender,
     dob,
     avatar = null,
+    favorite_quote = null,
+    bio = null
   ) {
     const passwordHash = await hashPassword(password);
 
-    const query = `INSERT INTO users (email, username, password, full_name, gender, dob, avatar)
-      VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *`;
+    const query = `INSERT INTO users (email, username, password, full_name, gender, dob, avatar, favorite_quote, bio)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
     const {
       rows: [user],
     } = await knex.raw(query, [
@@ -71,6 +88,8 @@ class User {
       gender,
       dob,
       avatar,
+      favorite_quote,
+      bio,
     ]);
     return new User(user);
   }
@@ -100,6 +119,19 @@ class User {
     }
   };
 
+  updateFavoriteQuote = async (quote) => {
+    try {
+      const [updatedQuote] = await knex("users")
+        .where({ id: this.id })
+        .update({ favorite_quote: quote })
+        .returning("*");
+      return updatedQuote ? new User(updatedQuote) : null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
   updateProfilePic = async (profilePic) => {
     try {
       const [updatedUser] = await knex("users")
@@ -122,8 +154,7 @@ class User {
     return updatedUser ? new User(updatedUser) : null;
   };
 
-  isValidPassword = async (password) =>
-    isValidPassword(password, this.#passwordHash);
+  isValidPassword = async (password) => isValidPassword(password, this.#passwordHash);
 }
 
 module.exports = User;

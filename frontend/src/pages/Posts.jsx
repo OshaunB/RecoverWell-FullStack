@@ -56,7 +56,6 @@ export default function Posts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-
   const handleLike = useCallback(
     async (post) => {
       const postId = post.id;
@@ -91,7 +90,7 @@ export default function Posts() {
   if (!currentUser) return <p>Log in to see this information</p>;
 
   return (
-    <div>
+    <div className="h-content">
       <h1 className="flex justify-center font-bold text-3xl">{topic}</h1>
       <CreatePost setPosts={setPosts} />
       {posts.map((post) => (

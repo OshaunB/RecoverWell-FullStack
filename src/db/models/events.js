@@ -58,6 +58,19 @@ class Event {
       throw new Error(`Error getting event with ID ${id}`);
     }
   }
+
+  static async deleteEvent(userId, eventId) {
+    try {
+      const deleteFromEvents = "DELETE FROM events WHERE id = ? AND user_id = ?";
+      const deleteFromJoinEvent = "DELETE FROM join_event WHERE event_id = ?";
+      await knex.raw(deleteFromEvents, [eventId, userId]);
+      await knex.raw(deleteFromJoinEvent, [eventId]);
+      return "event deleted";
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error deleting event");
+    }
+  }
 }
 
 module.exports = Event;

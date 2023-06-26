@@ -1,14 +1,15 @@
 const { isAuthorized } = require("../../utils/auth-utils");
 
-const deleteJoinEvent = async (req, res) => {
+const deleteEvent = async (req, res) => {
   try {
     const {
       session,
-      db: { JoinEvent },
+      db: { Event },
       params: { userId, eventId },
     } = req;
+
     if (!isAuthorized(userId, session)) return res.sendStatus(403);
-    const del = await JoinEvent.deleteEvent(session.userId, eventId);
+    const del = await Event.deleteEvent(session.userId, eventId);
     res.status(201).json(del);
   } catch (error) {
     console.error(error);
@@ -16,4 +17,4 @@ const deleteJoinEvent = async (req, res) => {
   }
 };
 
-module.exports = deleteJoinEvent;
+module.exports = deleteEvent;

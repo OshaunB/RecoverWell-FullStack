@@ -25,7 +25,9 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 
+import { AvatarContext } from "../contexts/AvatarContext";
 import CurrentUserContext from "../contexts/current-user-context";
+import LoginTest from "../pages/LoginDialog.jsx";
 
 // profile menu component
 const profileMenuItems = [
@@ -58,7 +60,7 @@ const ProfileMenu = (props) => {
 
   const handleMenuAction = (action) => {
     if (action === "signOut") {
-      props.signOut(); // Call the signOut function passed as a prop
+      props.signOut();
     } else if (action === "editAvatar") {
       navigate(`/profile-pic/${props.currentUserId}`);
     } else if (action === "profile") {
@@ -169,12 +171,11 @@ const NavList = () => (
 
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
+  const { avatar } = useContext(AvatarContext);
 
   useEffect(() => {
     window.addEventListener(
@@ -183,12 +184,6 @@ export default function ComplexNavbar() {
     );
   }, []);
 
-  useEffect(() => {
-    if (currentUser && currentUser.avatar) {
-      setAvatar(currentUser.avatar);
-    }
-  }, [currentUser]);
-
   const handleSignOut = async () => {
     const response = await fetch("/api/logout", {
       method: "DELETE",
@@ -196,11 +191,12 @@ export default function ComplexNavbar() {
     if (response.ok) {
       setCurrentUser(null);
       navigate("/");
+      window.location.reload();
     }
   };
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 bg-blue-500">
+    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 bg-palette-aqua">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           RecoverWell
@@ -210,9 +206,13 @@ export default function ComplexNavbar() {
         </div>
         <div className="flex items-center ml-auto mr-4">
           {currentUser ? (
-            <ProfileMenu avatar={avatar} signOut={handleSignOut} currentUserId={currentUser.id}/>
+            <ProfileMenu
+              avatar={avatar}
+              signOut={handleSignOut}
+              currentUserId={currentUser.id}
+            />
           ) : (
-            <Link to="/login">Log In</Link>
+            <LoginTest open={open} setOpen={setOpen} />
           )}
           <IconButton
             size="sm"

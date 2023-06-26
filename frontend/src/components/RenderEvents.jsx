@@ -32,19 +32,24 @@ export default function RenderEvents(props) {
     return user ? user.avatar : "";
   };
 
-
   const availableSlots = props.maxAttendees - joinedEvents.length;
 
   return (
-    <Card key={`${props.id}-${props.rsvpEvent}`} className="rounded-lg w-full max-w-[26rem] shadow-2xl">
+    <Card
+      key={`${props.id}-${props.rsvpEvent}`}
+      className="rounded-lg w-full max-w-[26rem] shadow-2xl mb-5"
+    >
       <CardHeader floated={false} color="blue-gray">
         <img
           className="h-52 w-full object-cover rounded-t"
-          src={props.img}
+          src={
+            props.img
+            || "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"
+          }
           alt="ui/ux review check"
         />
       </CardHeader>
-      <CardBody>
+      <CardBody className="px-6 pb-0">
         <div className="mb-3 flex items-center justify-between">
           <Typography variant="h5" color="blue-gray" className="font-medium">
             {props.title}
@@ -57,9 +62,9 @@ export default function RenderEvents(props) {
           </Typography>
         </div>
         <Typography variant="lead">{props.description}</Typography>
-        <Typography variant="lead">Date: {props.date}</Typography>
-        <Typography variant="lead">Time: {props.time}</Typography>
-        <Typography variant="lead">Address: {props.address}</Typography>
+        <Typography variant="lead"><span className="font-bold">Date:</span> {props.date}</Typography>
+        <Typography variant="lead"><span className="font-bold">Time:</span> {props.time}</Typography>
+        <Typography variant="lead"><span className="font-bold">Address:</span> {props.address}</Typography>
         <div className="flex items-center -space-x-3">
           {joinedEvents.map((event) => (
             <EventUserAvatar

@@ -36,15 +36,28 @@ class Post {
     } catch (error) {
       console.error(error);
       throw new Error(
-        `Error getting posts for discussion with ID ${discussionId}`,
+        `Error getting posts for discussion with ID ${discussionId}`
       );
+    }
+  }
+
+  static async getPostsByUserId(userId) {
+    try {
+      const query = "SELECT * FROM posts WHERE user_id = ?";
+      const { rows } = await knex.raw(query, [userId]);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Error getting posts for userId with ID ${userId}`);
     }
   }
 
   static async getPostById(postId) {
     try {
       const query = "SELECT * FROM posts WHERE id = ?";
-      const { rows: [post] } = await knex.raw(query, [postId]);
+      const {
+        rows: [post],
+      } = await knex.raw(query, [postId]);
       return post;
     } catch (error) {
       console.error(error);
