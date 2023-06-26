@@ -5,6 +5,8 @@ const Post = require("../db/models/post");
 const Like = require("../db/models/post-like");
 const Event = require("../db/models/events");
 const JoinEvent = require("../db/models/join-event");
+const Conversation = require("../db/models/conversation");
+const Message = require("../db/models/message");
 
 const addModels = (req, res, next) => {
   req.db = {
@@ -15,6 +17,8 @@ const addModels = (req, res, next) => {
     Like,
     Event,
     JoinEvent,
+    Conversation,
+    Message,
   };
   next();
 };

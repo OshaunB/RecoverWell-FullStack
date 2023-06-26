@@ -1,4 +1,3 @@
-import ShareIcon from "@mui/icons-material/Share";
 import { Typography } from "@material-tailwind/react";
 import CommentDrawer from "../CommentDrawer";
 
@@ -9,6 +8,7 @@ export default function RenderPosts(props) {
         <div className="flex items-center mb-4">
           <img
             src={
+              // eslint-disable-next-line operator-linebreak
               props.avatar ||
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             }
