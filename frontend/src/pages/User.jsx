@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import UserHeading from "../components/profile/UserHeading";
 import { fetchHandler } from "../utils";
 import UserEvents from "../components/profile/UserEvents";
+import UserAbout from "../components/profile/UserAbout";
 
 export default function UserPage() {
   const [userProfile, setUserProfile] = useState({});
@@ -60,7 +61,7 @@ export default function UserPage() {
   }, [id]);
 
   if (errorText) return <p>{errorText}</p>;
-
+  // console.log(eventData)
   return (
     <>
       {/* <h1>{profileUsername}</h1> */}
@@ -68,7 +69,9 @@ export default function UserPage() {
         avatar={avatar}
         username={userProfile.username}
         gender={userProfile.gender}
+        age ={userProfile.dob}
       />
+      <UserAbout userProfile={userProfile}/>
 
       {eventData.length > 0 ? (
         <>
@@ -82,6 +85,8 @@ export default function UserPage() {
               eventname={event.name}
               eventDescription={event.description}
               eventImage={event.image}
+              eventTime={event.time}
+              eventDate={event.date}
             />
           ))}
         </>
