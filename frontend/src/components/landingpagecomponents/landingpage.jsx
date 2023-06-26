@@ -28,12 +28,12 @@ export default function Landingpage(){
     return(
         <>
         
-      <section className="bg-" >
+      <section className="bg-palette-default" >
   <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12  ">
     <div className="mr-auto place-self-center lg:col-span-7">
-      <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-slate-900">Recovery is a community effort</h1>
-      <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Come find your groove , and recover quickly today.</p>
-      <a href="#" className="inline-flex items-center justify-center px-5 py-3 mr-3 text-blue-900 font-medium text-center text-white rounded-lg bg-neutral-50 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" >
+      <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-white">Recovery is a community effort</h1>
+      <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl text-white">Come find your groove , and recover quickly today.</p>
+      <a href="#" className="inline-flex items-center justify-center px-5 py-3 mr-3 text-blue-900 font-medium text-center text-white rounded-lg bg-hues-600 hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" >
       <Link
           to="/sign-up"
         >
@@ -44,7 +44,7 @@ export default function Landingpage(){
           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
         </svg>
       </a>
-      <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+      <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-palette-teal rounded-lg hover: focus:ring-4 focus:ring-palette-aqua dark:text-white dark:border-palette-aqua hover:bg-meadow-500 bg-hues-600 ">
       <Link to="/Events">
          View Our Events  
       </Link>
@@ -56,12 +56,12 @@ export default function Landingpage(){
     </div>
   </div>
 </section>
-<section className="text-gray-600 body-font bg-meadow">
+<section className="text-gray-600 body-font bg-palette-grey">
         <section className="text-gray-600 body-font bg-slate-900">
           <div className="container px-5 py-10 mx-auto">
             <div className="flex flex-wrap -m-4 text-center">
               <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-5xl text-3xl text-white">
+                <h2 className="title-font font-medium sm:text-5xl text-3xl text-palette-default">
                   <CountUp end={postCount} redraw={true}>
                     {({ countUpRef, start }) => (
                       <VisibilitySensor onChange={start} delayedCall>
@@ -73,7 +73,7 @@ export default function Landingpage(){
                 <p className="leading-relaxed">Posts</p>
               </div>
               <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-5xl text-3xl text-white">
+                <h2 className="title-font font-medium sm:text-5xl text-3xl text-palette-default">
                   <CountUp end={userCount} redraw={true}>
                     {({ countUpRef, start }) => (
                       <VisibilitySensor onChange={start} delayedCall>
@@ -85,7 +85,7 @@ export default function Landingpage(){
                 <p className="leading-relaxed">Users</p>
               </div>
               <div className="p-4 sm:w-1/3 w-1/2">
-                <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
+                <h2 className="title-font font-medium sm:text-5xl text-3xl text-palette-default">
                   <CountUp end={(eventCount)} redraw={true}>
                     {({ countUpRef, start }) => (
                       <VisibilitySensor onChange={start} delayedCall>
@@ -143,15 +143,15 @@ export default function Landingpage(){
         </section> */}
       </section>
       
-<div className="container px-5 pt-32 mx-auto lg:px-4 lg:py-4 bg-black">
-        <div className="flex flex-col w-full mb-2 text-left md:text-center bg-black">
-          <h1 className="mb-2 text-6xl font-bold tracking-tighter text-white lg:text-8xl md:text-7xl bg-black">
+<div className="container pt-32 mx-auto lg:px-4 lg:py-4 bg-palette-default">
+        <div className="flex flex-col w-full mb-2 text-left md:text-center bg-palette-default">
+          <h1 className="mb-2 text-6xl font-bold tracking-tighter text-white lg:text-8xl md:text-7xl bg-palette-default">
             <span>Let us Join you </span>
-            <br className="hidden lg:block bg-black" />
+            <br className="hidden lg:block bg-palette-default" />
             On Your Journey
           </h1>
           <br />
-          <p className="mx-auto text-xl font-normal leading-relaxed text-gray-600 dark:text-gray-300 lg:w-2/3 ">
+          <p className="mx-auto text-xl font-normal leading-relaxed text-white text-palette-white lg:w-2/3 ">
             As we Recover , it is our duty to help ourseleves{" "}
           
             in all ways that we can 
@@ -161,28 +161,28 @@ export default function Landingpage(){
 
 <section className="bg-white dark:bg-gray-800">
   <div className="py-12 lg:py-20 mx-auto max-w-screen-xl px-4">
-    <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">In the battle against addiction, a strong community acts as a lifeline, offering support, understanding, and the belief that together we can overcome any obstacle.</h2>
+    <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 text-palette-default md:text-4xl">In the battle against addiction, a strong community acts as a lifeline, offering support, understanding, and the belief that together we can overcome any obstacle.</h2>
     <div className="grid gap-8 lg:grid-cols-3">
       <div className="flex flex-col items-center">
         <svg className="w-12 h-12 mb-4 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {/* SVG code for Marketing icon */}
         </svg>
-        <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white">Community</h3>
-        <p className="mt-2 text-base text-center text-gray-500 dark:text-gray-400">"The strength of recovery lies not only within the individual but also in the bonds forged within a community. It is in this shared journey that we find the courage to heal, the resilience to persevere, and the joy of rebuilding lives."</p>
+        <h3 className="text-xl font-bold text-center text-palette-default">Community</h3>
+        <p className="mt-2 text-base text-center text-palette-default">"The strength of recovery lies not only within the individual but also in the bonds forged within a community. It is in this shared journey that we find the courage to heal, the resilience to persevere, and the joy of rebuilding lives."</p>
       </div>
       <div className="flex flex-col items-center">
         <svg className="w-12 h-12 mb-4 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {/* SVG code for Marketing icon */}
         </svg>
-        <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white">Motivation</h3>
-        <p className="mt-2 text-base text-center text-gray-500 dark:text-gray-400">When motivation ignites the spark within, it becomes the driving force behind remarkable transformations and monumental progress. It propels individuals beyond their perceived limitations, pushing them to strive for greatness and reach unprecedented heights. </p>
+        <h3 className="text-xl font-bold text-center text-palette-default">Motivation</h3>
+        <p className="mt-2 text-base text-center text-palette-default">When motivation ignites the spark within, it becomes the driving force behind remarkable transformations and monumental progress. It propels individuals beyond their perceived limitations, pushing them to strive for greatness and reach unprecedented heights. </p>
       </div>
       <div className="flex flex-col items-center">
         <svg className="w-12 h-12 mb-4 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {/* SVG code for Marketing icon */}
         </svg>
-        <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white">Support</h3>
-        <p className="mt-2 text-base text-center text-gray-500 dark:text-gray-400">"In the tapestry of recovery, support weaves threads of strength, hope, and healing, guiding individuals towards a future adorned with triumph and renewed purpose."</p>
+        <h3 className="text-xl font-bold text-center text-palette-default">Support</h3>
+        <p className="mt-2 text-base text-center text-palette-default">"In the tapestry of recovery, support weaves threads of strength, hope, and healing, guiding individuals towards a future adorned with triumph and renewed purpose."</p>
       </div>
       
       {/* Repeat for other business teams */}

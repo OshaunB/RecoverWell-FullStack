@@ -44,6 +44,14 @@ module.exports = withMT({
           900: '#000000',
           950: '#000000'
         },
+        'palette': {
+          default : '#2b6777',
+          teal: '#c8d8e4',
+          white: '#ffffff',
+          grey: '#f2f2f2',
+          aqua: '#52ab98',
+          pink:'#ed7966'
+        }
       },
     },
     fontFamily: {

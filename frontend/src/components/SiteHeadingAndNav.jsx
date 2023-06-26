@@ -202,7 +202,7 @@ export default function ComplexNavbar() {
   };
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 bg-blue-900">
+    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 bg-palette-aqua">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           RecoverWell

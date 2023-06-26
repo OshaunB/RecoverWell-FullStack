@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function RenderUsers(props) {
-  const { username, full_name, img, gender, email } = props;
+  const { username, full_name, img, gender, email,favorite_quote } = props;
   const defaultImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -72,7 +72,7 @@ export default function RenderUsers(props) {
           Gender: {gender}
         </Typography>
         <Typography variant="body2" color="blue-gray">
-          Favorite Quote: 
+          Favorite Quote: {favorite_quote}
           <br/>
         <div>
         
