@@ -89,5 +89,5 @@ export const timeFormat = (timeString) => {
 export const validateDate = (date) => {
   const newDate = new Date(date).toLocaleDateString();
   const dateNow = new Date().toLocaleDateString();
-  return newDate < dateNow;
+  return newDate > dateNow;
 };
