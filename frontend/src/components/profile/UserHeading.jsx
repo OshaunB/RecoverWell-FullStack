@@ -11,6 +11,23 @@ export default function UserHeading(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
+  function calculateAge(dateString) {
+    var currentDate = new Date();
+    var birthDate = new Date(dateString);
+    var age = currentDate.getUTCFullYear() - birthDate.getUTCFullYear();
+  
+    // Check if the current date has passed the birthdate in the current year
+    if (
+      currentDate.getUTCMonth() < birthDate.getUTCMonth() ||
+      (currentDate.getUTCMonth() === birthDate.getUTCMonth() &&
+        currentDate.getUTCDate() < birthDate.getUTCDate())
+    ) {
+      age--; // Subtract 1 from the age if the birthday hasn't occurred yet
+    }
+  
+    return age;
+  }
+  
   return (
     <div className="flex justify-center mb-6 mt-2">
       <div className="flex w-full">
@@ -31,6 +48,9 @@ export default function UserHeading(props) {
             </Typography>
             <Typography color="blue" className="font-medium" textGradient>
               {props.gender}
+            </Typography>
+            <Typography color="blue" className="font-medium" textGradient>
+              {calculateAge(props.age)}
             </Typography>
           </CardBody>
         </Card>

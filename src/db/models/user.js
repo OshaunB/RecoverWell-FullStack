@@ -13,6 +13,7 @@ class User {
     avatar,
     email,
     full_name,
+    bio,
   }) {
     this.id = id;
     this.username = username;
@@ -22,6 +23,7 @@ class User {
     this.gender = gender;
     this.avatar = avatar;
     this.#passwordHash = password;
+    this.bio = bio;
   }
 
   static async list() {
