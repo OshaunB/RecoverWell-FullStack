@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@material-tailwind/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostOptions, fetchHandler } from "../../utils";
 
