@@ -26,11 +26,11 @@ export default function RenderPosts(props) {
           {props.content}
         </Typography>
         <div className="flex justify-around">
-          <div>
-            <span onClick={() => props.clickLike(props.post)}>
-              {props.icon}
-            </span>{" "}
-            {props.likes}
+          <div
+            className="cursor-pointer"
+            onClick={() => props.clickLike(props.post)}
+          >
+            <span>{props.icon}</span> {props.likes}
           </div>
           <CommentDrawer id={props.post.id} />
         </div>

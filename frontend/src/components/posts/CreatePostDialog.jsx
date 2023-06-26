@@ -11,32 +11,25 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function CreateDiscussion({
   onSubmit,
-  setError,
   open,
   setOpen,
-  currentUser,
 }) {
   const handleOpen = () => {
-    if (!currentUser) {
-      setError("You must be logged in to create a discussion");
-    } else {
-      setOpen(!open);
-    }
+    setOpen(!open);
   };
 
   return (
     <>
-      <Button onClick={handleOpen}>Create Discussion</Button>
+      <Button onClick={handleOpen}>Create Post</Button>
       <Dialog open={open} onClose={handleOpen}>
         <div className="flex items-center justify-between">
-          <DialogHeader>Create Discussion Group</DialogHeader>
+          <DialogHeader>Create Post</DialogHeader>
           <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
         </div>
         <form onSubmit={onSubmit}>
           <DialogBody divider>
             <div className="grid gap-6">
-              <Input label="Topic" id="topic" />
-              <Textarea label="Description" id="description" />
+              <Textarea label="Content" id="content" />
             </div>
           </DialogBody>
           <DialogFooter className="space-x-2">

@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CurrentUserContext from "../contexts/current-user-context";
+import DiscussionCard from "../components/discussion/DiscussionCard";
 
 import {
   getPostOptions,
@@ -13,41 +14,37 @@ import {
   timeDifference,
 } from "../utils";
 import RenderPosts from "../components/posts/RenderPosts";
-import CreatePost from "../components/posts/CreatePost";
 import { UserContext } from "../contexts/UserContext";
+import CreatePostDialog from "../components/posts/CreatePostDialog";
 
 export default function Posts() {
   const navigate = useNavigate();
   const { users } = useContext(UserContext);
   const { currentUser } = useContext(CurrentUserContext);
   const { id } = useParams();
-  const [topic, setTopic] = useState("");
+  const [discussion, setDiscussion] = useState({});
   const [posts, setPosts] = useState([]);
   const [postLikes, setPostLikes] = useState({});
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!currentUser) return;
       const [data, error] = await fetchHandler(`/api/discussions/${id}`);
       if (error) return console.log(error);
-      setTopic(data.topic);
-
+      setDiscussion(data);
       const [postData, err] = await fetchHandler(`/api/dis-posts/${id}`);
       if (err) return console.log(err);
+      postData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      setPosts(postData);
 
-      const sortedPosts = postData.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-
-      setPosts(sortedPosts);
-
-      const likeStatusPromises = sortedPosts.map((post) =>
+      const likeStatusPromises = postData.map((post) =>
         fetchHandler(`/api/check-post-like/${post.id}`)
       );
       const likeStatusData = await Promise.all(likeStatusPromises);
       const likeStatus = {};
       likeStatusData.forEach(([likeData], index) => {
-        likeStatus[sortedPosts[index].id] = likeData;
+        likeStatus[postData[index].id] = likeData;
       });
 
       setPostLikes(likeStatus);
@@ -55,6 +52,25 @@ export default function Posts() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
+
+  const handleCreateEvent = async (event) => {
+    event.preventDefault();
+    const newPostContent = event.target.content.value;
+    const postData = {
+      discussionId: id,
+      content: newPostContent,
+    };
+
+    const [data, error] = await fetchHandler(
+      `/api/posts`,
+      getPostOptions(postData)
+    );
+    if (error) return console.log(error);
+
+    setPosts((prevPosts) => [data, ...prevPosts]);
+    setOpen(false);
+    event.target.reset();
+  };
 
   const handleLike = useCallback(
     async (post) => {
@@ -91,8 +107,11 @@ export default function Posts() {
 
   return (
     <div className="h-content">
-      <h1 className="flex justify-center font-bold text-3xl">{topic}</h1>
-      <CreatePost setPosts={setPosts} />
+      <DiscussionCard
+        topic={discussion.topic}
+        description={discussion.description}
+      />
+      <CreatePostDialog open={open} setOpen={setOpen} onSubmit={handleCreateEvent} />
       {posts.map((post) => (
         <RenderPosts
           username={findUserName(users, post.user_id)}
