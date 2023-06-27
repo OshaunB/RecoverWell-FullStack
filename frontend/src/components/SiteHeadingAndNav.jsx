@@ -196,10 +196,13 @@ export default function ComplexNavbar() {
   };
 
   return (
-    <Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
+<Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
       <div className="relative mx-auto flex items-center justify-around text-blue-gray-900">
-        <Link to="/" className="mr-4 ml-4 cursor-pointer py-1.5 font-medium">
-          RecoverWell
+        <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
+          <div className="flex justify-around">
+            <img src="../../assets/new logo.png" alt="logo" className="h-10" />
+            <div className="pt-1 pl-2 text-bold text-2xl">RecoverFresh</div>
+          </div>
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />

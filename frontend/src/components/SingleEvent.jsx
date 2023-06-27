@@ -14,7 +14,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import {
   findUserName,
-  timeDifference,
   dateFormat,
   fetchHandler,
   timeFormat,
@@ -163,7 +162,7 @@ export default function SingleEvent() {
                 }
                 className="flex items-center gap-2"
               >
-                {joined ? "Cancel" : "RSVP"}
+                {joined ? "Cancel RSVP" : "RSVP"}
               </Button>
               <Button
                 variant="gradient"

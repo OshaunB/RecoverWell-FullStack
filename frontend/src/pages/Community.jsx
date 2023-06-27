@@ -1,16 +1,12 @@
-import { useEffect, useState, useContext } from "react";
-import { getAllUsers } from "../adapters/user-adapter";
-import UserLink from "../components/UserLink";
-import { fetchHandler } from "../utils";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { motion } from "framer-motion";
 import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
-import { motion } from "framer-motion";
-import { Navigate, useNavigate } from "react-router-dom";
 
 export default function UsersPage() {
   const navigate = useNavigate();
   const { users } = useContext(UserContext);
-  console.log(users);
 
   const cardVariants = {
     initial: {
@@ -31,7 +27,15 @@ export default function UsersPage() {
     <div className="container mt-8 mx-auto max-w-screen-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
         {users.map((user) => {
-          const { avatar, username, full_name, gender, age, favorite_quote, email } = user;
+          const {
+            avatar,
+            username,
+            full_name,
+            gender,
+            age,
+            favorite_quote,
+            email,
+          } = user;
 
           return (
             <motion.div
