@@ -24,8 +24,9 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="container mt-8 mx-auto max-w-screen-lg">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+    <div className="bg-palette-teal">
+    <div className="container mx-auto max-w-screen-lg bg-palette-teal ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center justify-items-center">
         {users.map((user) => {
           const {
             avatar,
@@ -58,6 +59,7 @@ export default function UsersPage() {
           );
         })}
       </div>
+    </div>
     </div>
   );
 }
