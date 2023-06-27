@@ -196,9 +196,9 @@ export default function ComplexNavbar() {
   };
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 bg-palette-aqua">
-      <div className="relative mx-auto flex items-center text-blue-gray-900">
-        <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
+    <Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
+      <div className="relative mx-auto flex items-center justify-around text-blue-gray-900">
+        <Link to="/" className="mr-4 ml-4 cursor-pointer py-1.5 font-medium">
           RecoverWell
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
@@ -225,7 +225,7 @@ export default function ComplexNavbar() {
           </IconButton>
         </div>
       </div>
-      <Collapse open={isNavOpen} className="overflow-scroll">
+      <Collapse open={isNavOpen} className="overflow-scroll text-black">
         <NavList />
       </Collapse>
     </Navbar>

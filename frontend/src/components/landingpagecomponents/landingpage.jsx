@@ -29,7 +29,7 @@ export default function Landingpage() {
     <div className="mr-auto place-self-center lg:col-span-7">
       <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-white">Recovery is a community effort</h1>
       <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl text-white">Come find your groove , and recover quickly today.</p>
-      <a href="#" className="inline-flex items-center justify-center px-5 py-3 mr-3 text-blue-900 font-medium text-center text-white rounded-lg bg-hues-600 hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" >
+      <a href="#" className="inline-flex items-center justify-center px-5 py-3 mr-3 text-blue-900 font-medium text-center text-white rounded-lg bg-hues-500 hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal" >
       <Link
           to="/sign-up"
         >
@@ -60,7 +60,7 @@ export default function Landingpage() {
                 <h2 className="title-font font-medium sm:text-5xl text-3xl text-palette-default">
                   <CountUp end={postCount} redraw={true}>
                     {({ countUpRef, start }) => (
-                      <VisibilitySensor onScroll={start} delayedCall>
+                      <VisibilitySensor onChange={start} delayedCall>
                         <span ref={countUpRef} />
                       </VisibilitySensor>
                     )}
@@ -151,8 +151,8 @@ export default function Landingpage() {
       <p className= "text-white">It is the fact we operate with the average consumer in mind that allows us to give the best appeal to the masses.</p>
     </div>
     <div className="grid grid-cols-2 gap-4 mt-8">
-      <img className="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1" />
-      <img className="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2" />
+      <img className="w-full rounded-lg" src="https://static.wixstatic.com/media/nsplsh_6c624c6746466c41447259~mv2.jpg/v1/fill/w_640,h_578,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/nsplsh_6c624c6746466c41447259~mv2.jpg" alt="office content 1" />
+      <img className="mt-4 w-full lg:mt-10 rounded-lg" src="https://avenuesnewyork.com/wp-content/uploads/2018/03/Community-Sunset.jpg" alt="office content 2" />
     </div>
   </div>
 </section>

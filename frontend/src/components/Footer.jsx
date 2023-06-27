@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="bg-palette-default py-6 text-center">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-        <Typography color="blue-gray" className="font-normal mb-4 md:mb-0">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between ">
+        <Typography color="white" className="font-normal mb-4 md:mb-0">
           &copy; 2023 RecoverWell
         </Typography>
         <ul className="flex flex-wrap items-center justify-center gap-y-2 gap-x-8">
           <li>
             <Typography
-              color="blue-gray"
+              color="white"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
               <Link to="/">Home</Link>
@@ -19,7 +19,7 @@ export default function Footer() {
           </li>
           <li>
             <Typography
-              color="blue-gray"
+              color="white"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
               <Link to="/Events">Events</Link>
@@ -27,7 +27,7 @@ export default function Footer() {
           </li>
           <li>
             <Typography
-              color="blue-gray"
+              color="white"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
               <Link to="/discussions">Discussions</Link>
@@ -35,7 +35,7 @@ export default function Footer() {
           </li>
           <li>
             <Typography
-              color="blue-gray"
+              color="white"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
               <Link to="/community">Community</Link>
