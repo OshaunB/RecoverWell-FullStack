@@ -196,7 +196,7 @@ export default function ComplexNavbar() {
   };
 
   return (
-<Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
+    <Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
       <div className="relative mx-auto flex items-center justify-around text-blue-gray-900">
         <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <div className="flex justify-around">

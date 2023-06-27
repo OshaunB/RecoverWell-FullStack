@@ -82,7 +82,6 @@ export default function SignUpPage() {
                   placeholder="Password"
                   required
                 />
-                
 
                 <div>
                   <label
