@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { Typography } from "@material-tailwind/react";
 
 export default function CommentCard(props) {

@@ -66,7 +66,6 @@ export default function Discussions() {
   };
 
   return (
-    
     <div className="w-full px-5 bg-palette-teal h-full">
       <div className="text-center text-red-600">{error}</div>
       <Typography
@@ -75,7 +74,7 @@ export default function Discussions() {
         color="blue"
         textGradient
       >
-        RecoverWell Discussion Groups
+        RecoverFresh Discussion Groups
       </Typography>
       <div className="flex justify-around items-center mb-5">
         <SearchInput

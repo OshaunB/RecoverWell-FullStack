@@ -1,4 +1,3 @@
-import React from "react";
 import CountUp from "react-countup";
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -14,9 +13,8 @@ export default function Main() {
           </h1>
           <br />
           <p className="mx-auto text-xl font-normal leading-relaxed text-gray-600 dark:text-gray-300 lg:w-2/3">
-            As we Recover , it is our duty to help ourseleves{" "}
-          
-            in all ways that we can 
+            As we Recover, it is our duty to help ourselves in all ways that
+            we can
           </p>
         </div>
       </div>
@@ -114,7 +112,5 @@ export default function Main() {
         </section>
       </section>
     </section>
-    
   );
 }
-
