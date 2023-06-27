@@ -27,7 +27,9 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen">
+      <div className= 'bg-white'>
       <SiteHeadingAndNav />
+      </div>
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />

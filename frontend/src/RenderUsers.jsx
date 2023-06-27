@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function RenderUsers(props) {
-  const { username, full_name, img, gender, email,favorite_quote } = props;
+  const { username, full_name, img, gender, email,favorite_quote, onClick} = props;
   const defaultImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -57,12 +57,12 @@ export default function RenderUsers(props) {
   };
 
   return (
-    <Card className="rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
+    <Card className= "rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
       <CardHeader floated={false} className="h-70">
         <img src={img || defaultImage} alt="profile-picture" />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h4" color="blue-gray" className="mb-2">
+        <Typography variant="h4" color="blue-gray" className="mb-2 cursor-pointer" onClick={onClick}>
           {username}
         </Typography>
         <Typography color="blue" className="font-medium" textGradient>
@@ -77,7 +77,7 @@ export default function RenderUsers(props) {
         <div>
         
         </div>
-          {email}
+         
         
          
         </Typography>
@@ -118,7 +118,7 @@ export default function RenderUsers(props) {
                 Gender: {gender}
               </Typography>
               <Typography variant="body2" color="blue-gray">
-              Email: {}
+              Email: {email}
               </Typography>
             </CardBody>
           </Card>
