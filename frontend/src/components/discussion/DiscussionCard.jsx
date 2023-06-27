@@ -5,7 +5,7 @@ export default function DiscussionCard({
   discussionId,
 }) {
   return (
-    <div className="flex items-center justify-center m-2 ">
+    <div className="flex items-center justify-center m-2 bg-white">
       <div
         onClick={onClick}
         id={discussionId}
