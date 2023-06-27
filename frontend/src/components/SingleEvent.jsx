@@ -163,7 +163,7 @@ export default function SingleEvent() {
                 }
                 className="flex items-center gap-2"
               >
-                {joined ? "Cancel" : "RSVP"}
+                {joined ? "Cancel RSVP" : "RSVP"}
               </Button>
               <Button
                 variant="gradient"

@@ -15,8 +15,10 @@ class Conversation {
   static async create(userId1, userId2, roomName) {
     try {
       const checkIfItExists = await knex.raw(
-        `SELECT * FROM conversation WHERE user_id1 = ? AND user_id2 = ?`,
-        [userId1, userId2]
+        `SELECT * FROM conversation 
+        WHERE user_id1 = ? AND user_id2 = ?
+        OR user_id1 = ? AND user_id2 = ?`,
+        [userId1, userId2, userId2, userId1],
       );
 
       if (checkIfItExists.rows.length > 0) {

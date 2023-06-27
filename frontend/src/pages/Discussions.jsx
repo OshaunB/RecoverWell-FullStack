@@ -66,7 +66,7 @@ export default function Discussions() {
   };
 
   return (
-    <div className="w-full px-5">
+    <div className="w-full px-5 bg-white">
       <div className="text-center text-red-600">{error}</div>
       <Typography
         className="text-center p-5"
