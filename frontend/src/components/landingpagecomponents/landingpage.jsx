@@ -34,7 +34,7 @@ export default function LandingPage() {
             </p>
             <a
               href="#"
-              className="inline-flex items-center justify-center px-5 py-3 mr-3 text-blue-900 font-medium text-center text-white rounded-lg bg-hues-500 hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal"
+              className="inline-flex items-center justify-center px-5 py-3 mr-3 font-medium text-center text-black rounded-lg bg-palette-teal hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal"
             >
               <Link to="/sign-up">Get started</Link>
 
@@ -54,7 +54,7 @@ export default function LandingPage() {
 
             <Link
               to="/events"
-              className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-palette-teal rounded-lg hover: focus:ring-4 focus:ring-palette-aqua dark:text-white dark:border-palette-aqua hover:bg-meadow-500 bg-hues-600 "
+              className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-palette-teal rounded-lg hover: focus:ring-4 focus:ring-palette-aqua dark:text-white dark:border-palette-aqua hover:bg-meadow-500 bg-palette-teal "
             >
               View Our Events
             </Link>
@@ -121,7 +121,7 @@ export default function LandingPage() {
           </h1>
           <br />
           <p className="mx-auto text-xl font-normal leading-relaxed text-white text-palette-white lg:w-2/3 ">
-            As we Recover , it is our duty to help ourselves in all ways that we
+            As we Recover, it is our duty to help ourselves in all ways that we
             can
           </p>
         </div>
@@ -204,14 +204,10 @@ export default function LandingPage() {
               Just because there is movement , does not mean there is progress.
             </h2>
             <p className="mb-4 text-white">
-              Here at RecoverFresh, we understand the day to day life of an
+              Here at RecoverWell, we understand the day to day life of an
               individual can get in the way of actual recovery. As such we have
               formulated a platform that would give users insight on how to best
               level up their lives by using the experience of others.{" "}
-            </p>
-            <p className="text-white">
-              It is the fact we operate with the average consumer in mind that
-              allows us to give the best appeal to the masses.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 mt-8">

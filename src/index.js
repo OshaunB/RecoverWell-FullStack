@@ -7,10 +7,9 @@ const app = require("./server");
 const server = http.createServer(app);
 
 const port = process.env.PORT || 3000;
-const host = process.env.HOST || "127.0.0.1";
 
-server.listen(port, host, () => {
-  console.log(`Server running at http://${host}:${port}/`);
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
 });
 
 const io = new Server(server, {

@@ -74,7 +74,7 @@ export default function Discussions() {
         color="blue"
         textGradient
       >
-        RecoverFresh Discussion Groups
+        RecoverWell Discussion Groups
       </Typography>
       <div className="flex justify-around items-center mb-5">
         <SearchInput

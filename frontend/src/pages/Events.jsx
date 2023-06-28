@@ -89,9 +89,8 @@ export default function Events() {
   return (
     <div className="bg-palette-teal">
       <Typography
-        className="text-center p-5"
+        className="text-center p-5 text-palette-default"
         variant="h1"
-        color="blue"
         textGradient
       >
         Events
@@ -104,7 +103,7 @@ export default function Events() {
         />
       )}
       <div className="flex justify-around items-center p-5">
-        <CreateEvent onSubmit={handleCreateEvent} isLoggedIn={isLoggedIn} />
+        <CreateEvent className="bg-palette-teal" onSubmit={handleCreateEvent} isLoggedIn={isLoggedIn} />
         <SearchInput
           innerText={"Search Events"}
           onChange={handleSearch}

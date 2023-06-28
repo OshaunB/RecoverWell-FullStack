@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-palette-default py-6 text-center">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between ">
         <Typography color="white" className="font-normal mb-4 md:mb-0">
-          &copy; 2023 RecoverFresh
+          &copy; 2023 RecoverWell
         </Typography>
         <ul className="flex flex-wrap items-center justify-center gap-y-2 gap-x-8">
           <li>

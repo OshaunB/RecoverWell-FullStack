@@ -205,7 +205,7 @@ export default function ComplexNavbar() {
               alt="logo"
               className="h-10"
             />
-            <div className="pt-1 pl-2 text-bold text-2xl">RecoverFresh</div>
+            <div className="pt-1 pl-2 text-bold text-2xl">RecoverWell</div>
           </div>
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
