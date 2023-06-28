@@ -2,14 +2,14 @@ const createMessage = async (req, res) => {
   const {
     session: { userId },
     db: { Message },
-    body: { conversationId, receiverId, message },
+    body: { conversationId, receiver_id, message },
   } = req;
 
   try {
     const text = await Message.create(
       conversationId,
       userId,
-      receiverId,
+      receiver_id,
       message
     );
     res.status(201).send(text);

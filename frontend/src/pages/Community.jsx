@@ -54,6 +54,7 @@ export default function UsersPage() {
                 favorite_quote={favorite_quote}
                 email={email}
                 onClick={() => navigate(`/users/${user.id}`)}
+                chatNavigate={() => navigate(`/chat/${user.id}`)}
               />
             </motion.div>
           );

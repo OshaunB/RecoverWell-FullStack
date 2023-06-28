@@ -204,7 +204,7 @@ export default function LandingPage() {
               Just because there is movement , does not mean there is progress.
             </h2>
             <p className="mb-4 text-white">
-              Here art RecoverFresh, we understand the day to day life of an
+              Here at RecoverFresh, we understand the day to day life of an
               individual can get in the way of actual recovery. As such we have
               formulated a platform that would give users insight on how to best
               level up their lives by using the experience of others.{" "}

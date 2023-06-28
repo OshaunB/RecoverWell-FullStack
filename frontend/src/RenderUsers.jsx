@@ -1,9 +1,23 @@
-import { Card, CardHeader, CardBody, CardFooter, Typography } from "@material-tailwind/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+} from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function RenderUsers(props) {
-  const { username, full_name, img, gender, email,favorite_quote, onClick} = props;
+export default function RenderUsers({
+  username,
+  full_name,
+  img,
+  gender,
+  email,
+  favorite_quote,
+  onClick,
+  chatNavigate
+}) {
   const defaultImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -57,29 +71,28 @@ export default function RenderUsers(props) {
   };
 
   return (
-    <Card className= "rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
+    <Card className="rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
       <CardHeader floated={false} className="h-70">
         <img src={img || defaultImage} alt="profile-picture" />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h4" color="blue-gray" className="mb-2 cursor-pointer" onClick={onClick}>
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="mb-2 cursor-pointer"
+          onClick={onClick}
+        >
           {username}
         </Typography>
         <Typography color="blue" className="font-medium" textGradient>
           {full_name}
         </Typography>
-        <Typography variant="body2" color="blue-gray" className="mt-4">
+        <Typography variant="lead" color="blue-gray" className="mt-4">
           Gender: {gender}
         </Typography>
-        <Typography variant="body2" color="blue-gray">
+        <Typography variant="paragraph" color="blue-gray">
           Favorite Quote: {favorite_quote}
-          <br/>
-        <div>
-        
-        </div>
-         
-        
-         
+          <br />
         </Typography>
       </CardBody>
       <CardFooter className="pt-3 flex justify-around items-center">
@@ -87,9 +100,9 @@ export default function RenderUsers(props) {
           className="btn btn-success"
           variants={buttonVariants}
           whileHover="hover"
-          onClick={handleConnectClick}
+          onClick={chatNavigate}
         >
-          Connect
+          Chat
         </motion.button>
       </CardFooter>
       {showDetails && (
@@ -100,9 +113,23 @@ export default function RenderUsers(props) {
           animate="visible"
         >
           <Card className="w-80">
-            <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800" onClick={handleClose}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <button
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+              onClick={handleClose}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
             <CardBody>
@@ -111,14 +138,18 @@ export default function RenderUsers(props) {
                 alt="profile-picture"
                 className="w-16 h-16 rounded-full mx-auto mb-2"
               />
-              <Typography variant="h6" color="blue-gray" className="text-center">
+              <Typography
+                variant="h6"
+                color="blue-gray"
+                className="text-center"
+              >
                 {full_name}
               </Typography>
-              <Typography variant="body2" color="blue-gray" className="mt-4">
+              <Typography variant="lead" color="blue-gray" className="mt-4">
                 Gender: {gender}
               </Typography>
-              <Typography variant="body2" color="blue-gray">
-              Email: {email}
+              <Typography variant="lead" color="blue-gray">
+                Email: {email}
               </Typography>
             </CardBody>
           </Card>

@@ -17,6 +17,8 @@ import Events from "./pages/Events";
 import SingleEvent from "./components/SingleEvent";
 import LoginTest from "./pages/LoginDialog.jsx";
 import Footer from "./components/Footer";
+import Chat from "./pages/Chat";
+import { ChatContextProvider } from "./contexts/ChatContext";
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -26,8 +28,8 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className= 'bg-white'>
-      <SiteHeadingAndNav />
+      <div className="bg-white">
+        <SiteHeadingAndNav />
       </div>
       <main className="flex-grow">
         <Routes>
@@ -43,10 +45,18 @@ export default function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:eventId" element={<SingleEvent />} />
           <Route path="/login-test" element={<LoginTest />} />
+          <Route
+            path="/chat/:id"
+            element={
+              <ChatContextProvider>
+                <Chat />
+              </ChatContextProvider>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

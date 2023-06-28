@@ -22,7 +22,9 @@ const EventContextProvider = ({ children }) => {
         const eventDateTime = new Date(e.date);
         return eventDateTime > new Date();
       });
-      filteredEvents.sort((a, b) => Number(b.joinedEvents) - Number(a.joinedEvents));
+      filteredEvents.sort(
+        (a, b) => Number(b.joinedEvents) - Number(a.joinedEvents)
+      );
       setEvents(filteredEvents);
     })();
   }, []);
@@ -33,7 +35,6 @@ const EventContextProvider = ({ children }) => {
     }
   }, [currentUser]);
 
-  console.log(events);
 
   const handleRSVP = async (eventId) => {
     if (!isLoggedIn) {
@@ -93,7 +94,7 @@ const EventContextProvider = ({ children }) => {
     setTitle,
     rsvpEvent,
     setRSVPEvent,
-    handleRSVP
+    handleRSVP,
   };
 
   return (
