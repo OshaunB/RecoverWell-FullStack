@@ -72,7 +72,6 @@ export default function Discussions() {
         className="text-center p-5 text-palette-default"
         variant="h1"
         textGradient
-        
       >
         RecoverWell Discussion Groups
       </Typography>
