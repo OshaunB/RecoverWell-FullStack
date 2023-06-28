@@ -17,8 +17,8 @@ import Events from "./pages/Events";
 import SingleEvent from "./components/SingleEvent";
 import LoginTest from "./pages/LoginDialog.jsx";
 import Footer from "./components/Footer";
-import Chat from "./pages/Chat";
-import { ChatContextProvider } from "./contexts/ChatContext";
+// import Chat from "./pages/Chat";
+// import { ChatContextProvider } from "./contexts/ChatContext";
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -45,14 +45,14 @@ export default function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:eventId" element={<SingleEvent />} />
           <Route path="/login-test" element={<LoginTest />} />
-          <Route
+          {/* <Route
             path="/chat/:id"
             element={
               <ChatContextProvider>
                 <Chat />
               </ChatContextProvider>
             }
-          />
+          /> */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

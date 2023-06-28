@@ -24,6 +24,9 @@ export default function UsersPage() {
     },
   };
 
+
+  console.log(users)
+
   return (
     <div className="bg-palette-teal">
       <Typography
