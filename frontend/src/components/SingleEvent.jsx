@@ -242,7 +242,7 @@ export default function SingleEvent() {
             </Card>
           ) : (
             <Typography variant="h6">
-              No one has RSVP&aposd to this event
+              No one has RSVP to this event
             </Typography>
           )}
         </div>

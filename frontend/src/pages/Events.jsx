@@ -86,8 +86,6 @@ export default function Events() {
     navigate(`/events/${eventId}`);
   };
 
-  
-
   return (
     <div className="bg-palette-teal">
       <Typography

@@ -34,8 +34,7 @@ export default function SignUpPage() {
     <section className="flex bg-gray-50 dark:bg-gray-900">
       <div className="w-1/2">
         <img
-          src="../assets/signup.jpeg"
-          alt="Login image"
+          src="https://ucarecdn.com/3d22543a-b530-48a6-838a-13443ebaf6dc/-/crop/736x834/0,270/-/preview/3000x3000/" alt="Login image"
           className="w-full h-screen object-cover"
         />
       </div>

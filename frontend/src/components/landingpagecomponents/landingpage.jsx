@@ -61,7 +61,7 @@ export default function LandingPage() {
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <img
-              src="../assets/k77nhuuu_man_with_headphones_meditating_accompanied_by_a_lion_s_c2b63c05-7d32-4238-b7ea-07efc8ca39fa.png"
+              src="https://ucarecdn.com/d6484081-7ace-4dde-965e-ce01aeba194c/"
               alt="mockup"
             />
           </div>

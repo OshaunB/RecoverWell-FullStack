@@ -200,7 +200,11 @@ export default function ComplexNavbar() {
       <div className="relative mx-auto flex items-center justify-around text-blue-gray-900">
         <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <div className="flex justify-around">
-            <img src="../../assets/new logo.png" alt="logo" className="h-10" />
+            <img
+              src="https://ucarecdn.com/80918313-cc19-4338-a310-25959203a95b/"
+              alt="logo"
+              className="h-10"
+            />
             <div className="pt-1 pl-2 text-bold text-2xl">RecoverFresh</div>
           </div>
         </Link>
