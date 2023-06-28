@@ -7,7 +7,6 @@ export default function SearchInput({ onChange, value, innerText }) {
         onChange={onChange}
         value={value}
         label={innerText}
-
       />
     </div>
   );

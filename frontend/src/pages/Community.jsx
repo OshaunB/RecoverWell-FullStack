@@ -1,13 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { Typography } from "@material-tailwind/react";
 import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
+import SearchInput from "../components/SearchInput.jsx";
 
 export default function UsersPage() {
   const navigate = useNavigate();
   const { users } = useContext(UserContext);
+  const [searchUser, setSearchUser] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const user = e.target.value;
+    setSearchUser(user !== "" ? user : "");
+  };
+
+  const filteredUsers = users.filter((user) => {
+    if (searchUser === "") return true;
+    return (
+      user.username.toLowerCase().includes(searchUser.toLowerCase()) ||
+      user.full_name.toLowerCase().includes(searchUser.toLowerCase())
+    );
+  });
 
   const cardVariants = {
     initial: {
@@ -25,18 +41,25 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="bg-palette-teal">
-      <Typography
-        className="text-center p-5"
-        variant="h1"
-        color="blue"
-        textGradient
-      >
-        RecoverFresh Community
-      </Typography>
-      <div className="container mx-auto max-w-screen-lg bg-palette-teal ">
+    <div className="bg-palette-teal h-content">
+      <div className="container mx-auto max-w-screen-lg bg-palette-teal">
+        <div className="relative top-0 left-0 pt-5">
+          <SearchInput
+            innerText="Search user..."
+            value={searchUser}
+            onChange={handleSearch}
+          />
+        </div>
+        <Typography
+          className="text-center p-5"
+          variant="h1"
+          color="blue"
+          textGradient
+        >
+          RecoverFresh Community
+        </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-center justify-items-center">
-          {users.map((user) => {
+          {filteredUsers.map((user) => {
             const {
               avatar,
               username,

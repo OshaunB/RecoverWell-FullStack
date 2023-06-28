@@ -88,7 +88,7 @@ export default function CommentDrawer(props) {
           ))}
         </div>
         ) : (
-          <Typography variant="lead" color="blue-gray" className="text-center" >Be the first to comment</Typography>
+          <Typography variant="lead" color="blue-gray" className="text-center">Be the first to comment</Typography>
         )}
 
         <form
