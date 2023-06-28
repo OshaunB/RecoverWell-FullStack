@@ -78,6 +78,7 @@ export default function Discussions() {
       </Typography>
       <div className="flex justify-around items-center mb-5">
         <SearchInput
+          color="white"
           onChange={handleSearch}
           value={searchTerm}
           innerText="Search Discussion Groups"

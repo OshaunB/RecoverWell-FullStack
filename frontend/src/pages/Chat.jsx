@@ -3,11 +3,10 @@ import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { ChatContext } from "../contexts/ChatContext";
-import ChatHeader from "../components/discussion/ChatMessages/ChatHeader";
 import ChatBody from "../components/discussion/ChatMessages/ChatBody.jsx";
 import ChatFooter from "../components/discussion/ChatMessages/ChatFooter";
 import { UserContext } from "../contexts/UserContext";
-import { findUserById, timeFormat } from "../utils";
+import { findUserById, } from "../utils";
 
 export default function Chat() {
   const { id } = useParams();
@@ -22,7 +21,6 @@ export default function Chat() {
 
   return (
     <div className="h-screen flex flex-col">
-      {/* <ChatHeader s /> /enderAvatar={users[0].avatar}/> */}
       <ScrollToBottom className="flex-grow overflow-y-scroll px-4">
         {prevChat.map((m) => {
           const sender = findUserById(users, m.sender_id);

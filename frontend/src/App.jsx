@@ -31,7 +31,7 @@ export default function App() {
       <div className="bg-white">
         <SiteHeadingAndNav />
       </div>
-      <main className="flex-grow">
+      <main className="flex-grow bg-palette-teal">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/discussions" element={<Discussion />} />

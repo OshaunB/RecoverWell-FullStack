@@ -6,6 +6,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import CommentIcon from "@mui/icons-material/Comment";
+import SendIcon from '@mui/icons-material/Send';
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CommentCard from "./posts/CommentCard";
 import {
@@ -38,6 +39,8 @@ export default function CommentDrawer(props) {
       comment: e.target.comment.value,
       postId: id,
     };
+
+    if (commentData.comment === "") return;
     const [data, error] = await fetchHandler(
       `/api/comments`,
       getPostOptions(commentData)
@@ -51,8 +54,7 @@ export default function CommentDrawer(props) {
     <>
       <div className="flex flex-wrap gap-4">
         <div className="cursor-pointer" onClick={openDrawerBottom}>
-          <CommentIcon />
-          {" "}{comments.length}
+          <CommentIcon /> {comments.length}
         </div>
       </div>
       <Drawer
@@ -62,8 +64,8 @@ export default function CommentDrawer(props) {
         onClose={closeDrawerBottom}
       >
         <div className="mb-6 flex items-center justify-between">
-          <Typography variant="h5" color="blue-gray">
-            Comment Box
+          <Typography variant="h5" color="blue-gray" className="text-center">
+            Comments
           </Typography>
           <IconButton
             variant="text"
@@ -73,7 +75,8 @@ export default function CommentDrawer(props) {
             <XMarkIcon strokeWidth={2} className="h-5 w-5" />
           </IconButton>
         </div>
-        <div className="overflow-y-auto h-4/5">
+        {comments.length > 0 ? (
+          <div className="overflow-y-auto h-4/5">
           {comments.map((comment) => (
             <CommentCard
               key={comment.id}
@@ -84,6 +87,10 @@ export default function CommentDrawer(props) {
             />
           ))}
         </div>
+        ) : (
+          <Typography variant="lead" color="blue-gray" className="text-center" >Be the first to comment</Typography>
+        )}
+
         <form
           onSubmit={addComment}
           className="absolute bottom-0 p-4 flex items-center justify-center w-full"
@@ -91,11 +98,11 @@ export default function CommentDrawer(props) {
           <input
             type="text"
             id="comment"
-            className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-lg border border-gray-300 p-4 hover:bg-gray-100"
+            className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-full border border-gray-300 p-4 hover:bg-gray-100"
             placeholder="Enter your comment..."
           />
-          <Button type="submit" className="relative">
-            Button
+          <Button type="submit" size="lg" className="relative ml-2 h-14">
+            <SendIcon />
           </Button>
         </form>
       </Drawer>

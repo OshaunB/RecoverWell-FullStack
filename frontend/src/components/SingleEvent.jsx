@@ -12,6 +12,8 @@ import {
 } from "@material-tailwind/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
+import EmailIcon from "@mui/icons-material/Email";
+
 import {
   findUserName,
   dateFormat,
@@ -122,26 +124,35 @@ export default function SingleEvent() {
             </CardHeader>
           </div>
           <CardBody>
-            <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate(`/users/${user.id}`)}>
-              <Avatar
-                src={
-                  user.avatar ||
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                }
-                alt="avatar"
-              />
-              <div>
-                <Typography variant="h6">@{user.username}</Typography>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="font-normal"
-                >
-                  {user.email}
-                  {/* {timeDifference(event.created_at)} */}
-                </Typography>
+            <div className="flex items-center justify-between">
+              <div
+                className="flex items-center gap-4 cursor-pointer"
+                onClick={() => navigate(`/users/${user.id}`)}
+              >
+                <Avatar
+                  src={
+                    user.avatar ||
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
+                  alt="avatar"
+                />
+                <div>
+                  <Typography variant="h6">@{user.username}</Typography>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="font-normal"
+                  >
+                    {user.email}
+                  </Typography>
+                </div>
               </div>
+              <EmailIcon
+                className="cursor-pointer"
+                onClick={() => navigate(`/chat/${user.id}`)}
+              />
             </div>
+
             <Typography variant="lead">{event.description}</Typography>
             <Typography variant="lead">
               <span className="font-bold">Date:</span> {dateFormat(event.date)}
@@ -196,11 +207,8 @@ export default function SingleEvent() {
             <Card className="w-96 border-solid border-2">
               <List>
                 {userJoined.map((u) => (
-                  <ListItem
-                    key={u.id}
-                    onClick={() => navigate(`/users/${u.user_id}`)}
-                  >
-                    <ListItemPrefix>
+                  <ListItem key={u.id}>
+                    <ListItemPrefix onClick={() => navigate(`/users/${u.user_id}`)}>
                       <Avatar
                         variant="circular"
                         alt="candice"
@@ -210,7 +218,7 @@ export default function SingleEvent() {
                         }
                       />
                     </ListItemPrefix>
-                    <div>
+                    <div onClick={() => navigate(`/users/${u.user_id}`)}>
                       <Typography variant="h6" color="blue-gray">
                         @{findUserName(users, u.user_id)}
                       </Typography>
@@ -222,12 +230,20 @@ export default function SingleEvent() {
                         {findUserById(users, u.user_id).email}
                       </Typography>
                     </div>
+                    <div className="ml-auto">
+                      <EmailIcon
+                        className="cursor-pointer"
+                        onClick={() => navigate(`/chat/${u.id}`)}
+                      />
+                    </div>
                   </ListItem>
                 ))}
               </List>
             </Card>
           ) : (
-            <Typography variant="h6">No one has RSVP this event</Typography>
+            <Typography variant="h6">
+              No one has RSVP&aposd to this event
+            </Typography>
           )}
         </div>
       </div>

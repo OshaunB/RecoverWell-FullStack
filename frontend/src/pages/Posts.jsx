@@ -107,11 +107,11 @@ export default function Posts() {
 
   return (
     <div className="h-content">
+      <CreatePostDialog  open={open} setOpen={setOpen} onSubmit={handleCreateEvent} />
       <DiscussionCard
         topic={discussion.topic}
         description={discussion.description}
       />
-      <CreatePostDialog open={open} setOpen={setOpen} onSubmit={handleCreateEvent} />
       {posts.map((post) => (
         <RenderPosts
           username={findUserName(users, post.user_id)}
