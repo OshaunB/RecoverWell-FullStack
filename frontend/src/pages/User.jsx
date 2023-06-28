@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserHeading from "../components/profile/UserHeading";
-import { fetchHandler } from "../utils";
+import { fetchHandler, getPatchOptions } from "../utils";
 import UserEvents from "../components/profile/UserEvents";
 import UserAbout from "../components/profile/UserAbout";
 
@@ -14,6 +14,8 @@ export default function UserPage() {
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
   const [eventData, setEventData] = useState([]);
+  const [favoriteQuote, setFavoriteQuote] = useState(null);
+  
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function UserPage() {
         setErrorText("User not found");
         return;
       }
+      
       setUserProfile(data);
       if (data.avatar) {
         setAvatar(data.avatar);
@@ -33,7 +36,8 @@ export default function UserPage() {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id, favoriteQuote]);
+  console.log(userProfile)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,40 +65,49 @@ export default function UserPage() {
   }, [id]);
 
   if (errorText) return <p>{errorText}</p>;
-  // console.log(eventData)
+  console.log(eventData)
   return (
-    <>
-      {/* <h1>{profileUsername}</h1> */}
-      <UserHeading
-        avatar={avatar}
-        username={userProfile.username}
-        gender={userProfile.gender}
-        age ={userProfile.dob}
-      />
-      <UserAbout userProfile={userProfile}/>
+    <div style={{ backgroundColor: '#c8d8e4' }}>
+      <div className="flex flex-col md:flex-row justify-center items-start">
+        <div className="w-full">
+          <UserHeading
+            avatar={avatar}
+            username={userProfile.username}
+            gender={userProfile.gender}
+            age={userProfile.dob}
+            favoriteQuote={userProfile.favorite_quote}
+            setFavoriteQuote={setFavoriteQuote}
+            id={id}
+          />
+          <UserAbout userProfile={userProfile} />
+        </div>
+        
+      </div>
 
       {eventData.length > 0 ? (
         <>
-          <p className="font-bold text-4xl text-center text-cyan-300">Events</p>
-          {eventData.map((event, index) => (
-            <UserEvents
-              key={index}
-              avatar={avatar}
-              username={userProfile.username}
-              gender={userProfile.username}
-              eventname={event.name}
-              eventDescription={event.description}
-              eventImage={event.image}
-              eventTime={event.time}
-              eventDate={event.date}
-            />
-          ))}
+          <p className="font-bold text-4xl text-center" style={{ color: '#3298ee' }}>Events</p>
+          <div className="flex flex-wrap justify-center">
+            {eventData.map((event, index) => (
+              <UserEvents
+                key={index}
+                avatar={avatar}
+                username={userProfile.username}
+                gender={userProfile.username}
+                eventname={event.name}
+                eventDescription={event.description}
+                eventImage={event.image}
+                eventTime={event.time}
+                eventDate={event.date}
+              />
+            ))}
+          </div>
         </>
       ) : (
         <p className="text-center font-light text-lg mt-8">
           No events reserved
         </p>
       )}
-    </>
+    </div>
   );
 }
