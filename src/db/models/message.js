@@ -3,6 +3,9 @@ const knex = require("../knex");
 class Message {
   static async list(conversationId) {
     try {
+      if (Number.isNaN(conversationId)) {
+        return "Require truthy values";
+      }
       const query = "SELECT * FROM messages WHERE conversation_id = ?";
       const { rows } = await knex.raw(query, [conversationId]);
       return rows;

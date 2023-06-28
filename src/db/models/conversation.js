@@ -3,7 +3,7 @@ const knex = require("../knex");
 class Conversation {
   static async list(id) {
     try {
-      const query = "SELECT * FROM conversation WHERE id = ?";
+      const query = "SELECT * FROM conversations WHERE id = ?";
       const { rows: [rows] } = await knex.raw(query, [id]);
       return rows;
     } catch (error) {
@@ -14,17 +14,20 @@ class Conversation {
 
   static async create(userId1, userId2, roomName) {
     try {
+      if (!userId1 || !userId2 || !roomName) {
+        return "Require truthy values";
+      }
       const checkIfItExists = await knex.raw(
-        `SELECT * FROM conversation 
-        WHERE user_id1 = ? AND user_id2 = ?
-        OR user_id1 = ? AND user_id2 = ?`,
+        `SELECT * FROM conversations 
+        WHERE (user_id1 = ? AND user_id2 = ?)
+        OR (user_id1 = ? AND user_id2 = ?)`,
         [userId1, userId2, userId2, userId1],
       );
 
       if (checkIfItExists.rows.length > 0) {
         return checkIfItExists.rows[0];
       }
-      const query = `INSERT INTO conversation (user_id1, user_id2, room_name)
+      const query = `INSERT INTO conversations (user_id1, user_id2, room_name)
         VALUES (?, ?, ?) RETURNING *`;
 
       const {
