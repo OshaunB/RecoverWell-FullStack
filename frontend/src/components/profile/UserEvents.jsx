@@ -1,11 +1,3 @@
-// import {
-//     Card,
-//     CardHeader,
-//     CardBody,
-//     Typography,
-//     Avatar,
-// } from "@material-tailwind/react";
-
 import {
     Card,
     CardHeader,
@@ -41,12 +33,6 @@ export default function UserEvents(props) {
                     <Typography color="gray" className="font-normal mb-8">
                     &quot;{props.eventDescription}&quot;
                     </Typography>
-                    {/* <a href="#" className="inline-block">
-                        <Button variant="text" className="flex items-center gap-2">
-                            Learn More
-                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                        </Button>
-                    </a> */}
                 </CardBody>
             </Card>
         </div>
