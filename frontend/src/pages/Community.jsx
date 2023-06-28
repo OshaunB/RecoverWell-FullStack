@@ -56,7 +56,7 @@ export default function UsersPage() {
           color="blue"
           textGradient
         >
-          RecoverFresh Community
+          RecoverWell Community
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-center justify-items-center">
           {filteredUsers.map((user) => {
