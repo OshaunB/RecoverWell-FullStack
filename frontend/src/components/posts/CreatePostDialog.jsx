@@ -18,8 +18,8 @@ export default function CreateDiscussion({
   };
 
   return (
-    <>
-      <Button onClick={handleOpen}>Create Post</Button>
+    <div>
+      <Button className="m-4" onClick={handleOpen} >Create Post</Button>
       <Dialog open={open} onClose={handleOpen}>
         <div className="flex items-center justify-between">
           <DialogHeader>Create Post</DialogHeader>
@@ -41,6 +41,6 @@ export default function CreateDiscussion({
           </DialogFooter>
         </form>
       </Dialog>
-    </>
+    </div>
   );
 }
