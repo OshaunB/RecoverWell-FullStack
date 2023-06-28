@@ -19,7 +19,7 @@ export default function CreateDiscussion({
 
   return (
     <div>
-      <Button className="m-4" onClick={handleOpen} >Create Post</Button>
+      <Button onClick={handleOpen} className="m-4 bg-none bg-meadow">Create Post</Button>
       <Dialog open={open} onClose={handleOpen}>
         <div className="flex items-center justify-between">
           <DialogHeader>Create Post</DialogHeader>

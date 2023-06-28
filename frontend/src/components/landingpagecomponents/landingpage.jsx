@@ -61,7 +61,7 @@ export default function LandingPage() {
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <img
-              src="https://ucarecdn.com/d6484081-7ace-4dde-965e-ce01aeba194c/"
+              src="https://images.unsplash.com/photo-1520642413789-2bd6770d59e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
               alt="mockup"
             />
           </div>
