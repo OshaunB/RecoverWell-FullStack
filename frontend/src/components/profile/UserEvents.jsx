@@ -15,7 +15,7 @@ export default function UserEvents(props) {
         minute: "numeric",
     });
     return (
-        <div className="flex justify-center align-items py-4 px-4">
+        <div className="flex justify-center align-items py-4 px-4 ">
             <Card color="transparent" shadow={true} className="w-full max-w-[26rem]">
                 <CardHeader
                     color="transparent"
