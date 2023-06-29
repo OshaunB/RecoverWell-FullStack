@@ -5,12 +5,11 @@ import CurrentUserContext from "../../contexts/current-user-context";
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
 // import { LinkIcon } from "@heroicons/react/outline/24";
 
-
 export default function UserAbout() {
   const { currentUser } = useContext(CurrentUserContext);
   const { id } = useParams();
   const [userProfile, setUserProfile] = useState(null);
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const isCurrentUserProfile = currentUser && currentUser.id === Number(id);
@@ -19,7 +18,7 @@ export default function UserAbout() {
     const fetchData = async () => {
       const [data, error] = await fetchHandler(`/api/users/${id}`);
       setUserProfile(data);
-      setBio(data.bio || '');
+      setBio(data.bio || "");
     };
     fetchData();
   }, [id]);
@@ -51,7 +50,7 @@ export default function UserAbout() {
   };
 
   const handleCancelClick = () => {
-    setBio(userProfile?.bio || '');
+    setBio(userProfile?.bio || "");
     setIsEditing(false);
   };
 
@@ -64,8 +63,8 @@ export default function UserAbout() {
   };
 
   return (
-    <div className="flex justify-center items-center h-full py-7 w-">
-      <div className="text-center">
+    <div className="flex justify-center items-center h-full">
+      <div className="max-w-2xl">
         <h2 className="font-bold text-2xl text-center text-blue-600">
           About {userProfile?.username}
         </h2>
@@ -92,11 +91,7 @@ export default function UserAbout() {
                 >
                   Cancel
                 </Button>
-                <Button
-                  size="sm"
-                  rounded={true}
-                  onClick={handleSaveClick}
-                >
+                <Button size="sm" rounded={true} onClick={handleSaveClick}>
                   Save
                 </Button>
               </div>
@@ -104,7 +99,9 @@ export default function UserAbout() {
           </div>
         ) : (
           <div className="bg-white py-4 px-6 rounded-lg">
-            <p className="text-lg text-blue-gray-800">{userProfile?.bio}</p>
+            <p className="text-lg text-blue-gray-800 flex justify-center items-center">
+              {userProfile?.bio}
+            </p>
             {isCurrentUserProfile && (
               <Button
                 size="sm"
@@ -121,5 +118,4 @@ export default function UserAbout() {
       </div>
     </div>
   );
-
 }
