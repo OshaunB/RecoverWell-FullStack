@@ -15,7 +15,7 @@ export default function UserPage() {
   );
   const [eventData, setEventData] = useState([]);
   const [favoriteQuote, setFavoriteQuote] = useState(null);
-  
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function UserPage() {
         setErrorText("User not found");
         return;
       }
-      
+
       setUserProfile(data);
       if (data.avatar) {
         setAvatar(data.avatar);
@@ -37,7 +37,7 @@ export default function UserPage() {
     };
     fetchData();
   }, [id, favoriteQuote]);
-  console.log(userProfile)
+  console.log(userProfile);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,9 +65,9 @@ export default function UserPage() {
   }, [id]);
 
   if (errorText) return <p>{errorText}</p>;
-  console.log(eventData)
+  console.log(eventData);
   return (
-    <div style={{ backgroundColor: '#c8d8e4' }}>
+    <div style={{ backgroundColor: "#c8d8e4" }}>
       <div className="flex flex-col md:flex-row justify-center items-start">
         <div className="w-full">
           <UserHeading
@@ -81,12 +81,16 @@ export default function UserPage() {
           />
           <UserAbout userProfile={userProfile} />
         </div>
-        
       </div>
 
       {eventData.length > 0 ? (
         <>
-          <p className="font-bold text-4xl text-center" style={{ color: '#3298ee' }}>Events</p>
+          <p
+            className="font-bold text-4xl text-center"
+            style={{ color: "#3298ee" }}
+          >
+            Events
+          </p>
           <div className="flex flex-wrap justify-center">
             {eventData.map((event, index) => (
               <UserEvents

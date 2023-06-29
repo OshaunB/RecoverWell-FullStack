@@ -58,8 +58,7 @@ export const timeDifference = (createdTime) => {
   return `${hours}h ago`;
 };
 
-export const dateFormat = (date) =>
-  new Date(date).toLocaleDateString("en-US", {
+export const dateFormat = (date) => new Date(date).toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
@@ -89,5 +88,5 @@ export const timeFormat = (timeString) => {
 export const validateDate = (date) => {
   const newDate = new Date(date).toLocaleDateString();
   const dateNow = new Date().toLocaleDateString();
-  return newDate < dateNow;
+  return newDate > dateNow;
 };

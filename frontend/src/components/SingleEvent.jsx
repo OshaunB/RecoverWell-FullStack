@@ -70,6 +70,8 @@ export default function SingleEvent() {
     setEvent(eventData);
   }, [eventId, users, events, joined, currentUser]);
 
+  console.log(userJoined)
+
   const handleCancelEvent = async () => {
     const [_, error] = await fetchHandler(
       `/api/cancel-join-event/${currentUser.id}/${eventId}`,
@@ -233,7 +235,7 @@ export default function SingleEvent() {
                     <div className="ml-auto">
                       <EmailIcon
                         className="cursor-pointer"
-                        onClick={() => navigate(`/chat/${u.id}`)}
+                        onClick={() => navigate(`/chat/${u.user_id}`)}
                       />
                     </div>
                   </ListItem>

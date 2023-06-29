@@ -5,7 +5,7 @@ import { fetchHandler, getPostOptions } from "../utils";
 
 const ChatContext = createContext();
 
-const socket = io.connect("http://127.0.0.1:3000");
+const socket = io.connect("https://recoverwell.onrender.com");
 
 const ChatContextProvider = ({ children }) => {
   const [prevChat, setPrevChat] = useState([]);
