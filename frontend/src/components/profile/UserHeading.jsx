@@ -18,7 +18,8 @@ export default function UserHeading(props) {
   const [isEditing, setIsEditing] = useState(false);
   const { currentUser } = useContext(CurrentUserContext);
 
-  const isCurrentUserProfile = currentUser && currentUser.id === Number(props.id);
+  const isCurrentUserProfile =
+    currentUser && currentUser.id === Number(props.id);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -100,23 +101,24 @@ export default function UserHeading(props) {
                   </div>
                 </div>
               </form>
-            ) : (isCurrentUserProfile &&
-              <Typography color="blue" className="font-medium" textGradient>
-                &quot;{props.favoriteQuote}&quot;
-                <br />
-
-                { (
-                  <Button
-                    size="sm"
-                    color="blue"
-                    variant="text"
-                    rounded={true}
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit
-                  </Button>
-                )}
-              </Typography>
+            ) : (
+              isCurrentUserProfile && (
+                <Typography color="blue" className="font-medium" textGradient>
+                  &quot;{props.favoriteQuote}&quot;
+                  <br />
+                  {
+                    <Button
+                      size="sm"
+                      color="blue"
+                      variant="text"
+                      rounded={true}
+                      onClick={() => setIsEditing(true)}
+                    >
+                      Edit
+                    </Button>
+                  }
+                </Typography>
+              )
             )}
           </CardBody>
         </Card>
