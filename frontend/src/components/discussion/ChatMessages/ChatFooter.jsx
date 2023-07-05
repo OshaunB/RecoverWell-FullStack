@@ -1,24 +1,37 @@
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import SendIcon from "@mui/icons-material/Send";
-import { Button } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { ChatContext } from "../../../contexts/ChatContext";
 
 export default function ChatFooter() {
   const { sendMessage } = useContext(ChatContext);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
-    <form
-      onSubmit={sendMessage}
-      className="fixed bottom-0 p-2 flex items-center justify-center w-full bg-gray-100"
-    >
-      <input
-        type="text"
-        id="message"
-        className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-full border border-gray-300 p-4 hover:bg-gray-100"
-        placeholder="Enter your message..."
-      />
-      <Button type="submit" size="lg" className="relative ml-2 h-14">
-        <SendIcon />
-      </Button>
+    <form onSubmit={sendMessage} className="p-2 flex items-center justify-center w-full">
+      <div className="relative flex w-full">
+        <Input
+          type="text"
+          label="Enter your message"
+          required
+          containerProps={{
+            className: "min-w-0",
+          }}
+          id="message"
+          ref={inputRef}
+        />
+        <Button
+          size="sm"
+          type="submit"
+          className="!absolute right-1 top-1 rounded"
+        >
+          <SendIcon fontSize="sm" />
+        </Button>
+      </div>
     </form>
   );
 }

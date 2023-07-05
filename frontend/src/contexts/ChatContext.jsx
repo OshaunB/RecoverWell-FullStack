@@ -46,6 +46,7 @@ const ChatContextProvider = ({ children }) => {
   const sendMessage = async (e) => {
     e.preventDefault();
     const message = e.target.message.value;
+    console.log(message);
     if (message === "") return;
     const messageData = {
       sender_id: currentUser.id,

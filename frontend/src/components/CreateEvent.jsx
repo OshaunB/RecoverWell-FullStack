@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Drawer,
   Button,
@@ -31,6 +31,14 @@ export default function CreateEvent({ onSubmit, isLoggedIn }) {
     const croppedImageUrl = `${fileInfo.cdnUrl}-/scale_crop/370x210/center/-/enhance/`;
     setUploadedImage(croppedImageUrl);
   };
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
 
   return (
     <>
