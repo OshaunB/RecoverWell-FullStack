@@ -11,7 +11,6 @@ import UsersPage from "./pages/Community";
 import UserPage from "./pages/User";
 import Discussion from "./pages/Discussions";
 import Posts from "./pages/Posts";
-import Comment from "./pages/Comment";
 import ProfilePic from "./pages/ProfilePic";
 import Events from "./pages/Events";
 import SingleEvent from "./components/SingleEvent";
@@ -40,7 +39,6 @@ export default function App() {
           <Route path="/community" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserPage />} />
           <Route path="/discussions/:id" element={<Posts />} />
-          <Route path="/posts/:postId/comments" element={<Comment />} />
           <Route path="/profile-pic/:id" element={<ProfilePic />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:eventId" element={<SingleEvent />} />

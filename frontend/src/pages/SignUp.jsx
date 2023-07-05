@@ -1,14 +1,21 @@
-import { useContext } from "react";
-import { useNavigate, Navigate, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import {
+  Button,
+  Input,
+  Select,
+  Option,
+  Typography,
+} from "@material-tailwind/react";
 import CurrentUserContext from "../contexts/current-user-context";
 import { createUser } from "../adapters/user-adapter";
-import LabelInput from "../components/LabelInput";
 import LoginHeader from "../components/login/LoginHeader";
-import LoginInputs from "../components/login/LoginInputs";
+import LoginDialog from "./LoginDialog";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,98 +40,146 @@ export default function SignUpPage() {
   }
 
   return (
-  <div className= 'bg-palette-default'>
-    <div className="flex justify-center items-center h-screen">
-     
-    <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
-     
-      <LoginHeader></LoginHeader>
-      <br></br>
-      <form  onSubmit={handleSubmit}>
-        <div className="flex mb-4">
-          <div className="w-1/2 mr-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
-              Full Name
-            </label>
-            <input
-              className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="name"
-              type="text"
-              placeholder="Your full name"
-              htmlFor= 'name'
-            />
-          </div>
-          <div className="w-1/2 ml-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email" id='email'>
-              Email
-            </label>
-            <input
-              className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="email"
-              type="email"
-              placeholder="Your email address"
-              htmlFor= 'email'
-            />
-          </div>
+    <div className="bg-palette-teal">
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
+          <LoginHeader></LoginHeader>
+          <br></br>
+          <form onSubmit={handleSubmit}>
+            <div className="flex mb-4">
+              <div className="w-1/2 mr-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="name"
+                >
+                  Full Name
+                </label>
+                <Input
+                  type="text"
+                  id="name"
+                  placeholder="Full Name"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  required
+                />
+              </div>
+              <div className="w-1/2 ml-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="email"
+                  id="email"
+                >
+                  Email
+                </label>
+                <Input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex mb-4">
+              <div className="w-1/2 mr-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <Input
+                  type="text"
+                  id="username"
+                  placeholder="Username"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  required
+                />
+              </div>
+              <div className="w-1/2 ml-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
+                <Input
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex mb-4">
+              <div className="w-1/2 mr-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="dob"
+                  id="dob"
+                >
+                  Date of Birth
+                </label>
+                <Input
+                  type="date"
+                  id="dob"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
+                  required
+                />
+              </div>
+              <div className="w-1/2 ml-2">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="gender"
+                >
+                  Gender
+                </label>
+                <Select label="Select Gender" id="gender" required>
+                  <Option value="male">Male</Option>
+                  <Option value="female">Female</Option>
+                  <Option value="other">Other</Option>
+                </Select>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <Button
+                className="bg-none bg-meadow"
+                fullWidth
+                variant="gradient"
+                type="submit"
+              >
+                Sign up
+              </Button>
+            </div>
+            <Typography variant="small" className="mt-6 flex justify-center">
+              Already have an account?
+              <span className="ml-1 font-bold text-palette-default">
+                <LoginDialog open={open} setOpen={setOpen} />
+              </span>
+            </Typography>
+          </form>
         </div>
-        <div className="flex mb-4">
-          <div className="w-1/2 mr-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="username">
-              Username
-            </label>
-            <input
-              className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="username"
-              type="text"
-              placeholder="Your username"
-              htmlFor= 'username'
-            />
-          </div>
-          <div className="w-1/2 ml-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="text-sm bg-gray-200 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="password"
-              type="password"
-              placeholder="Your password"
-            />
-          </div>
-        </div>
-        <div className="flex mb-4">
-          <div className="w-1/2 mr-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="dob" id="dob" >
-              Date of Birth
-            </label>
-            <input
-              className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="dob"
-              type="date"
-            />
-          </div>
-          <div className="w-1/2 ml-2">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="gender">
-              Gender
-            </label>
-            <select
-              className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="gender"
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <button className="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10 " type="submit">
-            Sign up
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-  </div>
-);
+  );
 }

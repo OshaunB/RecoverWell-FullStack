@@ -10,7 +10,6 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-// import { logUserIn } from "../adapters/auth-adapter";
 import { fetchHandler, getPostOptions } from "../utils";
 import CurrentUserContext from "../contexts/current-user-context";
 
@@ -50,8 +49,7 @@ export default function LoginDialog({ open, setOpen }) {
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardHeader
             variant="gradient"
-            color="blue"
-            className="mb-4 grid h-28 place-items-center"
+            className="mb-4 grid h-28 place-items-center bg-none bg-meadow"
           >
             <Typography variant="h3" color="white">
               Sign In
@@ -64,14 +62,14 @@ export default function LoginDialog({ open, setOpen }) {
               <Input label="Password" type="password" id="password" size="lg" />
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" type="submit" fullWidth>
+              <Button variant="gradient" type="submit" className="bg-none bg-meadow" fullWidth>
                 Sign In
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
                 Don&apos;t have an account?
                 <Link
                   to="/sign-up"
-                  className="ml-1 font-bold text-blue-500"
+                  className="ml-1 font-bold text-palette-default"
                   onClick={handleOpen}
                 >
                   Sign up

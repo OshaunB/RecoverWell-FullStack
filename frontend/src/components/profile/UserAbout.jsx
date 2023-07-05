@@ -1,8 +1,8 @@
-import { fetchHandler } from "../../utils";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CurrentUserContext from "../../contexts/current-user-context";
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
+import { fetchHandler } from "../../utils";
+import CurrentUserContext from "../../contexts/current-user-context";
 // import { LinkIcon } from "@heroicons/react/outline/24";
 
 export default function UserAbout() {
@@ -17,6 +17,7 @@ export default function UserAbout() {
   useEffect(() => {
     const fetchData = async () => {
       const [data, error] = await fetchHandler(`/api/users/${id}`);
+      if (error) return console.log(error);
       setUserProfile(data);
       setBio(data.bio || "");
     };

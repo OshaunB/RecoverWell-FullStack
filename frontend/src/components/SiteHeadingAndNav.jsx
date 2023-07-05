@@ -27,7 +27,7 @@ import {
 
 import { AvatarContext } from "../contexts/AvatarContext";
 import CurrentUserContext from "../contexts/current-user-context";
-import LoginTest from "../pages/LoginDialog.jsx";
+import LoginDialog from "../pages/LoginDialog.jsx";
 
 // profile menu component
 const profileMenuItems = [
@@ -196,7 +196,7 @@ export default function ComplexNavbar() {
   };
 
   return (
-    <Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6 bg-meadowπ">
+    <Navbar className="mx-auto max-w-screen-3xl p-2  lg:pl-6">
       <div className="relative mx-auto flex items-center justify-around text-blue-gray-900">
         <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <div className="flex justify-around">
@@ -219,7 +219,7 @@ export default function ComplexNavbar() {
               currentUserId={currentUser.id}
             />
           ) : (
-            <LoginTest open={open} setOpen={setOpen} />
+            <LoginDialog open={open} setOpen={setOpen} />
           )}
           <IconButton
             size="sm"

@@ -17,7 +17,7 @@ export default function LoginHeader() {
 
       <div
         
-        className="flex items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 bg-gray-800"
+        className="flex items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 bg-meadow"
       >
         <div className="px-4 py-2">
           <img

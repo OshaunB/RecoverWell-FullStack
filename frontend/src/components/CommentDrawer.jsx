@@ -4,9 +4,10 @@ import {
   Button,
   Typography,
   IconButton,
+  Input,
 } from "@material-tailwind/react";
 import CommentIcon from "@mui/icons-material/Comment";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CommentCard from "./posts/CommentCard";
 import {
@@ -50,6 +51,14 @@ export default function CommentDrawer(props) {
     e.target.reset();
   };
 
+  useEffect(() => {
+    if (openComments) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [openComments]);
+
   return (
     <>
       <div className="flex flex-wrap gap-4">
@@ -77,33 +86,45 @@ export default function CommentDrawer(props) {
         </div>
         {comments.length > 0 ? (
           <div className="overflow-y-auto h-4/5">
-          {comments.map((comment) => (
-            <CommentCard
-              key={comment.id}
-              username={findUserName(users, comment.user_id)}
-              comment={comment.comment}
-              time={timeDifference(comment.created_at)}
-              avatar={users.find((u) => u.id === comment.user_id)?.avatar}
-            />
-          ))}
-        </div>
+            {comments.map((comment) => (
+              <CommentCard
+                key={comment.id}
+                username={findUserName(users, comment.user_id)}
+                comment={comment.comment}
+                time={timeDifference(comment.created_at)}
+                avatar={users.find((u) => u.id === comment.user_id)?.avatar}
+             />
+            ))}
+          </div>
         ) : (
-          <Typography variant="lead" color="blue-gray" className="text-center">Be the first to comment</Typography>
+          <Typography variant="lead" color="blue-gray" className="text-center">
+            Be the first to comment
+          </Typography>
         )}
 
         <form
           onSubmit={addComment}
           className="absolute bottom-0 p-4 flex items-center justify-center w-full"
         >
-          <input
-            type="text"
-            id="comment"
-            className="w-full sm:w-2/3 md:w-1/2 lg:w-1/2 bg-white shadow-lg rounded-full border border-gray-300 p-4 hover:bg-gray-100"
-            placeholder="Enter your comment..."
-          />
-          <Button type="submit" size="lg" className="relative ml-2 h-14">
-            <SendIcon />
-          </Button>
+          <div className="relative flex w-full max-w-[44rem]">
+            <Input
+              type="text"
+              fullWidth
+              label="Enter your comment"
+              required
+              containerProps={{
+                className: "min-w-0",
+              }}
+              id="comment"
+            />
+            <Button
+              size="sm"
+              type="submit"
+              className="!absolute right-1 top-1 rounded"
+            >
+              <SendIcon fontSize="sm" />
+            </Button>
+          </div>
         </form>
       </Drawer>
     </>
