@@ -57,21 +57,21 @@ export default function RenderUsers(props) {
   };
 
   return (
-    <Card className= "rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
+    <Card className= "rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden bg-palette-default">
       <CardHeader floated={false} className="h-70">
         <img src={img || defaultImage} alt="profile-picture" />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h4" color="blue-gray" className="mb-2 cursor-pointer" onClick={onClick}>
+        <Typography variant="h4" color="white" className="mb-2 cursor-pointer" onClick={onClick}>
           {username}
         </Typography>
         <Typography color="blue" className="font-medium" textGradient>
           {full_name}
         </Typography>
-        <Typography variant="body2" color="blue-gray" className="mt-4">
+        <Typography variant="body2" color="white" className="mt-4">
           Gender: {gender}
         </Typography>
-        <Typography variant="body2" color="blue-gray">
+        <Typography variant="body2" color="white">
           Favorite Quote: {favorite_quote}
           <br/>
         <div>

@@ -69,9 +69,9 @@ export default function Discussions() {
     <div className="w-full px-5 bg-palette-teal h-full">
       <div className="text-center text-red-600">{error}</div>
       <Typography
-        className="text-center p-5"
+        className="text-center p-5 text-palette-default"
         variant="h1"
-        color="blue"
+        
         textGradient
       >
         RecoverFresh Discussion Groups
@@ -89,6 +89,7 @@ export default function Discussions() {
           open={open}
           setOpen={setOpen}
           currentUser={currentUser}
+          
         />
       </div>
 
