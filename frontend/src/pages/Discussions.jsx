@@ -71,6 +71,7 @@ export default function Discussions() {
       <Typography
         className="text-center p-5 text-palette-default"
         variant="h1"
+        
         textGradient
       >
         RecoverWell Discussion Groups
@@ -89,6 +90,7 @@ export default function Discussions() {
           open={open}
           setOpen={setOpen}
           currentUser={currentUser}
+          
         />
       </div>
 

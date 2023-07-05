@@ -13,7 +13,6 @@ const conversationMessageRoute = require("./routes/conversation-message-route");
 const logRoutes = require("./middleware/log-routes");
 
 const app = express();
-
 app.use(handleCookieSessions);
 app.use(logRoutes);
 app.use(express.json());
