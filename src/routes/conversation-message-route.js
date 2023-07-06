@@ -11,5 +11,6 @@ Router.post("/conversations", conversationController.createConversation);
 
 Router.get("/messages/:id", messageController.listByConversationId);
 Router.post("/messages", messageController.createMessage);
+Router.get("/lastMessage/:receiverId", messageController.lastMessage);
 
 module.exports = Router;

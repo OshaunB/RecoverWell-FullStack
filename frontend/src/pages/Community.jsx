@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
@@ -5,11 +6,13 @@ import { Typography } from "@material-tailwind/react";
 import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
 import SearchInput from "../components/SearchInput.jsx";
+import CurrentUserContext from "../contexts/current-user-context.js";
 
 export default function UsersPage() {
   const navigate = useNavigate();
   const { users } = useContext(UserContext);
   const [searchUser, setSearchUser] = useState("");
+  const { currentUser } = useContext(CurrentUserContext);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,21 +44,36 @@ export default function UsersPage() {
   };
 
   return (
-    
-    <div className="bg-palette-teal">
-     
-    <div className="container mx-auto max-w-screen-lg bg-palette-teal ">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center justify-items-center">
-        {users.map((user) => {
-          const {
-            avatar,
-            username,
-            full_name,
-            gender,
-            age,
-            favorite_quote,
-            email,
-          } = user;
+    <div className="bg-palette-teal h-content">
+      <div className="container mx-auto max-w-screen-lg bg-palette-teal">
+        <div className="relative top-0 left-0 pt-5">
+          <SearchInput
+            innerText="Search user..."
+            value={searchUser}
+            onChange={handleSearch}
+          />
+        </div>
+        <Typography
+          className="text-center p-5 text-palette-default"
+          variant="h1"
+          textGradient
+        >
+          RecoverWell Community
+        </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-center justify-items-center">
+          {filteredUsers.map((user) => {
+            const {
+              avatar,
+              username,
+              full_name,
+              gender,
+              favorite_quote,
+              email,
+            } = user;
+
+            if (user.id === currentUser.id) {
+              return null; // Skip this iteration
+            }
 
             return (
               <motion.div

@@ -32,17 +32,16 @@ export default function LandingPage() {
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl text-white">
               Come find your groove, and recover quickly today.
             </p>
-            <a
-              href="#"
+            <Link
+            to="/sign-up"
               className="inline-flex items-center justify-center px-5 py-3 mr-3 font-medium text-center text-black rounded-lg bg-palette-teal hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal"
             >
-              <Link to="/sign-up">Get started</Link>
+              Get started
 
               <svg
                 className="w-5 h-5 ml-2 -mr-1"
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   fillRule="evenodd"
@@ -50,7 +49,7 @@ export default function LandingPage() {
                   clipRule="evenodd"
                 ></path>
               </svg>
-            </a>
+            </Link>
 
             <Link
               to="/events"
