@@ -20,6 +20,8 @@ export default function UsersPage() {
     setSearchUser(user !== "" ? user : "");
   };
 
+  if (!currentUser) return <p>Log in to see other users</p>
+
   const filteredUsers = users.filter((user) => {
     if (searchUser === "") return true;
     return (
