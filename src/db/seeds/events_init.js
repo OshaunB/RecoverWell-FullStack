@@ -29,7 +29,7 @@ exports.seed = async (knex) => {
       city: "Bear Mountain",
       state: "NY",
       zip: "10911",
-      date: "2023-07-08",
+      date: "2023-08-08",
       time: "10:00:00",
       image: "https://cdn.hswstatic.com/gif/bear-mountain-1.jpg",
       guestCount: 10,
@@ -43,7 +43,7 @@ exports.seed = async (knex) => {
       city: "Queens",
       state: "NY",
       zip: "11101",
-      date: "2023-07-05",
+      date: "2023-09-05",
       time: "15:00:00",
       image:
         "https://www.magazinediscover.com/wp-content/uploads/2020/10/coffee-04.jpg",
@@ -57,7 +57,7 @@ exports.seed = async (knex) => {
       city: "New York",
       state: "NY",
       zip: "10036",
-      date: "2023-07-10",
+      date: "2023-08-10",
       time: "19:00:00",
       image:
         "https://secretnyc.co/wp-content/uploads/2022/10/museum-of-the-moving-image-2-e1666709335372.jpeg",
@@ -71,7 +71,7 @@ exports.seed = async (knex) => {
       city: "Brooklyn",
       state: "NY",
       zip: "11211",
-      date: "2023-07-05",
+      date: "2023-10-05",
       time: "20:00:00",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/4/4b/Bowlerbowling.JPG",
@@ -85,7 +85,7 @@ exports.seed = async (knex) => {
       city: "Brooklyn",
       state: "NY",
       zip: "11222",
-      date: "2023-07-01",
+      date: "2023-08-01",
       time: "18:00:00",
       image:
         "https://funcheaporfree.com/wp-content/uploads/2019/12/Game-Night-Ideas-Plus-Tips-for-Hosting.jpg",
