@@ -1,6 +1,6 @@
 export default function ChatBody({ position, senderAvatar, message }) {
   return position === "start" ? (
-    <div className="flex justify-start mb-4 items-center">
+    <div className="flex justify-start my-4 items-center">
       <img
         src={senderAvatar}
         className="object-cover h-8 w-8 rounded-full"
@@ -11,7 +11,7 @@ export default function ChatBody({ position, senderAvatar, message }) {
       </div>
     </div>
   ) : (
-    <div className="flex justify-end mb-4 items-center">
+    <div className="flex justify-end my-4 items-center">
       <div className="mr-2 py-3 px-4 bg-meadow-400 rounded-full text-white max-w-lg">
         {message}
       </div>

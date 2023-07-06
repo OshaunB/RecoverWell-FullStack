@@ -15,6 +15,28 @@ class Message {
     }
   }
 
+  static async getLastMessage(senderId, receiverId) {
+    try {
+      const query = `
+        SELECT * FROM messages
+        WHERE (sender_id = ?
+        AND receiver_id = ?) 
+        OR (sender_id = ? 
+        AND receiver_id = ?)
+        `;
+      const { rows } = await knex.raw(query, [
+        senderId,
+        receiverId,
+        receiverId,
+        senderId,
+      ]);
+      return rows[rows.length - 1];
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error getting last message");
+    }
+  }
+
   static async create(conversationId, senderId, receiverId, message) {
     try {
       const {

@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable operator-linebreak */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { Avatar } from "@material-tailwind/react";
 import { ChatContext } from "../contexts/ChatContext";
-import ChatBody from "../components/discussion/ChatMessages/ChatBody.jsx";
-import ChatFooter from "../components/discussion/ChatMessages/ChatFooter";
+import ChatBody from "../components/ChatMessages/ChatBody.jsx";
+import ChatFooter from "../components/ChatMessages/ChatFooter";
 import { UserContext } from "../contexts/UserContext";
 import { findUserById } from "../utils";
+import ChatDrawer from "../components/ChatMessages/ChatDrawer.jsx";
 
 export default function Chat() {
   const defaultImg =
@@ -19,11 +20,13 @@ export default function Chat() {
     useContext(ChatContext);
   const { users } = useContext(UserContext);
   const sortedChat = prevChat.sort((a, b) => a.id - b.id);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
+    if (!currentUser) return;
     setReceiverId(id);
     socket.emit("join_room", room);
-  }, [id, room]);
+  }, [id, room, currentUser]);
 
   useEffect(() => {
     const user = findUserById(users, Number(id));
@@ -32,8 +35,18 @@ export default function Chat() {
     }
   }, [id, users]);
 
+  useEffect(() => {
+    if (sortedChat.length > 0) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [sortedChat]);
+
+  if (!currentUser) return <p>Log in to see this information</p>;
+
   return (
     <div className="h-fit">
+      <ChatDrawer />
       <div className="flex flex-col m-5 h-full">
         <div className="container mx-auto max-w-screen-lg shadow-lg rounded-lg h-full bg-green-200">
           <div className="px-5 py-5 flex justify-between items-center bg-green-200 border-b-2">
@@ -43,6 +56,7 @@ export default function Chat() {
           <div className="flex flex-row justify-between bg-white flex-grow h-full">
             <div className="w-full px-5 flex flex-col justify-between h-full">
               <div
+                ref={chatContainerRef}
                 className="chat-messages"
                 style={{
                   maxHeight: "65vh",
