@@ -1,4 +1,4 @@
-/* eslint-disable operator-linebreak */
+import { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -30,8 +30,17 @@ export default function RenderUsers({
     },
   };
 
+  const [expanded, setExpanded] = useState(false);
+
+  const quoteWords = favorite_quote && favorite_quote.split(" ");
+  const truncatedQuote = quoteWords && quoteWords.slice(0, 10).join(" ");
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <Card className="rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden bg-palette-default">
+    <Card className="rounded-lg w-full max-w-[19rem] shadow-lg mb-4 overflow-hidden bg-palette-default">
       <CardHeader floated={false} className="h-70">
         <img src={img || defaultImage} alt="profile-picture" />
       </CardHeader>
@@ -50,12 +59,20 @@ export default function RenderUsers({
         <Typography variant="lead" color="white" className="mt-4">
           Gender: {gender}
         </Typography>
-        <Typography variant="lead" color="white">
-          Favorite Quote: {favorite_quote}
-          <br />
-        </Typography>
+        {favorite_quote && (
+          <Typography variant="paragraph" color="white">
+            Favorite Quote: {expanded ? favorite_quote : truncatedQuote}
+            {quoteWords && quoteWords.length > 10 && (
+              <div className="block">
+                <button className="text-blue-400 underline" onClick={toggleExpand}>
+                  {expanded ? "Read Less" : "Read More"}
+                </button>
+              </div>
+            )}
+          </Typography>
+        )}
       </CardBody>
-      <CardFooter className="pt-3 flex justify-around items-center">
+      <CardFooter className="pt-1 flex justify-around items-center">
         <motion.button
           className="btn btn-success"
           variants={buttonVariants}

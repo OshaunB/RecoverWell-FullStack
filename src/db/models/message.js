@@ -15,6 +15,14 @@ class Message {
     }
   }
 
+  static async find(id) {
+    const query = "SELECT * FROM messages WHERE conversation_id = ?";
+    const {
+      rows: [messages],
+    } = await knex.raw(query, [id]);
+    return messages || null;
+  }
+
   static async getLastMessage(senderId, receiverId) {
     try {
       const query = `

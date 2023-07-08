@@ -1,13 +1,15 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable implicit-arrow-linebreak */
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import UserHeading from "../components/profile/UserHeading";
-import { fetchHandler, getPatchOptions } from "../utils";
+import { fetchHandler, dateFormat, timeFormat } from "../utils";
 import UserEvents from "../components/profile/UserEvents";
 import UserAbout from "../components/profile/UserAbout";
+import NotFoundPage from "./NotFound";
 
 export default function UserPage() {
+  const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
   const [errorText, setErrorText] = useState("");
   const [avatar, setAvatar] = useState(
@@ -37,7 +39,6 @@ export default function UserPage() {
     };
     fetchData();
   }, [id, favoriteQuote]);
-  console.log(userProfile);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,8 +65,17 @@ export default function UserPage() {
     fetchData();
   }, [id]);
 
-  if (errorText) return <p>{errorText}</p>;
-  console.log(eventData);
+  const upcomingEvents = eventData.filter((e) => {
+    const eventDateTime = new Date(e.date);
+    return eventDateTime > new Date();
+  });
+
+  const pastEvents = eventData.filter((e) => {
+    const eventDateTime = new Date(e.date);
+    return eventDateTime < new Date();
+  });
+
+  if (errorText) return <NotFoundPage />;
   return (
     <div style={{ backgroundColor: "#c8d8e4" }}>
       <div className="flex flex-col md:flex-row justify-center items-start">
@@ -83,33 +93,51 @@ export default function UserPage() {
         </div>
       </div>
 
-      {eventData.length > 0 ? (
+      {upcomingEvents.length > 0 ? (
         <>
-          <p
-            className="font-bold text-4xl text-center"
-            style={{ color: "#3298ee" }}
-          >
-            Events
+          <p className="font-bold text-4xl text-center text-palette-default pt-4">
+            Upcoming Events
           </p>
           <div className="flex flex-wrap justify-center">
-            {eventData.map((event, index) => (
+            {upcomingEvents.map((event, index) => (
               <UserEvents
                 key={index}
-                avatar={avatar}
-                username={userProfile.username}
-                gender={userProfile.username}
                 eventname={event.name}
                 eventDescription={event.description}
                 eventImage={event.image}
-                eventTime={event.time}
-                eventDate={event.date}
+                eventTime={timeFormat(event.time)}
+                eventDate={dateFormat(event.date)}
+                onClick={() => navigate(`/events/${event.id}`)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <p className="text-center font-light text-lg m-8">
+          No Upcoming Events Reserved
+        </p>
+      )}
+      {pastEvents.length > 0 ? (
+        <>
+          <p className="font-bold text-4xl text-center text-palette-default">
+            Past Events
+          </p>
+          <div className="flex flex-wrap justify-center">
+            {pastEvents.map((event, index) => (
+              <UserEvents
+                key={index}
+                eventname={event.name}
+                eventDescription={event.description}
+                eventImage={event.image}
+                eventTime={timeFormat(event.time)}
+                eventDate={dateFormat(event.date)}
               />
             ))}
           </div>
         </>
       ) : (
         <p className="text-center font-light text-lg mt-8">
-          No events reserved
+          No Past Events Reserved
         </p>
       )}
     </div>

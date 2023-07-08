@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
 import { fetchHandler } from "../../utils";
 import CurrentUserContext from "../../contexts/current-user-context";
-// import { LinkIcon } from "@heroicons/react/outline/24";
 
 export default function UserAbout() {
   const { currentUser } = useContext(CurrentUserContext);
@@ -66,8 +65,8 @@ export default function UserAbout() {
   return (
     <div className="flex justify-center items-center h-full">
       <div className="max-w-2xl">
-        <h2 className="font-bold text-2xl text-center text-blue-600">
-          About {userProfile?.username}
+        <h2 className="font-bold text-2xl text-center text-palette-default pb-5">
+          About @{userProfile?.username}
         </h2>
         {isEditing ? (
           <div className="relative w-[32rem]">
@@ -80,7 +79,6 @@ export default function UserAbout() {
             />
             <div className="w-full flex justify-between py-1.5">
               <IconButton variant="text" color="blue-gray" size="sm">
-                {/* <LinkIcon strokeWidth={2} className="w-4 h-4" /> */}
               </IconButton>
               <div className="flex gap-2">
                 <Button
@@ -104,15 +102,17 @@ export default function UserAbout() {
               {userProfile?.bio}
             </p>
             {isCurrentUserProfile && (
-              <Button
-                size="sm"
-                color="blue"
-                variant="text"
-                rounded={true}
-                onClick={handleEditClick}
-              >
-                Edit Bio
-              </Button>
+              <div className="flex justify-center items-center">
+                <Button
+                  size="sm"
+                  color="blue"
+                  variant="text"
+                  rounded={true}
+                  onClick={handleEditClick}
+                >
+                  {userProfile && userProfile.bio.length > 0 ? "Edit Bio" : "Add Bio"}
+                </Button>
+              </div>
             )}
           </div>
         )}

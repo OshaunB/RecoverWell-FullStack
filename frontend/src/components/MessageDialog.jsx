@@ -7,18 +7,18 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export default function MessageDialog(props) {
+export default function MessageDialog({ title, message, setMessage }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (props.message) {
+    if (message) {
       setOpen(true);
     }
-  }, [props.message]);
+  }, [message]);
 
   const handleOpen = () => {
     setOpen(!open);
-    props.setMessage("");
+    setMessage("");
   };
 
   return (
@@ -31,8 +31,10 @@ export default function MessageDialog(props) {
           unmount: { scale: 0.9, y: -100 },
         }}
       >
-        <DialogHeader>{props.title}</DialogHeader>
-        <DialogBody divider><span className="font-bold">{props.message}</span></DialogBody>
+        <DialogHeader>{title}</DialogHeader>
+        <DialogBody divider>
+          <span className="font-bold">{message}</span>
+        </DialogBody>
         <DialogFooter>
           <Button
             variant="text"

@@ -1,5 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable operator-linebreak */
 import { useContext, useState, useEffect } from "react";
 import {
   Drawer,
@@ -14,6 +12,7 @@ import ChatUsersMenu from "./ChatUsersMenu";
 import { UserContext } from "../../contexts/UserContext";
 import { fetchHandler } from "../../utils";
 import { ChatContext } from "../../contexts/ChatContext";
+import CurrentUserContext from "../../contexts/current-user-context";
 
 export default function ChatDrawer() {
   const navigate = useNavigate();
@@ -24,6 +23,7 @@ export default function ChatDrawer() {
   const closeDrawerLeft = () => setOpen(false);
   const [searchUser, setSearchUser] = useState("");
   const [lastMessages, setLastMessages] = useState({});
+  const { currentUser } = useContext(CurrentUserContext);
 
   const filterUser = users.filter(
     (user) =>
@@ -61,8 +61,13 @@ export default function ChatDrawer() {
 
   return (
     <>
-      <div className="flex flex-wrap gap-4">
-        <Button onClick={openDrawerLeft}>
+      <div className="md:hidden">
+        <Button onClick={openDrawerLeft} className="bg-none bg-meadow ml-5 mt-5 ">
+          <MenuIcon />
+        </Button>
+      </div>
+      <div className="hidden md:block">
+        <Button onClick={openDrawerLeft} className="bg-none bg-meadow m-5 ">
           <MenuIcon />
         </Button>
       </div>
@@ -97,21 +102,27 @@ export default function ChatDrawer() {
             />
           </div>
           <div className="flex flex-row py-4 px-2 justify-center items-center border-b-2"></div>
-          {filterUser.map((user) => (
-            <ChatUsersMenu
-              key={user.id}
-              avatar={user.avatar}
-              username={user.username}
-              onClick={() => {
-                navigate(`/chat/${user.id}`);
-                closeDrawerLeft();
-              }}
-              userId={user.id}
-              lastMessage={lastMessages[user.id]}
-            />
-          ))}
+          {filterUser.map((user) => {
+            if (currentUser && currentUser.id === user.id) {
+              return null; // Skip this iteration
+            }
+            return (
+              <ChatUsersMenu
+                key={user.id}
+                avatar={user.avatar}
+                username={user.username}
+                onClick={() => {
+                  navigate(`/chat/${user.id}`);
+                  closeDrawerLeft();
+                }}
+                userId={user.id}
+                lastMessage={lastMessages[user.id]}
+              />
+            );
+          })}
         </div>
       </Drawer>
     </>
   );
 }
+

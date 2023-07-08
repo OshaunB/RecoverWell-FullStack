@@ -1,5 +1,5 @@
 /* eslint-disable operator-linebreak */
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import {
   Card,
   CardBody,
@@ -103,7 +103,7 @@ export default function UserHeading(props) {
               </form>
             ) : (
               isCurrentUserProfile && (
-                <Typography color="blue" className="font-medium" textGradient>
+                <div className="text-md text-slate-950">
                   &quot;{props.favoriteQuote}&quot;
                   <br />
                   {
@@ -114,10 +114,11 @@ export default function UserHeading(props) {
                       rounded={true}
                       onClick={() => setIsEditing(true)}
                     >
-                      Edit
+                  {props.favoriteQuote && props.favoriteQuote.length > 0 ? "Edit Fav Quote" : "Add Fav Quote"}
+
                     </Button>
                   }
-                </Typography>
+                </div>
               )
             )}
           </CardBody>

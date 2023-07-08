@@ -42,12 +42,12 @@ export default function SignUpPage() {
   return (
     <div className="bg-palette-teal">
       <div className="flex justify-center items-center h-screen">
-        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
+        <div className="p-8 bg-white rounded-lg shadow-xl">
           <LoginHeader></LoginHeader>
           <br></br>
           <form onSubmit={handleSubmit}>
             <div className="flex mb-4">
-              <div className="w-1/2 mr-2">
+              <div className="w-full mx-auto mr-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="name"
@@ -58,7 +58,7 @@ export default function SignUpPage() {
                   type="text"
                   id="name"
                   placeholder="Full Name"
-                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -66,7 +66,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-1/2 ml-2">
+              <div className="w-full mx-auto ml-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="email"
@@ -78,7 +78,7 @@ export default function SignUpPage() {
                   type="email"
                   id="email"
                   placeholder="Email"
-                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -88,7 +88,7 @@ export default function SignUpPage() {
               </div>
             </div>
             <div className="flex mb-4">
-              <div className="w-1/2 mr-2">
+              <div className="w-full mx-auto mr-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="username"
@@ -99,7 +99,7 @@ export default function SignUpPage() {
                   type="text"
                   id="username"
                   placeholder="Username"
-                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -107,7 +107,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-1/2 ml-2">
+              <div className="w-full mx-auto ml-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="password"
@@ -118,7 +118,7 @@ export default function SignUpPage() {
                   type="password"
                   id="password"
                   placeholder="Password"
-                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -128,7 +128,7 @@ export default function SignUpPage() {
               </div>
             </div>
             <div className="flex mb-4">
-              <div className="w-1/2 mr-2">
+              <div className="w-full mx-auto mr-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="dob"
@@ -139,7 +139,8 @@ export default function SignUpPage() {
                 <Input
                   type="date"
                   id="dob"
-                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  style={{ border: "1px solid #c9d2d6" }}
+                  className="focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -147,7 +148,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-1/2 ml-2">
+              <div className="w-full mx-auto ml-2">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="gender"

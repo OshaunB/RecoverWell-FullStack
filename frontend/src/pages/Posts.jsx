@@ -6,6 +6,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CurrentUserContext from "../contexts/current-user-context";
 import DiscussionCard from "../components/discussion/DiscussionCard";
+import NotFoundPage from "./NotFound.jsx";
 
 import {
   getPostOptions,
@@ -19,20 +20,27 @@ import CreatePostDialog from "../components/posts/CreatePostDialog";
 
 export default function Posts() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { users } = useContext(UserContext);
   const { currentUser } = useContext(CurrentUserContext);
-  const { id } = useParams();
   const [discussion, setDiscussion] = useState({});
   const [posts, setPosts] = useState([]);
   const [postLikes, setPostLikes] = useState({});
   const [open, setOpen] = useState(false);
+  const [notFound, SetNotFound] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!currentUser) return;
       const [data, error] = await fetchHandler(`/api/discussions/${id}`);
-      if (error) return console.log(error);
+      if (error) {
+        if (error.status === 404) {
+          SetNotFound(true);
+          return;
+        }
+      }
       setDiscussion(data);
+
       const [postData, err] = await fetchHandler(`/api/dis-posts/${id}`);
       if (err) return console.log(err);
       postData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -103,11 +111,16 @@ export default function Posts() {
     [postLikes, posts]
   );
 
-  if (!currentUser) return <p>Log in to see this information</p>;
+  console.log(notFound);
+  if (!currentUser || notFound) return <NotFoundPage />;
 
   return (
     <div className="h-content">
-      <CreatePostDialog open={open} setOpen={setOpen} onSubmit={handleCreateEvent} />
+      <CreatePostDialog
+        open={open}
+        setOpen={setOpen}
+        onSubmit={handleCreateEvent}
+      />
       <DiscussionCard
         topic={discussion.topic}
         description={discussion.description}
