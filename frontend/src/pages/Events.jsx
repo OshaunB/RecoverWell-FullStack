@@ -61,7 +61,6 @@ export default function Events() {
     };
 
     if (!validateDate(obj.date)) {
-      console.log("hi");
       setTitle("Invalid Date");
       setMessage("Please select a future date");
       return;

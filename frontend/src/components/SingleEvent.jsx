@@ -26,6 +26,7 @@ import { UserContext } from "../contexts/UserContext";
 import { EventContext } from "../contexts/EventContext";
 import CurrentUserContext from "../contexts/current-user-context";
 import MessageDialog from "./MessageDialog";
+import NotFoundPage from "../pages/NotFound";
 
 export default function SingleEvent() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function SingleEvent() {
   const [joined, setJoined] = useState(false);
   const [userJoined, setUserJoined] = useState([]);
   const [isHost, setIsHost] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -53,7 +55,11 @@ export default function SingleEvent() {
       const [data, err] = await fetchHandler(
         `/api/check-joined-event/${eventId}`
       );
-      if (err) return console.log(err);
+      if (err) {
+        console.log(err);
+        setNotFound(true);
+        return;
+      }
       setJoined(data);
       const [data2, err2] = await fetchHandler(`/api/e-join-event/${eventId}`);
       if (err2) return console.log(err2);
@@ -63,14 +69,13 @@ export default function SingleEvent() {
 
   useEffect(() => {
     const eventData = events.find((e) => e.id === Number(eventId));
+    if (!eventData) return;
     const userData = users.find((u) => u.id === Number(eventData.user_id));
     if (!userData || !eventData) return;
     setIsHost(userData.id === currentUser.id);
     setUser(userData);
     setEvent(eventData);
   }, [eventId, users, events, joined, currentUser]);
-
-  console.log(userJoined)
 
   const handleCancelEvent = async () => {
     const [_, error] = await fetchHandler(
@@ -83,7 +88,7 @@ export default function SingleEvent() {
     setMessage("Event has been cancelled");
   };
 
-  if (!user || !event) return <div>Event Not Found</div>;
+  if (!user || !event || notFound) return <NotFoundPage />;
 
   const handleDeleteEvent = async () => {
     const [_, error] = await fetchHandler(
@@ -210,7 +215,9 @@ export default function SingleEvent() {
               <List>
                 {userJoined.map((u) => (
                   <ListItem key={u.id}>
-                    <ListItemPrefix onClick={() => navigate(`/users/${u.user_id}`)}>
+                    <ListItemPrefix
+                      onClick={() => navigate(`/users/${u.user_id}`)}
+                    >
                       <Avatar
                         variant="circular"
                         alt="candice"
@@ -243,9 +250,7 @@ export default function SingleEvent() {
               </List>
             </Card>
           ) : (
-            <Typography variant="h6">
-              No one has RSVP to this event
-            </Typography>
+            <Typography variant="h6">No one has RSVP to this event</Typography>
           )}
         </div>
       </div>

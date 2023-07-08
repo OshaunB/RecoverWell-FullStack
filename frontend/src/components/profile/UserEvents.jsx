@@ -6,15 +6,9 @@ import {
 } from "@material-tailwind/react";
 
 export default function UserEvents(props) {
-  const eventDate = new Date(props.eventDate);
-  const formattedDate = eventDate.toLocaleDateString();
-  const formattedTime = eventDate.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "numeric",
-  });
   return (
-    <div className="flex justify-center py-4 px-2">
-      <Card className="flex-row w-full max-w-[48rem]">
+    <div className={`flex justify-center py-4 px-2 ${props.onClick && "cursor-pointer"}`} onClick={props.onClick}>
+      <Card className="flex-row w-full max-w-[48rem] max-h-[13rem]">
         <CardHeader
           shadow={false}
           floated={false}
@@ -28,14 +22,14 @@ export default function UserEvents(props) {
         </CardHeader>
         <CardBody>
           <Typography variant="h6" color="blue" className="uppercase mb-4">
-            {`${formattedDate} @ ${formattedTime}`}
+            {`${props.eventDate} @ ${props.eventTime}`}
 
           </Typography>
           <Typography variant="h4" color="blue-gray" className="mb-2">
             {props.eventname}
           </Typography>
           <Typography color="gray" className="font-normal mb-8">
-            &quot;{props.eventDescription}&quot;
+            {props.eventDescription}
           </Typography>
         </CardBody>
       </Card>

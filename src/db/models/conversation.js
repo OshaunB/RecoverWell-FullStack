@@ -4,12 +4,22 @@ class Conversation {
   static async list(id) {
     try {
       const query = "SELECT * FROM conversations WHERE id = ?";
-      const { rows: [rows] } = await knex.raw(query, [id]);
+      const {
+        rows: [rows],
+      } = await knex.raw(query, [id]);
       return rows;
     } catch (error) {
       console.error(error);
       throw new Error("Error listing conversations");
     }
+  }
+
+  static async find(id) {
+    const query = "SELECT * FROM conversations WHERE id = ?";
+    const {
+      rows: [conversation],
+    } = await knex.raw(query, [id]);
+    return conversation || null;
   }
 
   static async create(userId1, userId2, roomName) {
@@ -21,7 +31,7 @@ class Conversation {
         `SELECT * FROM conversations 
         WHERE (user_id1 = ? AND user_id2 = ?)
         OR (user_id1 = ? AND user_id2 = ?)`,
-        [userId1, userId2, userId2, userId1],
+        [userId1, userId2, userId2, userId1]
       );
 
       if (checkIfItExists.rows.length > 0) {

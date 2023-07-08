@@ -7,12 +7,14 @@ import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
 import SearchInput from "../components/SearchInput.jsx";
 import CurrentUserContext from "../contexts/current-user-context.js";
+import MessageDialog from "../components/MessageDialog.jsx";
 
 export default function UsersPage() {
   const navigate = useNavigate();
   const { users } = useContext(UserContext);
   const [searchUser, setSearchUser] = useState("");
   const { currentUser } = useContext(CurrentUserContext);
+  const [error, setError] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ export default function UsersPage() {
     setSearchUser(user !== "" ? user : "");
   };
 
-  if (!currentUser) return <p>Log in to see other users</p>
+  // if (!currentUser) return <p>Log in to see other users</p>;
 
   const filteredUsers = users.filter((user) => {
     if (searchUser === "") return true;
@@ -29,6 +31,14 @@ export default function UsersPage() {
       user.full_name.toLowerCase().includes(searchUser.toLowerCase())
     );
   });
+
+  const navigateToChat = (userId) => {
+    if (!currentUser) {
+      setError("Please Sign In to Chat with this person");
+      return;
+    }
+    navigate(`/chat/${userId}`);
+  };
 
   const cardVariants = {
     initial: {
@@ -47,6 +57,11 @@ export default function UsersPage() {
 
   return (
     <div className="bg-palette-teal h-content">
+      <MessageDialog
+        title={"Please Sign In"}
+        message={error}
+        setMessage={setError}
+      />
       <div className="container mx-auto max-w-screen-lg bg-palette-teal">
         <div className="relative top-0 left-0 pt-5">
           <SearchInput
@@ -73,7 +88,7 @@ export default function UsersPage() {
               email,
             } = user;
 
-            if (user.id === currentUser.id) {
+            if (currentUser && currentUser.id === user.id) {
               return null; // Skip this iteration
             }
 
@@ -92,7 +107,7 @@ export default function UsersPage() {
                   favorite_quote={favorite_quote}
                   email={email}
                   onClick={() => navigate(`/users/${user.id}`)}
-                  chatNavigate={() => navigate(`/chat/${user.id}`)}
+                  chatNavigate={() => navigateToChat(user.id)}
                 />
               </motion.div>
             );

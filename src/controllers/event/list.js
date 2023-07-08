@@ -17,6 +17,7 @@ const listEventById = async (req, res) => {
       db: { Event },
       params: { id },
     } = req;
+    if (isNaN(id)) return res.sendStatus(404);
     const event = await Event.getEventById(id);
     res.status(200).json(event);
   } catch (error) {

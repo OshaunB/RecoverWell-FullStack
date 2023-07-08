@@ -5,6 +5,7 @@ const checkForJoinedEvent = async (req, res) => {
       db: { JoinEvent },
       params: { eventId },
     } = req;
+    if (isNaN(eventId)) return res.sendStatus(404);
     const joinedEvent = await JoinEvent.checkForJoined(
       session.userId,
       eventId

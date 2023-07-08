@@ -66,6 +66,9 @@ export const dateFormat = (date) =>
   });
 
 export const timeFormat = (timeString) => {
+  if (!timeString) {
+    return ""; // Return an empty string or a default value for undefined timeString
+  }
   const [hours, minutes] = timeString.split(":");
   let formattedTime = "";
 

@@ -34,7 +34,7 @@ export default function LandingPage() {
             </p>
             <Link
             to="/sign-up"
-              className="inline-flex items-center justify-center px-5 py-3 mr-3 font-medium text-center text-black rounded-lg bg-palette-teal hover:bg-palette-aqua focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal"
+              className="inline-flex items-center justify-center px-5 py-3 mr-3 font-medium text-center text-black rounded-lg bg-palette-teal hover:bg-meadow-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-palette-teal"
             >
               Get started
 

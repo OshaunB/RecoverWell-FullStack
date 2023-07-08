@@ -13,9 +13,14 @@ const ChatContextProvider = ({ children }) => {
   const [room, setRoom] = useState(null);
   const { currentUser } = useContext(CurrentUserContext);
   const [conversationId, setConversationId] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     (async () => {
+      if (isNaN(receiverId)) {
+        setNotFound(true);
+        return;
+      }
       const obj = {
         userId2: receiverId,
         roomName: crypto.randomUUID(),
@@ -38,7 +43,11 @@ const ChatContextProvider = ({ children }) => {
       const [data, error] = await fetchHandler(
         `/api/messages/${conversationId}`
       );
-      if (error) return console.log(error);
+      if (error) {
+        console.log(error);
+        setNotFound(true);
+        return;
+      }
       setPrevChat(data);
     })();
   }, [conversationId, room]);
@@ -91,6 +100,7 @@ const ChatContextProvider = ({ children }) => {
     sendMessage,
     socket,
     currentUser,
+    notFound,
   };
 
   return (
