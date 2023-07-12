@@ -51,8 +51,4 @@ class Discussion {
   }
 }
 
-// (async () => {
-//   const discussion = await Discussion.findById(90);
-//   console.log(discussion);
-// })();
 module.exports = Discussion;

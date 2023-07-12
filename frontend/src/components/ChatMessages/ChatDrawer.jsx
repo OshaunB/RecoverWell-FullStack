@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable operator-linebreak */
 import { useContext, useState, useEffect } from "react";
 import {
   Drawer,
@@ -104,7 +106,7 @@ export default function ChatDrawer() {
           <div className="flex flex-row py-4 px-2 justify-center items-center border-b-2"></div>
           {filterUser.map((user) => {
             if (currentUser && currentUser.id === user.id) {
-              return null; // Skip this iteration
+              return null;
             }
             return (
               <ChatUsersMenu

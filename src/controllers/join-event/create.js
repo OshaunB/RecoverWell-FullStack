@@ -5,7 +5,6 @@ const createJoinEvent = async (req, res) => {
       db: { JoinEvent },
       body: { eventId },
     } = req;
-    console.log(session.userId, eventId);
     const join = await JoinEvent.create(session.userId, eventId);
     res.status(201).json(join);
   } catch (error) {

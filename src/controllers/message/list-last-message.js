@@ -7,7 +7,7 @@ const getLastMessage = async (req, res) => {
     } = req;
     const messages = await Message.getLastMessage(session.userId, receiverId);
     if (!messages) {
-      return res.status(404).json({ error: "No messages found" });
+      return res.json("No messages found");
     }
     res.status(200).json(messages);
   } catch (error) {

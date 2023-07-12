@@ -10,7 +10,7 @@ import NotFoundPage from "./NotFound";
 
 export default function UserPage() {
   const navigate = useNavigate();
-  const [userProfile, setUserProfile] = useState({});
+  const [userProfile, setUserProfile] = useState(null);
   const [errorText, setErrorText] = useState("");
   const [avatar, setAvatar] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -21,27 +21,18 @@ export default function UserPage() {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       const [data, error] = await fetchHandler(`/api/users/${id}`);
-      if (error) {
-        setErrorText("User not found");
-        return;
-      }
-
+      if (error) return setErrorText("User not found");
       setUserProfile(data);
       if (data.avatar) {
         setAvatar(data.avatar);
-      } else {
-        setAvatar(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-        );
       }
-    };
-    fetchData();
-  }, [id, favoriteQuote]);
+    })();
+  }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       const [userEvents, error] = await fetchHandler(`/api/u-join-event/${id}`);
       if (error) return console.log(error);
       setEventData(userEvents);
@@ -60,9 +51,7 @@ export default function UserPage() {
 
       const filteredEventData = eventArray.filter((data) => data !== undefined);
       setEventData(filteredEventData);
-    };
-
-    fetchData();
+    })();
   }, [id]);
 
   const upcomingEvents = eventData.filter((e) => {
@@ -82,14 +71,18 @@ export default function UserPage() {
         <div className="w-full">
           <UserHeading
             avatar={avatar}
-            username={userProfile.username}
-            gender={userProfile.gender}
-            age={userProfile.dob}
-            favoriteQuote={userProfile.favorite_quote}
+            username={userProfile && userProfile.username}
+            gender={userProfile && userProfile.gender}
+            age={userProfile && userProfile.dob}
+            favoriteQuote={userProfile && userProfile.favorite_quote}
             setFavoriteQuote={setFavoriteQuote}
             id={id}
           />
-          <UserAbout userProfile={userProfile} />
+          <UserAbout
+            userProfile={userProfile && userProfile}
+            setUserProfile={userProfile && setUserProfile}
+            id={id}
+          />
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable operator-linebreak */
 import { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { Avatar } from "@material-tailwind/react";
+import { Avatar, Tooltip } from "@material-tailwind/react";
 import { ChatContext } from "../contexts/ChatContext";
 import ChatBody from "../components/ChatMessages/ChatBody.jsx";
 import ChatFooter from "../components/ChatMessages/ChatFooter";
@@ -13,10 +13,11 @@ import ChatDrawer from "../components/ChatMessages/ChatDrawer.jsx";
 import NotFoundPage from "./NotFound";
 
 export default function Chat() {
+  const navigate = useNavigate();
   const defaultImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   const { id } = useParams();
-  const [avatar, setAvatar] = useState(defaultImg);
+  const [user, setUser] = useState({});
   const { prevChat, setReceiverId, room, socket, currentUser, notFound } =
     useContext(ChatContext);
   const { users } = useContext(UserContext);
@@ -30,10 +31,8 @@ export default function Chat() {
   }, [id, room, currentUser]);
 
   useEffect(() => {
-    const user = findUserById(users, Number(id));
-    if (user && user.avatar) {
-      setAvatar(user.avatar);
-    }
+    const userData = findUserById(users, Number(id));
+    if (userData) setUser(userData);
   }, [id, users]);
 
   useEffect(() => {
@@ -54,7 +53,13 @@ export default function Chat() {
             <div className="container mx-auto max-w-screen-lg shadow-lg rounded-lg h-full bg-green-200">
               <div className="px-5 py-5 flex justify-between items-center bg-green-200 border-b-2">
                 <div className="font-semibold text-2xl">Chat</div>
-                <Avatar src={avatar} />
+                <Tooltip content={user && user.username}>
+                  <Avatar
+                    src={(user && user.avatar) || defaultImg}
+                    onClick={() => navigate(`/users/${user.id}`)}
+                    className="cursor-pointer"
+                  />
+                </Tooltip>
               </div>
               <div className="flex flex-row justify-between bg-white flex-grow h-full">
                 <div className="w-full px-5 flex flex-col justify-between h-full">
