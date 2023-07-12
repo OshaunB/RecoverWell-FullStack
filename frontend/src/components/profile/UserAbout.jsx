@@ -98,7 +98,7 @@ export default function UserAbout({ id, userProfile, setUserProfile }) {
                   rounded={true}
                   onClick={handleEditClick}
                 >
-                  {userProfile && userProfile.bio.length > 0
+                  {userProfile && userProfile.bio && userProfile.bio.length > 0
                     ? "Edit Bio"
                     : "Add Bio"}
                 </Button>
