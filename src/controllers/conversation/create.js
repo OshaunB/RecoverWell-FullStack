@@ -5,7 +5,6 @@ const createConversation = async (req, res) => {
     body: { userId2, roomName },
   } = req;
 
-  console.log(userId, userId2, roomName);
   try {
     const conversation = await Conversation.create(userId, userId2, roomName);
     res.status(201).json(conversation);

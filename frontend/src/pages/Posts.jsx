@@ -111,7 +111,6 @@ export default function Posts() {
     [postLikes, posts]
   );
 
-  console.log(notFound);
   if (!currentUser || notFound) return <NotFoundPage />;
 
   return (

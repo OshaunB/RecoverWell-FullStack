@@ -4,24 +4,12 @@ import { Textarea, Button, IconButton } from "@material-tailwind/react";
 import { fetchHandler } from "../../utils";
 import CurrentUserContext from "../../contexts/current-user-context";
 
-export default function UserAbout() {
+export default function UserAbout({ id, userProfile, setUserProfile }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const { id } = useParams();
-  const [userProfile, setUserProfile] = useState(null);
   const [bio, setBio] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const isCurrentUserProfile = currentUser && currentUser.id === Number(id);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [data, error] = await fetchHandler(`/api/users/${id}`);
-      if (error) return console.log(error);
-      setUserProfile(data);
-      setBio(data.bio || "");
-    };
-    fetchData();
-  }, [id]);
 
   const handleBioUpdate = async () => {
     try {
@@ -34,11 +22,8 @@ export default function UserAbout() {
       });
 
       if (response.ok) {
-        console.log("Bio updated successfully");
-        setUserProfile({ ...userProfile, bio });
+        setUserProfile(userProfile && { ...userProfile, bio });
         setIsEditing(false);
-      } else {
-        console.log("Failed to update bio");
       }
     } catch (error) {
       console.log("Error occurred while updating bio:", error);
@@ -66,7 +51,7 @@ export default function UserAbout() {
     <div className="flex justify-center items-center h-full">
       <div className="max-w-2xl">
         <h2 className="font-bold text-2xl text-center text-palette-default pb-5">
-          About @{userProfile?.username}
+          About @{userProfile && userProfile?.username}
         </h2>
         {isEditing ? (
           <div className="relative w-[32rem]">
@@ -78,8 +63,11 @@ export default function UserAbout() {
               onChange={handleBioChange}
             />
             <div className="w-full flex justify-between py-1.5">
-              <IconButton variant="text" color="blue-gray" size="sm">
-              </IconButton>
+              <IconButton
+                variant="text"
+                color="blue-gray"
+                size="sm"
+              ></IconButton>
               <div className="flex gap-2">
                 <Button
                   size="sm"
@@ -110,7 +98,9 @@ export default function UserAbout() {
                   rounded={true}
                   onClick={handleEditClick}
                 >
-                  {userProfile && userProfile.bio.length > 0 ? "Edit Bio" : "Add Bio"}
+                  {userProfile && userProfile.bio.length > 0
+                    ? "Edit Bio"
+                    : "Add Bio"}
                 </Button>
               </div>
             )}
