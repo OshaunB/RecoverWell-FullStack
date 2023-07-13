@@ -36,7 +36,7 @@ export default function Chat() {
   }, [id, users]);
 
   useEffect(() => {
-    if (sortedChat.length > 0) {
+    if (sortedChat.length > 0 && chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }

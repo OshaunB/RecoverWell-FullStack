@@ -2,6 +2,7 @@ import io from "socket.io-client";
 import { useEffect, useState, createContext, useContext } from "react";
 import CurrentUserContext from "./current-user-context";
 import { fetchHandler, getPostOptions } from "../utils";
+import { UserContext } from "./UserContext";
 
 const ChatContext = createContext();
 
@@ -12,15 +13,25 @@ const ChatContextProvider = ({ children }) => {
   const [receiverId, setReceiverId] = useState(null);
   const [room, setRoom] = useState(null);
   const { currentUser } = useContext(CurrentUserContext);
+  const { users } = useContext(UserContext);
   const [conversationId, setConversationId] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
+    const doesUserExist = users.some((user) => {
+      console.log(user.id === Number(receiverId));
+      return user.id === Number(receiverId);
+    });
+    if (!doesUserExist) {
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
+  }, [receiverId, users]);
+
+  useEffect(() => {
     (async () => {
-      if (isNaN(receiverId)) {
-        setNotFound(true);
-        return;
-      }
+      if (notFound) return;
       const obj = {
         userId2: receiverId,
         roomName: crypto.randomUUID(),
@@ -29,25 +40,24 @@ const ChatContextProvider = ({ children }) => {
         "/api/conversations",
         getPostOptions(obj)
       );
-      if (error) return console.log(error);
+      if (error) {
+        console.log(error);
+        return;
+      }
       setRoom(data.room_name);
       setConversationId(data.id);
     })();
-  }, [currentUser, receiverId, room]);
+  }, [currentUser, receiverId, room, notFound]);
+
+  console.log(conversationId);
 
   useEffect(() => {
+    if (!conversationId) return;
     (async () => {
-      if (!conversationId) {
-        return;
-      }
       const [data, error] = await fetchHandler(
         `/api/messages/${conversationId}`
       );
-      if (error) {
-        console.log(error);
-        setNotFound(true);
-        return;
-      }
+      if (error) return console.log(error);
       setPrevChat(data);
     })();
   }, [conversationId, room]);
