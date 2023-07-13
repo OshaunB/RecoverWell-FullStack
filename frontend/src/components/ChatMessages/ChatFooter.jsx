@@ -7,25 +7,21 @@ export default function ChatFooter() {
   const { sendMessage } = useContext(ChatContext);
 
   return (
-    <form onSubmit={sendMessage} className="p-2 flex items-center justify-center w-full">
+    <form
+      onSubmit={sendMessage}
+      className="p-2 flex items-center justify-center w-full"
+    >
       <div className="relative flex w-full">
-        <Input
+        <textarea
           type="text"
-          label="Enter your message"
-          required
-          containerProps={{
-            className: "min-w-0",
-          }}
+          className="w-full px-1 h-10 border border-black rounded resize-none"
           id="message"
+          required
         />
-        <Button
-          size="sm"
-          type="submit"
-          className="!absolute right-1 top-1 rounded"
-        >
-          <SendIcon fontSize="sm" />
-        </Button>
       </div>
+      <Button size="sm" type="submit">
+        <SendIcon />
+      </Button>
     </form>
   );
 }
