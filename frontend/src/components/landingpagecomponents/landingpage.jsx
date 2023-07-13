@@ -112,23 +112,23 @@ export default function LandingPage() {
       </section>
 
       <div className="container pt-32 mx-auto lg:px-4 lg:py-4 bg-palette-default">
-        <div className="flex flex-col w-full mb-2 text-left md:text-center bg-palette-default">
-          <h1 className="mb-2 text-6xl font-bold tracking-tighter text-white lg:text-8xl md:text-7xl bg-palette-default">
+        <div className="flex flex-col w-full mb-2 md:text-center bg-palette-default text-center">
+          <h1 className="mb-2 text-6xl font-bold tracking-tight text-white lg:text-8xl md:text-7xl bg-palette-default">
             <span>Let us Join you </span>
             <br className="hidden lg:block bg-palette-default" />
             On Your Journey
           </h1>
           <br />
-          <p className="mx-auto text-xl font-normal leading-relaxed text-white text-palette-white lg:w-2/3 ">
+          <p className="mx-auto text-xl font-normal leading-relaxed text-palette-white lg:w-2/3 ">
             As we Recover, it is our duty to help ourselves in all ways that we
-            can
+            can.
           </p>
         </div>
       </div>
 
       <section className="bg-white dark:bg-gray-800">
         <div className="py-12 lg:py-20 mx-auto max-w-screen-xl px-4">
-          <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 text-palette-default md:text-4xl">
+          <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-palette-default md:text-4xl">
             In the battle against addiction, a strong community acts as a
             lifeline, offering support, understanding, and the belief that
             together we can overcome any obstacle.
