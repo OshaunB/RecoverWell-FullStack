@@ -45,9 +45,9 @@ export default function Chat() {
   if (!currentUser || notFound) return <NotFoundPage />;
 
   return (
-    <div className="h-screen flex flex-col md:flex-row">
+    <div className="h-screen flex flex-col md:flex-row mb-5">
       <ChatDrawer />
-      <div className="w-full mr-20">
+      <div className="w-full mr-20 ">
         <div className="md:w-full">
           <div className="flex flex-col m-5 h-full">
             <div className="container mx-auto max-w-screen-lg shadow-lg rounded-lg h-full bg-green-200">

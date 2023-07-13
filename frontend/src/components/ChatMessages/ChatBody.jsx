@@ -11,8 +11,8 @@ export default function ChatBody({ position, senderAvatar, message }) {
       </div>
     </div>
   ) : (
-    <div className="flex justify-end my-4 items-center">
-      <div className="mr-2 py-3 px-4 bg-meadow-400 rounded-full text-white max-w-lg">
+    <div className="flex justify-end my-2 mx-2 items-center">
+      <div className="mr-2 py-3 px-4 bg-blue-400 rounded-full text-white max-w-lg">
         {message}
       </div>
       <img
