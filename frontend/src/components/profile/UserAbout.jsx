@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
-import { fetchHandler } from "../../utils";
 import CurrentUserContext from "../../contexts/current-user-context";
 
 export default function UserAbout({ id, userProfile, setUserProfile }) {
@@ -109,8 +107,4 @@ export default function UserAbout({ id, userProfile, setUserProfile }) {
       </div>
     </div>
   );
-}
-
-function hello(name) {
-  return `Hello, ${name}`;
 }
