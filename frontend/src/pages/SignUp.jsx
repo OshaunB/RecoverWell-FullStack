@@ -40,14 +40,14 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="bg-palette-teal">
-      <div className="flex justify-center items-center h-screen">
-        <div className="p-8 bg-white rounded-lg shadow-xl">
-          <LoginHeader></LoginHeader>
+    <div className="bg-palette-teal h-full">
+      <div className="flex justify-center items-center h-full">
+        <div className="p-8 bg-white rounded-lg shadow-xl w-full m-5 max-w-[30rem]">
+          <LoginHeader />
           <br></br>
           <form onSubmit={handleSubmit}>
-            <div className="flex mb-4">
-              <div className="w-full mx-auto mr-2">
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="name"
@@ -66,7 +66,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-full mx-auto ml-2">
+              <div className="w-full mx-auto sm:ml-2 flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="email"
@@ -87,8 +87,8 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            <div className="flex mb-4">
-              <div className="w-full mx-auto mr-2">
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="w-full mx-auto flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="username"
@@ -107,7 +107,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-full mx-auto ml-2">
+              <div className="w-full mx-auto sm:ml-2 flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="password"
@@ -127,8 +127,8 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            <div className="flex mb-4">
-              <div className="w-full mx-auto mr-2">
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="w-full mx-auto flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="dob"
@@ -148,7 +148,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-              <div className="w-full mx-auto ml-2">
+              <div className="w-full mx-auto sm:ml-2 flex-1">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="gender"
