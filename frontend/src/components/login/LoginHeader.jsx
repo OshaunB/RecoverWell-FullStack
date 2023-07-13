@@ -15,14 +15,11 @@ export default function LoginHeader() {
         Welcome!
       </p>
 
-      <div
-        
-        className="flex items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 bg-meadow"
-      >
+      <div className="flex items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 bg-meadow">
         <div className="px-4 py-2">
           <img
             className="w-auto h-7 sm:h-8"
-            src="../assets/new logo.png"
+            src="https://ucarecdn.com/80918313-cc19-4338-a310-25959203a95b/"
             alt=""
           />
         </div>
