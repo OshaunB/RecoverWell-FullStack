@@ -4,9 +4,6 @@ const listByConversationId = async (req, res) => {
       db: { Message },
       params: { id },
     } = req;
-    if (isNaN(id)) return res.sendStatus(404);
-    const exists = await Message.find(id);
-    if (!exists) return res.sendStatus(404);
     const messages = await Message.list(id);
     res.status(200).json(messages);
   } catch (error) {

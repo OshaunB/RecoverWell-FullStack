@@ -110,3 +110,7 @@ export default function UserAbout({ id, userProfile, setUserProfile }) {
     </div>
   );
 }
+
+function hello(name) {
+  return `Hello, ${name}`;
+}
