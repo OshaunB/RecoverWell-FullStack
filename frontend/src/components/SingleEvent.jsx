@@ -12,9 +12,10 @@ import {
 } from "@material-tailwind/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
+import EmailIcon from "@mui/icons-material/Email";
+
 import {
   findUserName,
-  timeDifference,
   dateFormat,
   fetchHandler,
   timeFormat,
@@ -25,6 +26,7 @@ import { UserContext } from "../contexts/UserContext";
 import { EventContext } from "../contexts/EventContext";
 import CurrentUserContext from "../contexts/current-user-context";
 import MessageDialog from "./MessageDialog";
+import NotFoundPage from "../pages/NotFound";
 
 export default function SingleEvent() {
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ export default function SingleEvent() {
   const [joined, setJoined] = useState(false);
   const [userJoined, setUserJoined] = useState([]);
   const [isHost, setIsHost] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -52,7 +55,11 @@ export default function SingleEvent() {
       const [data, err] = await fetchHandler(
         `/api/check-joined-event/${eventId}`
       );
-      if (err) return console.log(err);
+      if (err) {
+        console.log(err);
+        setNotFound(true);
+        return;
+      }
       setJoined(data);
       const [data2, err2] = await fetchHandler(`/api/e-join-event/${eventId}`);
       if (err2) return console.log(err2);
@@ -62,6 +69,7 @@ export default function SingleEvent() {
 
   useEffect(() => {
     const eventData = events.find((e) => e.id === Number(eventId));
+    if (!eventData) return;
     const userData = users.find((u) => u.id === Number(eventData.user_id));
     if (!userData || !eventData) return;
     setIsHost(userData.id === currentUser.id);
@@ -80,7 +88,7 @@ export default function SingleEvent() {
     setMessage("Event has been cancelled");
   };
 
-  if (!user || !event) return <div>Event Not Found</div>;
+  if (!user || !event || notFound) return <NotFoundPage />;
 
   const handleDeleteEvent = async () => {
     const [_, error] = await fetchHandler(
@@ -123,26 +131,35 @@ export default function SingleEvent() {
             </CardHeader>
           </div>
           <CardBody>
-            <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate(`/users/${user.id}`)}>
-              <Avatar
-                src={
-                  user.avatar ||
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                }
-                alt="avatar"
-              />
-              <div>
-                <Typography variant="h6">@{user.username}</Typography>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="font-normal"
-                >
-                  {user.email}
-                  {/* {timeDifference(event.created_at)} */}
-                </Typography>
+            <div className="flex items-center justify-between">
+              <div
+                className="flex items-center gap-4 cursor-pointer"
+                onClick={() => navigate(`/users/${user.id}`)}
+              >
+                <Avatar
+                  src={
+                    user.avatar ||
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
+                  alt="avatar"
+                />
+                <div>
+                  <Typography variant="h6">@{user.username}</Typography>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="font-normal"
+                  >
+                    {user.email}
+                  </Typography>
+                </div>
               </div>
+              <EmailIcon
+                className="cursor-pointer"
+                onClick={() => navigate(`/chat/${user.id}`)}
+              />
             </div>
+
             <Typography variant="lead">{event.description}</Typography>
             <Typography variant="lead">
               <span className="font-bold">Date:</span> {dateFormat(event.date)}
@@ -163,7 +180,7 @@ export default function SingleEvent() {
                 }
                 className="flex items-center gap-2"
               >
-                {joined ? "Cancel" : "RSVP"}
+                {joined ? "Cancel RSVP" : "RSVP"}
               </Button>
               <Button
                 variant="gradient"
@@ -197,11 +214,10 @@ export default function SingleEvent() {
             <Card className="w-96 border-solid border-2">
               <List>
                 {userJoined.map((u) => (
-                  <ListItem
-                    key={u.id}
-                    onClick={() => navigate(`/users/${u.user_id}`)}
-                  >
-                    <ListItemPrefix>
+                  <ListItem key={u.id}>
+                    <ListItemPrefix
+                      onClick={() => navigate(`/users/${u.user_id}`)}
+                    >
                       <Avatar
                         variant="circular"
                         alt="candice"
@@ -211,7 +227,7 @@ export default function SingleEvent() {
                         }
                       />
                     </ListItemPrefix>
-                    <div>
+                    <div onClick={() => navigate(`/users/${u.user_id}`)}>
                       <Typography variant="h6" color="blue-gray">
                         @{findUserName(users, u.user_id)}
                       </Typography>
@@ -223,12 +239,18 @@ export default function SingleEvent() {
                         {findUserById(users, u.user_id).email}
                       </Typography>
                     </div>
+                    <div className="ml-auto">
+                      <EmailIcon
+                        className="cursor-pointer"
+                        onClick={() => navigate(`/chat/${u.user_id}`)}
+                      />
+                    </div>
                   </ListItem>
                 ))}
               </List>
             </Card>
           ) : (
-            <Typography variant="h6">No one has RSVP this event</Typography>
+            <Typography variant="h6">No one has RSVP to this event</Typography>
           )}
         </div>
       </div>

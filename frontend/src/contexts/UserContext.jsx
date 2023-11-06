@@ -1,9 +1,11 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { getAllUsers } from "../adapters/user-adapter";
+import CurrentUserContext from "./current-user-context";
 
 const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
+  const { currentUser } = useContext(CurrentUserContext);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const UserContextProvider = ({ children }) => {
       if (error) return console.log(error);
       setUsers(data);
     })();
-  }, []);
+  }, [currentUser]);
 
   const context = { users, setUsers };
   return (

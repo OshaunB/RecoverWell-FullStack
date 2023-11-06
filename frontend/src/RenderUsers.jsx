@@ -1,21 +1,24 @@
-import { Card, CardHeader, CardBody, CardFooter, Typography } from "@material-tailwind/react";
-import { motion } from "framer-motion";
 import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+} from "@material-tailwind/react";
+import { motion } from "framer-motion";
 
-export default function RenderUsers(props) {
-  const { username, full_name, img, gender, email,favorite_quote } = props;
+export default function RenderUsers({
+  username,
+  full_name,
+  gender,
+  img,
+  favorite_quote,
+  onClick,
+  chatNavigate,
+}) {
   const defaultImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-
-  const imageVariants = {
-    hover: {
-      scale: 1.1,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
 
   const buttonVariants = {
     hover: {
@@ -27,103 +30,58 @@ export default function RenderUsers(props) {
     },
   };
 
-  const [showDetails, setShowDetails] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  const handleConnectClick = () => {
-    setShowDetails(!showDetails);
-  };
+  const quoteWords = favorite_quote && favorite_quote.split(" ");
+  const truncatedQuote = quoteWords && quoteWords.slice(0, 10).join(" ");
 
-  const modalVariants = {
-    hidden: {
-      opacity: 0,
-      y: "-50%",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-    visible: {
-      opacity: 1,
-      y: "0%",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const handleClose = () => {
-    setShowDetails(false);
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
-    <Card className="rounded-lg w-full max-w-[22rem] shadow-lg mb-4 overflow-hidden">
+    <Card className="rounded-lg w-full max-w-[19rem] shadow-lg mb-4 overflow-hidden bg-palette-default">
       <CardHeader floated={false} className="h-70">
         <img src={img || defaultImage} alt="profile-picture" />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h4" color="blue-gray" className="mb-2">
+        <Typography
+          variant="h4"
+          color="white"
+          className="mb-2 cursor-pointer"
+          onClick={onClick}
+        >
           {username}
         </Typography>
         <Typography color="blue" className="font-medium" textGradient>
           {full_name}
         </Typography>
-        <Typography variant="body2" color="blue-gray" className="mt-4">
+        <Typography variant="lead" color="white" className="mt-4">
           Gender: {gender}
         </Typography>
-        <Typography variant="body2" color="blue-gray">
-          Favorite Quote: {favorite_quote}
-          <br/>
-        <div>
-        
-        </div>
-          {email}
-        
-         
-        </Typography>
+        {favorite_quote && (
+          <Typography variant="paragraph" color="white">
+            Favorite Quote: {expanded ? favorite_quote : truncatedQuote}
+            {quoteWords && quoteWords.length > 10 && (
+              <div className="block">
+                <button className="text-blue-400 underline" onClick={toggleExpand}>
+                  {expanded ? "Read Less" : "Read More"}
+                </button>
+              </div>
+            )}
+          </Typography>
+        )}
       </CardBody>
-      <CardFooter className="pt-3 flex justify-around items-center">
+      <CardFooter className="pt-1 flex justify-around items-center">
         <motion.button
           className="btn btn-success"
           variants={buttonVariants}
           whileHover="hover"
-          onClick={handleConnectClick}
+          onClick={chatNavigate}
         >
-          Connect
+          Chat
         </motion.button>
       </CardFooter>
-      {showDetails && (
-        <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          variants={modalVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <Card className="w-80">
-            <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800" onClick={handleClose}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <CardBody>
-              <img
-                src={img || defaultImage}
-                alt="profile-picture"
-                className="w-16 h-16 rounded-full mx-auto mb-2"
-              />
-              <Typography variant="h6" color="blue-gray" className="text-center">
-                {full_name}
-              </Typography>
-              <Typography variant="body2" color="blue-gray" className="mt-4">
-                Gender: {gender}
-              </Typography>
-              <Typography variant="body2" color="blue-gray">
-              Email: {}
-              </Typography>
-            </CardBody>
-          </Card>
-        </motion.div>
-      )}
     </Card>
   );
 }

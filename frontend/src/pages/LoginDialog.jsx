@@ -10,7 +10,6 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-// import { logUserIn } from "../adapters/auth-adapter";
 import { fetchHandler, getPostOptions } from "../utils";
 import CurrentUserContext from "../contexts/current-user-context";
 
@@ -25,12 +24,17 @@ export default function LoginDialog({ open, setOpen }) {
       username: e.target.username.value,
       password: e.target.password.value,
     };
-    const [user, err] = await fetchHandler("/api/login", getPostOptions(userData));
+    const [user, err] = await fetchHandler(
+      "/api/login",
+      getPostOptions(userData)
+    );
     if (err) {
-      if (err.statusText === "Unauthorized") {
+      if (err.response && err.response.status === 401) {
         setError("Invalid password");
-      } else if (err.statusText === "Not Found") {
+      } else if (err.response && err.response.status === 404) {
         setError("Invalid username");
+      } else {
+        setError("Invalid username or password");
       }
       return;
     }
@@ -40,7 +44,9 @@ export default function LoginDialog({ open, setOpen }) {
 
   return (
     <>
-      <div className="cursor-pointer" onClick={handleOpen}>Sign In</div>
+      <div className="cursor-pointer text-blue-400" onClick={handleOpen}>
+        Sign In
+      </div>
       <Dialog
         size="xs"
         open={open}
@@ -50,28 +56,34 @@ export default function LoginDialog({ open, setOpen }) {
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardHeader
             variant="gradient"
-            color="blue"
-            className="mb-4 grid h-28 place-items-center"
+            className="mb-4 grid h-28 place-items-center bg-none bg-meadow"
           >
             <Typography variant="h3" color="white">
               Sign In
             </Typography>
           </CardHeader>
           <form onSubmit={handleLoginSubmit}>
-          <Typography color="red" variant="h5" className="text-center">{error}</Typography>
+            <Typography color="red" variant="h5" className="text-center">
+              {error}
+            </Typography>
             <CardBody className="flex flex-col gap-4">
               <Input label="Username" id="username" size="lg" />
               <Input label="Password" type="password" id="password" size="lg" />
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" type="submit" fullWidth>
+              <Button
+                variant="gradient"
+                type="submit"
+                className="bg-none bg-meadow"
+                fullWidth
+              >
                 Sign In
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
                 Don&apos;t have an account?
                 <Link
                   to="/sign-up"
-                  className="ml-1 font-bold text-blue-500"
+                  className="ml-1 font-bold text-blue-400"
                   onClick={handleOpen}
                 >
                   Sign up

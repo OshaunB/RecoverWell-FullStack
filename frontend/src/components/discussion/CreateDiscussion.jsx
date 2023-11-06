@@ -11,7 +11,6 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function CreateDiscussion({
   onSubmit,
-  error,
   setError,
   open,
   setOpen,
@@ -27,7 +26,7 @@ export default function CreateDiscussion({
 
   return (
     <>
-      <Button onClick={handleOpen}>Create Discussion</Button>
+      <Button onClick={handleOpen} className="bg-none bg-meadow">Create Discussion</Button>
       <Dialog open={open} onClose={handleOpen}>
         <div className="flex items-center justify-between">
           <DialogHeader>Create Discussion Group</DialogHeader>

@@ -66,6 +66,9 @@ export const dateFormat = (date) =>
   });
 
 export const timeFormat = (timeString) => {
+  if (!timeString) {
+    return ""; // Return an empty string or a default value for undefined timeString
+  }
   const [hours, minutes] = timeString.split(":");
   let formattedTime = "";
 
@@ -89,5 +92,5 @@ export const timeFormat = (timeString) => {
 export const validateDate = (date) => {
   const newDate = new Date(date).toLocaleDateString();
   const dateNow = new Date().toLocaleDateString();
-  return newDate < dateNow;
+  return newDate > dateNow;
 };

@@ -5,7 +5,6 @@ const createPost = async (req, res) => {
       db: { Post },
       body: { discussionId, content },
     } = req;
-    console.log(session.userId, discussionId, content);
     const post = await Post.createPost(session.userId, discussionId, content);
     res.status(201).json(post);
   } catch (error) {

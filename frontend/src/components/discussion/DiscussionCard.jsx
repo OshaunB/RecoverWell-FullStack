@@ -9,7 +9,7 @@ export default function DiscussionCard({
       <div
         onClick={onClick}
         id={discussionId}
-        className="card w-96 bg-base-100 shadow-xl mt-5 cursor-pointer hover:bg-gray-100"
+        className="card w-96 bg-white text-black shadow-xl mt-5 cursor-pointer hover:bg-meadow-200"
       >
         <div className="card-body">
           <h2 className="card-title">{topic}</h2>

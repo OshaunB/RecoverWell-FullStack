@@ -61,7 +61,6 @@ export default function Events() {
     };
 
     if (!validateDate(obj.date)) {
-      console.log("hi");
       setTitle("Invalid Date");
       setMessage("Please select a future date");
       return;
@@ -87,11 +86,10 @@ export default function Events() {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-palette-teal">
       <Typography
-        className="text-center p-5"
+        className="text-center p-5 text-palette-default"
         variant="h1"
-        color="blue"
         textGradient
       >
         Events
@@ -104,14 +102,14 @@ export default function Events() {
         />
       )}
       <div className="flex justify-around items-center p-5">
-        <CreateEvent onSubmit={handleCreateEvent} isLoggedIn={isLoggedIn} />
+        <CreateEvent className="bg-palette-teal" onSubmit={handleCreateEvent} isLoggedIn={isLoggedIn} />
         <SearchInput
           innerText={"Search Events"}
           onChange={handleSearch}
           value={searchTerm}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center max-w ">
         {filteredEvents.map((event) => (
           <RenderEvents
             key={event.id}

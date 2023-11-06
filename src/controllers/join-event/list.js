@@ -17,6 +17,7 @@ const listJoinedEventsByUserId = async (req, res) => {
       db: { JoinEvent },
       params: { userId },
     } = req;
+    if (isNaN(userId)) return res.sendStatus(404);
     const join = await JoinEvent.listByUserId(userId);
     res.status(200).json(join);
   } catch (error) {

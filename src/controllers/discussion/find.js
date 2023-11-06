@@ -20,6 +20,8 @@ const findById = async (req, res) => {
   } = req;
 
   try {
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(id)) return res.status(404).send(`Discussion with id ${id} not found`);
     const discussion = await Discussion.findById(id);
     if (!discussion) {
       res.status(404).send(`Discussion with id ${id} not found`);

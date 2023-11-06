@@ -32,34 +32,38 @@ export default function ProfilePic() {
   };
 
   return (
-    <div className="h-full mx-auto p-4 flex justify-center items-center">
-      <Button onClick={() => widgetApi.current.openDialog()}>
+    <div className="h-full mx-auto p-4 flex flex-col items-center">
+      <Button onClick={() => widgetApi.current.openDialog()} className="mb-4">
         <Widget
           ref={widgetApi}
-          publicKey={
-            API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"
-          }
+          publicKey={API_KEYS.UPLOADCARE_API_KEY || "Your_Uploadcare_Public_Key"}
           onChange={handleRenderImage}
         />
       </Button>
 
       {uploadedImage && (
-        <div className="bg-gray-200 p-4 text-slate-400">
+        <div className="bg-gray-200 p-4 text-slate-400 rounded flex flex-col items-center">
           <h2 className="text-xl font-bold mb-2">Uploaded Image:</h2>
-          <img
-            src={uploadedImage}
-            alt="Uploaded"
-            className="mb-2 rounded-full"
-          />
+          <div className="mb-2 rounded-full overflow-hidden">
+            <img
+              src={uploadedImage}
+              alt="Uploaded"
+              className="w-64 h-64 object-cover"
+            />
+          </div>
           <Button
-            className="bg-green-500 text-white py-2 px-4 rounded"
+            variant="gradient"
+            color="green"
+            className="py-2 px-4 rounded text-white"
             onClick={handleImageToBackend}
           >
             Upload
           </Button>
         </div>
       )}
-      <Button onClick={() => navigate("/")}>Skip</Button>
+      <Button onClick={() => navigate("/")} className="mt-4">
+        Skip
+      </Button>
     </div>
   );
 }

@@ -1,12 +1,21 @@
-import { useContext } from "react";
-import { useNavigate, Navigate, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import {
+  Button,
+  Input,
+  Select,
+  Option,
+  Typography,
+} from "@material-tailwind/react";
 import CurrentUserContext from "../contexts/current-user-context";
 import { createUser } from "../adapters/user-adapter";
-import LabelInput from "../components/LabelInput";
+import LoginHeader from "../components/login/LoginHeader";
+import LoginDialog from "./LoginDialog";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,129 +40,147 @@ export default function SignUpPage() {
   }
 
   return (
-    <section className="flex bg-gray-50 dark:bg-gray-900">
-      <div className="w-1/2">
-        <img
-          src="../assets/signup.jpeg"
-          alt="Login image"
-          className="w-full h-screen object-cover"
-        />
-      </div>
-      <div className="w-1/2 flex items-center justify-center">
-        <div className="px-6 py-8 md:px-0 md:w-full lg:max-w-md">
-          <div className="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 bg-blue-400">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Create an account
-              </h1>
-              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-                <LabelInput
+    <div className="bg-palette-teal h-full">
+      <div className="flex justify-center items-center h-full">
+        <div className="p-8 bg-white rounded-lg shadow-xl w-full m-5 max-w-[30rem]">
+          <LoginHeader />
+          <br></br>
+          <form onSubmit={handleSubmit}>
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="name"
-                  label="Name"
+                >
+                  Full Name
+                </label>
+                <Input
                   type="text"
                   id="name"
-                  placeholder="John Doe"
+                  placeholder="Full Name"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
                   required
                 />
-
-                <LabelInput
+              </div>
+              <div className="w-full mx-auto sm:ml-2 flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="email"
-                  label="Email"
+                  id="email"
+                >
+                  Email
+                </label>
+                <Input
                   type="email"
                   id="email"
-                  placeholder="name@company.com"
+                  placeholder="Email"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
                   required
                 />
-
-                <LabelInput
+              </div>
+            </div>
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="w-full mx-auto flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="username"
-                  label="Username"
+                >
+                  Username
+                </label>
+                <Input
                   type="text"
                   id="username"
                   placeholder="Username"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
                   required
                 />
-
-                <LabelInput
+              </div>
+              <div className="w-full mx-auto sm:ml-2 flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="password"
-                  label="Password"
+                >
+                  Password
+                </label>
+                <Input
                   type="password"
                   id="password"
                   placeholder="Password"
+                  className="focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 border border-black bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
                   required
                 />
-
-                <div>
-                  <label
-                    htmlFor="Gender"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Gender
-                  </label>
-                  <select
-                    id="gender"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option defaultValue>Select your Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                    <option value="NA">Prefer Not To Say</option>
-                  </select>
-                </div>
-
-                <LabelInput
+              </div>
+            </div>
+            <div className="flex mb-4 flex-col space-y-4 sm:flex-row sm:space-y-0">
+              <div className="w-full mx-auto flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
                   htmlFor="dob"
-                  label="Date of Birth"
+                  id="dob"
+                >
+                  Date of Birth
+                </label>
+                <Input
                   type="date"
                   id="dob"
+                  style={{ border: "1px solid #c9d2d6" }}
+                  className="focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+                  labelProps={{
+                    className: "hidden",
+                  }}
+                  containerProps={{ className: "min-w-[100px]" }}
                   required
                 />
-
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      aria-describedby="terms"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="terms"
-                      className="font-light text-gray-500 dark:text-gray-300"
-                    >
-                      I accept the{" "}
-                      <Link
-                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                        href="#"
-                      >
-                        Terms and Conditions
-                      </Link>
-                    </label>
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              </div>
+              <div className="w-full mx-auto sm:ml-2 flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                  htmlFor="gender"
                 >
-                  Create an account
-                </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Already have an account?{" "}
-                  <Link
-                    to="/login"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Login here
-                  </Link>
-                </p>
-              </form>
+                  Gender
+                </label>
+                <Select label="Select Gender" id="gender" required>
+                  <Option value="male">Male</Option>
+                  <Option value="female">Female</Option>
+                  <Option value="other">Other</Option>
+                </Select>
+              </div>
             </div>
-          </div>
+            <div className="flex justify-center">
+              <Button
+                className="bg-none bg-meadow"
+                fullWidth
+                variant="gradient"
+                type="submit"
+              >
+                Sign up
+              </Button>
+            </div>
+            <Typography variant="small" className="mt-6 flex justify-center">
+              Already have an account?
+              <span className="ml-1 font-bold text-palette-default">
+                <LoginDialog open={open} setOpen={setOpen} />
+              </span>
+            </Typography>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

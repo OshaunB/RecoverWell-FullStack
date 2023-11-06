@@ -1,16 +1,44 @@
-import { useEffect, useState, useContext } from "react";
-import { getAllUsers } from "../adapters/user-adapter";
-import UserLink from "../components/UserLink";
-import { fetchHandler } from "../utils";
+/* eslint-disable operator-linebreak */
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import { Typography } from "@material-tailwind/react";
 import { UserContext } from "../contexts/UserContext.jsx";
 import RenderUsers from "../RenderUsers";
-import { motion } from "framer-motion";
+import SearchInput from "../components/SearchInput.jsx";
+import CurrentUserContext from "../contexts/current-user-context.js";
+import MessageDialog from "../components/MessageDialog.jsx";
 
 export default function UsersPage() {
+  const navigate = useNavigate();
   const { users } = useContext(UserContext);
-  console.log(users);
-  const userProfile = users.avatar;
-  const userName = users.username;
+  const [searchUser, setSearchUser] = useState("");
+  const { currentUser } = useContext(CurrentUserContext);
+  const [error, setError] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const user = e.target.value;
+    setSearchUser(user !== "" ? user : "");
+  };
+
+  // if (!currentUser) return <p>Log in to see other users</p>;
+
+  const filteredUsers = users.filter((user) => {
+    if (searchUser === "") return true;
+    return (
+      user.username.toLowerCase().includes(searchUser.toLowerCase()) ||
+      user.full_name.toLowerCase().includes(searchUser.toLowerCase())
+    );
+  });
+
+  const navigateToChat = (userId) => {
+    if (!currentUser) {
+      setError("Please Sign In to Chat with this person");
+      return;
+    }
+    navigate(`/chat/${userId}`);
+  };
 
   const cardVariants = {
     initial: {
@@ -28,32 +56,64 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {users.map((user) => {
-          const { avatar, username, full_name, gender, age, favorite_quote} = user;
+    <div className="bg-palette-teal h-content">
+      <MessageDialog
+        title={"Please Sign In"}
+        message={error}
+        setMessage={setError}
+      />
+      <div className="container mx-auto max-w-screen-lg bg-palette-teal">
+        <div className="relative top-0 left-0 pt-5">
+          <SearchInput
+            innerText="Search user..."
+            value={searchUser}
+            onChange={handleSearch}
+          />
+        </div>
+        <Typography
+          className="text-center p-5 text-palette-default"
+          variant="h1"
+          textGradient
+        >
+          RecoverWell Community
+        </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-center justify-items-center">
+          {filteredUsers.map((user) => {
+            const {
+              avatar,
+              username,
+              full_name,
+              gender,
+              favorite_quote,
+              email,
+            } = user;
 
-          return (
-            <motion.div
-              key={username}
-              variants={cardVariants}
-              initial="initial"
-              animate="animate"
-            >
-              <RenderUsers
-                username={`@${username}`}
-                full_name={full_name}
-                img={avatar}
-                gender={gender}
-                age={age}
-                favorite_quote= {favorite_quote}
-              />
-            </motion.div>
-          );
-        })}
+            if (currentUser && currentUser.id === user.id) {
+              return null; // Skip this iteration
+            }
+
+            return (
+              <motion.div
+                key={username}
+                variants={cardVariants}
+                initial="initial"
+                animate="animate"
+              >
+                <RenderUsers
+                  username={`@${username}`}
+                  full_name={full_name}
+                  img={avatar}
+                  gender={gender}
+                  favorite_quote={favorite_quote}
+                  email={email}
+                  onClick={() => navigate(`/users/${user.id}`)}
+                  chatNavigate={() => navigateToChat(user.id)}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
-
-//userData[?] =  will be used to grab the users profile image, as well as their post count. Will also include a condiiton that would change the color of the rating[post count] based off of the amount of posts the user has. This could also be applied in a way that would allow us to sort the users from most helpful to least. A contact button will also be added that allows users to message one another , a hyper link can then be added to the photo so that on click it brings them to the user. Or we could instead have a pop out that displays more information about the users. I think to the table there also should be an implementation that allows users to write a quote that they feel they relate most closely to. This would allow users to interact more closely and have something to actually talk about.

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Header() {
           </svg>
         </button>
         <div
-          className={"md:flex flex-grow items-center" + (navbarOpen ? " flex" : " hidden")}
+          className={`md:flex flex-grow items-center ${navbarOpen ? " flex" : " hidden"}`}
           id="example-navbar-danger"
         >
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center font-semibold pl-7">

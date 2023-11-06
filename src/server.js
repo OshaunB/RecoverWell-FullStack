@@ -8,11 +8,11 @@ const commentRoutes = require("./routes/comment-route");
 const postLikeRoutes = require("./routes/post-like-route");
 const eventRoutes = require("./routes/event-route");
 const joinEventRoutes = require("./routes/join-event-route");
+const conversationMessageRoute = require("./routes/conversation-message-route");
 
 const logRoutes = require("./middleware/log-routes");
 
 const app = express();
-
 app.use(handleCookieSessions);
 app.use(logRoutes);
 app.use(express.json());
@@ -25,6 +25,7 @@ app.use("/api", commentRoutes);
 app.use("/api", postLikeRoutes);
 app.use("/api", eventRoutes);
 app.use("/api", joinEventRoutes);
+app.use("/api", conversationMessageRoute);
 
 app.get("*", (req, res, next) => {
   if (req.originalUrl.startsWith("/api")) next();

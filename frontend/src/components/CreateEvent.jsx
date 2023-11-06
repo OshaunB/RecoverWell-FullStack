@@ -32,9 +32,17 @@ export default function CreateEvent({ onSubmit, isLoggedIn }) {
     setUploadedImage(croppedImageUrl);
   };
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
+
   return (
     <>
-      <Button onClick={openDrawer}>Create Event</Button>
+      <Button onClick={openDrawer} variant="gradient" className="bg-none bg-meadow">Create Event</Button>
       <Drawer open={open} size={450}>
         <div className="mb-2 flex items-center justify-between p-4">
           <Typography variant="h5" color="blue-gray">

@@ -23,7 +23,7 @@ exports.seed = async (knex) => {
     "janesmith",
     "123",
     "Jane Smith",
-    "Female",
+    "Male",
     "1967-01-01",
     "https://ucarecdn.com/f75ba1e2-c912-4680-8797-f4ed45c7220a/-/scale_crop/500x500/smart_faces_objects/30p,25p/",
     "Recovery is not a destination; it's a lifelong journey filled with strength, growth, and endless possibilities.",

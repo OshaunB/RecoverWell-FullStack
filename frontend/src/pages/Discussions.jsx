@@ -6,6 +6,7 @@ import { fetchHandler, getPostOptions } from "../utils";
 import SearchInput from "../components/SearchInput";
 import CreateDiscussion from "../components/discussion/CreateDiscussion";
 import CurrentUserContext from "../contexts/current-user-context";
+import MessageDialog from "../components/MessageDialog.jsx";
 
 export default function Discussions() {
   const navigate = useNavigate();
@@ -54,30 +55,33 @@ export default function Discussions() {
     if (err) return console.log(err);
     setDiscussions((prevDis) => [...prevDis, data]);
 
-    // Close the dialog box
     setOpen(false);
   };
 
   const handleNavigate = (discussionId) => {
     if (!currentUser) {
-      return setError("You must be logged in to view this page");
+      return setError("You must be signed in to view this page");
     }
     navigate(`/discussions/${discussionId}`);
   };
 
   return (
-    <div className="w-full px-5">
-      <div className="text-center text-red-600">{error}</div>
+    <div className="w-full px-5 bg-palette-teal h-full">
+      <MessageDialog
+        title={"Please Sign In"}
+        message={error}
+        setMessage={setError}
+      />
       <Typography
-        className="text-center p-5"
+        className="text-center p-5 text-palette-default"
         variant="h1"
-        color="blue"
         textGradient
       >
         RecoverWell Discussion Groups
       </Typography>
       <div className="flex justify-around items-center mb-5">
         <SearchInput
+          color="white"
           onChange={handleSearch}
           value={searchTerm}
           innerText="Search Discussion Groups"
